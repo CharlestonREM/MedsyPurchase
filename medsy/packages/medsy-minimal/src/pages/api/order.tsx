@@ -21,7 +21,7 @@ async function createOrder(data) {
   await doc.loadInfo(); // loads document properties and worksheets
   const sheet = doc.sheetsByIndex[0]; // or use doc.sheetsById[id]
 
-  // append rows
+  // append rows via the constant sheet with the method "addRow"
   await sheet.addRow(data);
 }
 export default async (req, res) => {

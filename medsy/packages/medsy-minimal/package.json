@@ -8,6 +8,9 @@
     "start": "next start"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
+    "formik": "^2.2.6",
+    "formik-material-ui": "^3.0.1",
     "google-spreadsheet": "^3.0.13",
     "localforage": "^1.9.0",
     "mailgen": "^2.0.14",
