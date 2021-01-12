@@ -272,7 +272,7 @@ cd medsy
 step-2: run deployment command like:
 
 ```bash
-deploy-vercel:medsy-classic
+yarn deploy-vercel:medsy-classic
 ```
 
 which is promoted for some information fill your information or just stay with the defaults as
