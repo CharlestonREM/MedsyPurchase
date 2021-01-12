@@ -1,6 +1,6 @@
 //useEffect info:
 import { useEffect } from 'react';
-import { Card, CardContent, Typogrpahy, Button } from '@material-ui/core';
+import { Card, CardContent, Typography, Button } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
 import { CheckboxWithLabel, TextField } from 'formik-material-ui';
 
