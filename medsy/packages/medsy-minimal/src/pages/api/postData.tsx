@@ -30,13 +30,10 @@ export default async (req, res) => {
     const { method } = req;
     if (method === 'POST') {
         console.log('beginning of method===POST condition execution block...')
-        const { propertyType, propertySize } = req.body;
+        const formikValues = req.body;
         try {
             console.log('waiting for createPostData with await')
-            await createPostData({
-                propertyType,
-                propertySize
-            });
+            await createPostData({ ...formikValues });
             // await sendMail('support@redq.io', email, 'PostData Received By Medsy', {
             //   items,
             //   bill_amount,
