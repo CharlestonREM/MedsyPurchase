@@ -293,38 +293,19 @@ export async function getServerSideProps() {
 //?     - why do we pass the children
 
 export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>) {
-    //info -- push children to an array of components that are the children of our custom `FormikStepper` components; i.e. steps
     const childrenArray = React.Children.toArray(children);
 
-    //info -- employ react's `useState` hook to set the state of the custom stepper component
-    //> set up conditions for showing children based on current step
-    //>     *we use destructuring assignment 
-    /* 
-    > i use javascript destructuring assignment syntax (which is a js expression) to make two new distinct variables
-            >the `useState` hook returns an array with 2 elements
-            >i declare each constant in order of the elements of the array that is returned
-            >so first
-    > -- the array of distinct variables state, and setState (here step = state && setStep = setState) are returned from the execution of `useState` hook
-    > --- during initial render, the returned state of "step" is the same as the value passed as the first argument, or initialState, so here, the integer `0`
-    > --- `0` is used as the initial state because we are creating an array of steps. arrays are zero-indexed, so this starts us with the first step
-     */
     const [step, setStep] = useState(0);
-    //>this seems based on the `activeStep` prop on mui `<Stepper/>` component
-    // todo - check ref: https://material-ui.com/api/stepper/
-    console.log('i am `step`', step)
-    console.log('i am `childrenArray`:', childrenArray);
+
     const currentChild = childrenArray[step];
-    console.log('i am `currentChild`:', currentChild)
+
 
     //info -- return jsx to a render method for the FormikStepper component
     return (
-        /* 
-            ? our FormikStepper component is built with Formik and has all the props of formik applied to it with the spread operator 
-            > this is currently a thin wrapper of Formik
-        */
+
         <Formik {...props}>
             <Form>
-                {children}
+                {currentChild}
             </Form>
         </Formik>
     )
