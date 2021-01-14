@@ -1,4 +1,4 @@
-// import { sendMail } from 'helpers/nodemailer';
+//-- import { sendMail } from 'helpers/nodemailer';
 async function createPostData(data) {
     console.log('the async createPostData function is kicked off with this data:')
     console.log(data)

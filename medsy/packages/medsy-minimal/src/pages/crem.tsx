@@ -1,8 +1,13 @@
 //useEffect info:
 import { useEffect } from 'react';
+//imp MATERIAL UI
 import { Card, CardContent, Typography, Button, LinearProgress, FormControl, FormHelperText } from '@material-ui/core';
+//imp FORMIK
 import { Field, Form, Formik, ErrorMessage } from 'formik';
+//imp FORMIK-MATERIAL-UI LIBRARY OF BINDINGS
 import { CheckboxWithLabel, TextField } from 'formik-material-ui';
+//imp Yup
+import * as Yup from 'yup';
 
 //radio imports
 import { FormControlLabel, Radio } from '@material-ui/core';
@@ -23,7 +28,7 @@ import { useSearch } from 'contexts/search/use-search';
 //use state
 import { useState, useContext } from 'react';
 
-//import the order-submit component
+//imp order-submit component
 // info This is the component that is returned when the success state changes to true
 // info --- The success state with the initial state of false changes to true
 
@@ -185,14 +190,43 @@ export default function Crem({ products }) {
         //     alert(JSON.stringify(values, null, 2));
         // }, 500);
     }
+    //info `validationSchema` with Yup
+    //> this Yup schema's keys should match those of values
+    const validationSchema = Yup.object({
+        propertyType: Yup.string().required('Required'),
+        propertySize: Yup.string().required('Required'),
+        baseServiceCheckbox: Yup.string().required('Required'),
+        basePackageCheckbox: Yup.string().required('Required'),
+        upgradeCheckbox: Yup.string().required('Required'),
+        confirmSelectionCheckbox: Yup.string().required('Required'),
+        customerName: Yup.string().required('Required'),
+        brokerage: Yup.string().required('Required'),
+        email: Yup.string()
+            .email('Invalid email format')
+            .required('Required'),
+        phone: Yup.string().required('Required'),
+        propertyStreetAddress: Yup.string().required('Required'),
+        propertyCity: Yup.string().required('Required'),
+        propertyState: Yup.string().required('Required'),
+        propertyZip: Yup.string().required('Required'),
+        propertyOccupancy: Yup.string().required('Required'),
+        propertyGateCode: Yup.string().required('Required'),
+        propertyPets: Yup.string().required('Required'),
+        propertyLockCode: Yup.string().required('Required'),
+        propertySpecialRequests: Yup.string().required('Required'),
+        sessionPreferredDate: Yup.string().required('Required'),
+        sessionPreferredTime: Yup.string().required('Required'),
+        sessionAlternateDate: Yup.string().required('Required'),
+        sessionAlternateTime: Yup.string().required('Required'),
+        licenseType: Yup.string().required('Required'),
+        sessionSpecialRequests: Yup.string().required('Required')
+    })
 
 
     return (
         <Card>
             <CardContent>
-                <Products items={products} ref={elRef} />
-
-                <Formik initialValues={initialValues} onSubmit={onSubmit}>
+                <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
                     {/* 
                     //? Getting Started docs has me passing submitForm variable as parameter in an anonymous function
                         //?is it an anonymous render function?
