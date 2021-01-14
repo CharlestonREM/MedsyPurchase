@@ -1,7 +1,7 @@
 //imp IMPORT REACT
 import * as React from 'react';
 //imp MATERIAL UI
-import { Card, CardContent, Typography, Button, LinearProgress, FormControl, FormHelperText, FormGroup } from '@material-ui/core';
+import { Card, CardContent, Typography, Button, LinearProgress, FormControl, FormHelperText, FormGroup, Stepper, Step, StepLabel } from '@material-ui/core';
 //imp FORMIK
 import { Field, Form, Formik, ErrorMessage, FormikConfig, FormikValues } from 'formik';
 //imp FORMIK-MATERIAL-UI LIBRARY OF BINDINGS
@@ -69,6 +69,7 @@ export default function Crem({ products }) {
     }
     //> onSubmit handler to pass to Formik component
     const onSubmit = async (values, { setSubmitting }) => {
+        alert('clicked submit')
         console.log('submit button was clicked.VALUES:', values);
         //employ javascripts global fetch method for easy,logical way to fetch resources asynchronously across the network
         //employ the await operator to wait for the returned promise; the await operator is used inside the async function started above because this is the only context the operator can be used. the syntax is [rv] await expression; so it awaits an expression that is a Promise or any value to wait for. the rv is the returned value;  it returns the fulfilled value of the promise, or the value itself if its not the promise
@@ -97,38 +98,38 @@ export default function Crem({ products }) {
     const validationSchema = Yup.object({
         propertyType: Yup.string().required('Required'),
         propertySize: Yup.number().typeError('it has to be number').required('Required'),
-        baseServiceCheckbox: Yup.string().required('Required'),
-        basePackageCheckbox: Yup.string().required('Required'),
-        upgradeCheckbox: Yup.string().required('Required'),
-        confirmSelectionCheckbox: Yup.string().required('Required'),
-        customerName: Yup.string().required('Required'),
-        brokerage: Yup.string().required('Required'),
-        email: Yup.string()
-            .email('Invalid email format')
-            .required('Required'),
-        phone: Yup.string().required('Required'),
-        propertyStreetAddress: Yup.string().required('Required'),
-        propertyCity: Yup.string().required('Required'),
-        propertyState: Yup.string().required('Required'),
-        propertyZip: Yup.string().required('Required'),
-        propertyOccupancy: Yup.string().required('Required'),
-        propertyGateCode: Yup.string().required('Required'),
-        propertyPets: Yup.string().required('Required'),
-        propertyLockCode: Yup.string().required('Required'),
-        propertySpecialRequests: Yup.string().required('Required'),
-        sessionPreferredDate: Yup.string().required('Required'),
-        sessionPreferredTime: Yup.string().required('Required'),
-        sessionAlternateDate: Yup.string().required('Required'),
-        sessionAlternateTime: Yup.string().required('Required'),
-        licenseType: Yup.string().required('Required'),
-        sessionSpecialRequests: Yup.string().required('Required')
+        // baseServiceCheckbox: Yup.string().required('Required'),
+        // basePackageCheckbox: Yup.string().required('Required'),
+        // upgradeCheckbox: Yup.string().required('Required'),
+        // confirmSelectionCheckbox: Yup.string().required('Required'),
+        // customerName: Yup.string().required('Required'),
+        // brokerage: Yup.string().required('Required'),
+        // email: Yup.string()
+        //     .email('Invalid email format')
+        //     .required('Required'),
+        // phone: Yup.string().required('Required'),
+        // propertyStreetAddress: Yup.string().required('Required'),
+        // propertyCity: Yup.string().required('Required'),
+        // propertyState: Yup.string().required('Required'),
+        // propertyZip: Yup.string().required('Required'),
+        // propertyOccupancy: Yup.string().required('Required'),
+        // propertyGateCode: Yup.string().required('Required'),
+        // propertyPets: Yup.string().required('Required'),
+        // propertyLockCode: Yup.string().required('Required'),
+        // propertySpecialRequests: Yup.string().required('Required'),
+        // sessionPreferredDate: Yup.string().required('Required'),
+        // sessionPreferredTime: Yup.string().required('Required'),
+        // sessionAlternateDate: Yup.string().required('Required'),
+        // sessionAlternateTime: Yup.string().required('Required'),
+        // licenseType: Yup.string().required('Required'),
+        // sessionSpecialRequests: Yup.string().required('Required')
     })
 
 
     return (
         <Card>
             <CardContent>
-                <FormikStepper initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
+                <FormikStepper initialValues={initialValues} onSubmit={onSubmit} >
                     {/* 
                     //? Getting Started docs has me passing submitForm variable as parameter in an anonymous function
                         //?is it an anonymous render function?
@@ -138,7 +139,7 @@ export default function Crem({ products }) {
                     {/* 
                                 //info place fields here from initial values
                              */}
-                    <div>
+                    <FormikStep validationSchema={validationSchema}>
                         <FormControl>
                             <Field component={RadioGroup} name="propertyType">
                                 <FormHelperText>Is the property we're shooting land or a house?</FormHelperText>
@@ -159,32 +160,32 @@ export default function Crem({ products }) {
                             <Field name="propertySize" type="number" component={TextField} label="Property Size" />
 
                         </FormControl>
-                    </div>
+                    </FormikStep>
 
-                    <div>
+                    <FormikStep>
                         <FormControl>
                             <FormGroup>
                                 <Field name="baseServiceCheckbox" type="checkbox" component={CheckboxWithLabel} Label={{ label: 'Photography' }} />
                             </FormGroup>
                         </FormControl>
 
-                    </div>
-                    <div>
+                    </FormikStep>
+                    <FormikStep>
                         <FormControl>
                             <Field name="basePackageCheckbox" type="checkbox" label="Select your base package" component={CheckboxWithLabel} Label={{ label: 'Twilight' }} />
                         </FormControl>
-                    </div>
-                    <div>
+                    </FormikStep>
+                    <FormikStep>
                         <FormControl>
                             <Field name="upgradeCheckbox" type="checkbox" label="Select your upgrade" component={CheckboxWithLabel} Label={{ label: 'amenities' }} />
                         </FormControl>
-                    </div>
-                    <div>
+                    </FormikStep>
+                    <FormikStep>
                         <FormControl>
                             <Field name="confirmSelectionCheckbox" label="Confirm your selection" component={TextField} />
                         </FormControl>
-                    </div>
-                    <div>
+                    </FormikStep>
+                    <FormikStep>
                         <FormControl>
                             <Field name="customerName" label="Name" component={TextField} />
                         </FormControl>
@@ -197,8 +198,8 @@ export default function Crem({ products }) {
                         <FormControl>
                             <Field name="phone" label="Phone Number" component={TextField} />
                         </FormControl>
-                    </div>
-                    <div>
+                    </FormikStep>
+                    <FormikStep>
                         <FormControl>
                             <Field name="propertyStreetAddress" label="Street Address" component={TextField} />
                         </FormControl>
@@ -226,8 +227,8 @@ export default function Crem({ products }) {
                         <FormControl>
                             <Field name="propertySpecialRequests" label="Special Requests (e.g.)" component={TextField} />
                         </FormControl>
-                    </div>
-                    <div>
+                    </FormikStep>
+                    <FormikStep>
                         <FormControl>
                             <Field name="sessionPreferredDate" label="Preferred Date" component={TextField} />
                         </FormControl>
@@ -246,25 +247,25 @@ export default function Crem({ products }) {
                         <FormControl>
                             <Field name="sessionSpecialRequests" label="Special Requests (e.g.)" component={TextField} />
                         </FormControl>
-                    </div>
-                    <div>
+                    </FormikStep>
+                    <FormikStep>
                         <h1>confirm order</h1>
                         {/* 
                             //info the Button
                              */}
 
                         {/* {isSubmitting && <LinearProgress />} */}
-                        <Button
+                        {/* <Button
                             variant="contained"
                             color="primary"
-                        /* disabled={isSubmitting} */
-                        /* onClick={submitForm} */
+                            disabled={isSubmitting}
+                            onClick={submitForm}
                         >
                             Submit
-                            </Button>
+                            </Button> */}
 
                         {/* )} */}
-                    </div>
+                    </FormikStep>
                 </FormikStepper>
             </CardContent>
         </Card >
@@ -285,6 +286,22 @@ export async function getServerSideProps() {
 !BRUNO FORMIK STEPPER CODE BELOW
 !-----------------------------
  */
+
+/* 
+   >`FormikStep` Component that will be required child of `FormikStepper`
+   >   -this is to deal with validation schema being applied
+*/
+
+//pick passes the props i care about by receving a string
+export interface FormikStepProps
+    extends Pick<FormikConfig<FormikValues>, 'children' | 'validationSchema'> {
+}
+
+export function FormikStep({ children }: FormikStepProps) {
+    return <>{children}</>;
+}
+
+
 //>`FormikStepper` component will have same inputs as Formik
 //>     - this custom component will be given same props as `Formik` component
 //>     - `FormikConfig` with type `FormikValues` will be the props of this stepper, which we import above
@@ -294,7 +311,9 @@ export async function getServerSideProps() {
 
 export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>) {
     //info -- push children to an array of components that are the children of our custom `FormikStepper` components; i.e. steps
-    const childrenArray = React.Children.toArray(children);
+    //> employ TypeScript `as` keyword for Type Assertion to tell the compiler to consider the object as another type than the type the compiler infers the object to be 
+    //>     -the type is defined by our interface above
+    const childrenArray = React.Children.toArray(children) as React.ReactElement<FormikStepProps>[];
 
     //info -- employ react's `useState` hook to set the state of the custom stepper component
     //> set up conditions for showing children based on current step
@@ -316,16 +335,66 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
     const currentChild = childrenArray[step];
     console.log('i am `currentChild`:', currentChild)
 
+
+
+
+    /* 
+        info helper function to make code DRY
+        >this function corresponds to the condition of being on the last child ofchildren array
+        >       i.e. being on the last step
+        >the function will return a boolean value of true/false
+     */
+    function isLastStep() {
+        return step === childrenArray.length - 1;
+    }
+
     //info -- return jsx to a render method for the FormikStepper component
     return (
         /* 
             ? our FormikStepper component is built with Formik and has all the props of formik applied to it with the spread operator 
             > this is currently a thin wrapper of Formik
         */
-        <Formik {...props}>
+        <Formik {...props}
+            /* //>we have to pass the activeStep's (i.e. `currentChild`'s) `validationSchema` property as the validationSchema so that the next submit button advances */
+            /* //>  -i.e. each step needs and gets its own validationSchema */
+            validationSchema={currentChild.props.validationSchema}
+            onSubmit={async (values, helpers) => {
+                //calling our parent when we are on the last step
+                //basically if we are on the last child/last step, we tell the button to behave like a submit button
+                if (isLastStep()) {
+                    await props.onSubmit(values, helpers);
+                } else {
+                    //but if we are not on the last step, behave like a next button
+                    //todo : this will likely need to be changed later to match wireframes
+                    setStep(s => s + 1);
+                }
+            }}>
             <Form>
+                {/* //info Material UI `Stepper` Component */}
+                <Stepper activeStep={step}>
+                    {/* //? do we need to change the `i` iterator value as the unique key */}
+                    {childrenArray.map((child, i) => (
+                        <Step key={i}>
+                            <StepLabel></StepLabel>
+                        </Step>
+                    ))}
+                </Stepper>
+
                 {/* //> render only the dom/React.element contained within the `currentChild` const variable */}
                 {currentChild}
+
+                {/* 
+                    //> when this button is clicked it executes an anonymous function 
+                    //> the execution block of this function calls the useState setState method we created called `setStep`
+                    //> `setStep` is used to update the state; it accepts a new state value and enqueues a re-render of the component 
+                    //> because the new state is computed using the previous state, we pass a function to `setState` (`setStep` here)
+                    //>     * the `setStep` function receives the previous value of the index of the `childrenArray` that holds our steps and then subtracts the state by 1
+                    //>
+                 */}
+                {/* //info - CONDITIONAL VALIDATION - don't show anything if step is less than 0 */}
+                {/* //> if step value is greater than 0 show Button component, show no dom via null, i.e. hide Button component from view */}
+                {step > 0 ? <Button onClick={() => setStep(s => s - 1)}>Back</Button> : null}
+                <Button type="submit">{isLastStep() ? 'Submit' : 'Next'}</Button>
             </Form>
         </Formik>
     )
