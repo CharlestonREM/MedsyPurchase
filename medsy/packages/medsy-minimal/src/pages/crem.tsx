@@ -1,7 +1,7 @@
 //imp IMPORT REACT
 import * as React from 'react';
 //imp MATERIAL UI
-import { Card, CardContent, Typography, Button, LinearProgress, FormControl, FormHelperText, FormGroup, Stepper, Step, StepLabel } from '@material-ui/core';
+import { Card, CardContent, Typography, Button, LinearProgress, FormControl, FormHelperText, FormGroup, Stepper, Step, StepLabel, StepIcon } from '@material-ui/core';
 //imp FORMIK
 import { Field, Form, Formik, ErrorMessage, FormikConfig, FormikValues } from 'formik';
 //imp FORMIK-MATERIAL-UI LIBRARY OF BINDINGS
@@ -139,7 +139,7 @@ export default function Crem({ products }) {
                     {/* 
                                 //info place fields here from initial values
                              */}
-                    <FormikStep validationSchema={validationSchema}>
+                    <FormikStep validationSchema={validationSchema} stepperStep={1}>
                         <FormControl>
                             <Field component={RadioGroup} name="propertyType">
                                 <FormHelperText>Is the property we're shooting land or a house?</FormHelperText>
@@ -162,7 +162,7 @@ export default function Crem({ products }) {
                         </FormControl>
                     </FormikStep>
 
-                    <FormikStep>
+                    <FormikStep stepperStep={2}>
                         <FormControl>
                             <FormGroup>
                                 <Field name="baseServiceCheckbox" type="checkbox" component={CheckboxWithLabel} Label={{ label: 'Photography' }} />
@@ -170,22 +170,22 @@ export default function Crem({ products }) {
                         </FormControl>
 
                     </FormikStep>
-                    <FormikStep>
+                    <FormikStep stepperStep={2}>
                         <FormControl>
                             <Field name="basePackageCheckbox" type="checkbox" label="Select your base package" component={CheckboxWithLabel} Label={{ label: 'Twilight' }} />
                         </FormControl>
                     </FormikStep>
-                    <FormikStep>
+                    <FormikStep stepperStep={2}>
                         <FormControl>
                             <Field name="upgradeCheckbox" type="checkbox" label="Select your upgrade" component={CheckboxWithLabel} Label={{ label: 'amenities' }} />
                         </FormControl>
                     </FormikStep>
-                    <FormikStep>
+                    <FormikStep stepperStep={2}>
                         <FormControl>
                             <Field name="confirmSelectionCheckbox" label="Confirm your selection" component={TextField} />
                         </FormControl>
                     </FormikStep>
-                    <FormikStep>
+                    <FormikStep stepperStep={3}>
                         <FormControl>
                             <Field name="customerName" label="Name" component={TextField} />
                         </FormControl>
@@ -199,7 +199,7 @@ export default function Crem({ products }) {
                             <Field name="phone" label="Phone Number" component={TextField} />
                         </FormControl>
                     </FormikStep>
-                    <FormikStep>
+                    <FormikStep stepperStep={3}>
                         <FormControl>
                             <Field name="propertyStreetAddress" label="Street Address" component={TextField} />
                         </FormControl>
@@ -228,7 +228,7 @@ export default function Crem({ products }) {
                             <Field name="propertySpecialRequests" label="Special Requests (e.g.)" component={TextField} />
                         </FormControl>
                     </FormikStep>
-                    <FormikStep>
+                    <FormikStep stepperStep={3}>
                         <FormControl>
                             <Field name="sessionPreferredDate" label="Preferred Date" component={TextField} />
                         </FormControl>
@@ -248,7 +248,7 @@ export default function Crem({ products }) {
                             <Field name="sessionSpecialRequests" label="Special Requests (e.g.)" component={TextField} />
                         </FormControl>
                     </FormikStep>
-                    <FormikStep>
+                    <FormikStep stepperStep={3}>
                         <h1>confirm order</h1>
                         {/* 
                             //info the Button
@@ -295,6 +295,7 @@ export async function getServerSideProps() {
 //pick passes the props i care about by receving a string
 export interface FormikStepProps
     extends Pick<FormikConfig<FormikValues>, 'children' | 'validationSchema'> {
+    stepperStep: number;
 }
 
 export function FormikStep({ children }: FormikStepProps) {
@@ -336,6 +337,13 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
     console.log('i am `currentChild`:', currentChild)
 
 
+    //>set up array to hold `stepperSteps`
+    let stepperSteps = childrenArray.map((child) => child.props.stepperStep);
+    const totalSteps = [...new Set(stepperSteps)];
+
+    console.log("i am stepperSteps", stepperSteps);
+    console.log("i am totalSteps", totalSteps);
+
 
 
     /* 
@@ -371,13 +379,35 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
             }}>
             <Form>
                 {/* //info Material UI `Stepper` Component */}
-                <Stepper activeStep={step}>
+                <Stepper activeStep={currentChild.props.stepperStep - 1}>
                     {/* //? do we need to change the `i` iterator value as the unique key */}
-                    {childrenArray.map((child, i) => (
-                        <Step key={i}>
-                            <StepLabel></StepLabel>
+                    {/* {
+                        stepperSteps.map((stepperStep, i) => {
+                            return (
+                                <Step key={i}>
+                                    <StepLabel icon={stepperStep}></StepLabel>
+                                </Step>
+                            )
+                        })
+                    } */}
+
+
+                    {/* // > implement multistep fix from codesandbox */}
+                    {totalSteps.map((step, index) => (
+                        <Step key={step}>
+                            <StepLabel>
+                                {/* {index}
+                                <br />
+                                {currentChild.props.stepperStep}
+                                <br />
+                                {step} */}
+                            </StepLabel>
                         </Step>
                     ))}
+
+
+
+
                 </Stepper>
 
                 {/* //> render only the dom/React.element contained within the `currentChild` const variable */}
@@ -396,6 +426,6 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                 {step > 0 ? <Button onClick={() => setStep(s => s - 1)}>Back</Button> : null}
                 <Button type="submit">{isLastStep() ? 'Submit' : 'Next'}</Button>
             </Form>
-        </Formik>
+        </Formik >
     )
 }
