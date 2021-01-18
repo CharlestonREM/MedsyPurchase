@@ -1,4 +1,8 @@
-# Project Name: Medsy
+# Google SS tips
+
+https://www.benlcollins.com/spreadsheets/data-best-practices/
+
+# Project Name: Crem Calculator Project
 
 ## About
 
