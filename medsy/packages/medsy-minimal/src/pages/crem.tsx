@@ -8,7 +8,8 @@ import { Field, Form, Formik, ErrorMessage, FormikConfig, FormikValues } from 'f
 import { CheckboxWithLabel, TextField } from 'formik-material-ui';
 //imp Yup
 import * as Yup from 'yup';
-
+//imp calculator
+import Calculator from "components/calculator";
 //radio imports
 import { FormControlLabel, Radio } from '@material-ui/core';
 import { RadioGroup } from 'formik-material-ui';
@@ -267,6 +268,9 @@ export default function Crem({ products }) {
                         {/* )} */}
                     </FormikStep>
                 </FormikStepper>
+                {/* //> incorporate the calculator component */}
+
+                <Calculator />
             </CardContent>
         </Card >
     );
