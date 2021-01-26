@@ -21,7 +21,6 @@ export async function getBasePackageList() {
   });
   await doc.loadInfo(); // loads document properties and worksheets
   const sheet = doc.sheetsByIndex[0]; // or use doc.sheetsById[id]
-  console.log('i am sheet[0]', sheet);
   // read rows
   const rows = await sheet.getRows(); // can pass in { limit, offset }
   const basePackageList = rows?.map(

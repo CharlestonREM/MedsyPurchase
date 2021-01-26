@@ -21,7 +21,6 @@ export async function getUpgradeList() {
   });
   await doc.loadInfo(); // loads document properties and worksheets
   const sheet = doc.sheetsByIndex[1]; // or use doc.sheetsById[id]
-  console.log('i am sheet[0]', sheet);
   // read rows
   const rows = await sheet.getRows(); // can pass in { limit, offset }
   const upgradeList = rows?.map(
