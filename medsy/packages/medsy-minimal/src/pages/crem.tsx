@@ -20,6 +20,9 @@ import { RadioGroup } from 'formik-material-ui';
 
 
 import { getProducts } from 'helpers/get-products';
+//info - PRODUCT LIST
+import { getBasePackageList } from "helpers/product-list/get-base-package-list";
+import { getUpgradeList } from "helpers/product-list/get-upgrade-list";
 
 
 //use state
@@ -31,7 +34,10 @@ import { useState } from 'react';
 
 //component
 //---> you have to pass in `products` as a parameter of the component, i.e. as arbitrary arguments, i.e. as props!
-export default function Crem({ products }) {
+export default function Crem({ products, basePackageList, upgradeList }) {
+
+    //> enumerate and breakdown basePackageList here
+    console.log('Gideon', upgradeList)
 
     /* 
     ! -----------------------
@@ -125,6 +131,8 @@ export default function Crem({ products }) {
         // licenseType: Yup.string().required('Required'),
         // sessionSpecialRequests: Yup.string().required('Required')
     })
+
+
 
 
     return (
@@ -271,6 +279,27 @@ export default function Crem({ products }) {
                 {/* //> incorporate the calculator component */}
 
                 <Calculator />
+
+
+
+                <h1>basePackageList</h1>
+                <ol>
+                    {basePackageList.map((value, index) => {
+                        return <li key={index}>{value.productName}</li>
+                    })}
+                </ol>
+
+                <br />
+                <h1>upgradeList</h1>
+                <ol>
+                    {upgradeList.map((value, index) => {
+                        return <li key={index}>index:{value.index} <br />name: {value.productName} <br /> id: {value.id}</li>
+                    })}
+                </ol>
+
+
+
+
             </CardContent>
         </Card >
     );
@@ -278,9 +307,14 @@ export default function Crem({ products }) {
 
 export async function getServerSideProps() {
     const products = await getProducts();
+    const basePackageList = await getBasePackageList();
+    const upgradeList = await getUpgradeList();
+
     return {
         props: {
             products,
+            basePackageList,
+            upgradeList
         },
     };
 }
