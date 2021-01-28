@@ -15,6 +15,9 @@ import { FormControlLabel, Radio } from '@material-ui/core';
 import { RadioGroup } from 'formik-material-ui';
 
 
+//imp Custom FormikControl Components
+import RadioGroupTabsDiscreteSlider from 'components/formik-controls/radio-group-tabs-discrete-slider'
+
 
 
 
@@ -23,6 +26,8 @@ import { getProducts } from 'helpers/get-products';
 //info - PRODUCT LIST
 import { getBasePackageList } from "helpers/product-list/get-base-package-list";
 import { getUpgradeList } from "helpers/product-list/get-upgrade-list";
+//info - FORMIK STEPS FOR FORM STEPS
+import * as formikStepsConfig from 'helpers/formik-steps/formik-steps-config.json'
 
 
 //use state
@@ -36,8 +41,13 @@ import { useState } from 'react';
 //---> you have to pass in `products` as a parameter of the component, i.e. as arbitrary arguments, i.e. as props!
 export default function Crem({ products, basePackageList, upgradeList }) {
 
+
+    console.log("formikStepsConfig", formikStepsConfig.formikSteps)
+    const step1 = formikStepsConfig.formikSteps[0];
+    const step1Radio = step1.fields[0];
+
     //> enumerate and breakdown basePackageList here
-    console.log('Gideon', upgradeList)
+
 
     /* 
     ! -----------------------
@@ -149,7 +159,9 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                                 //info place fields here from initial values
                              */}
                     <FormikStep validationSchema={validationSchema} stepperStep={1}>
-                        <FormControl>
+                        {/* //>imp RadioGroupTabsDiscreteSlider */}
+                        <RadioGroupTabsDiscreteSlider label={step1Radio.props.label} name={step1Radio.props.name} options={step1Radio.props.options} />
+                        {/* <FormControl>
                             <Field component={RadioGroup} name="propertyType">
                                 <FormHelperText>Is the property we're shooting land or a house?</FormHelperText>
                                 <FormControlLabel
@@ -168,7 +180,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                         <FormControl>
                             <Field name="propertySize" type="number" component={TextField} label="Property Size" />
 
-                        </FormControl>
+                        </FormControl> */}
                     </FormikStep>
 
                     <FormikStep stepperStep={2}>
@@ -369,18 +381,18 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
     const [step, setStep] = useState(0);
     //>this seems based on the `activeStep` prop on mui `<Stepper/>` component
     // todo - check ref: https://material-ui.com/api/stepper/
-    console.log('i am `step`', step)
-    console.log('i am `childrenArray`:', childrenArray);
+    // console.log('i am `step`', step)
+    // console.log('i am `childrenArray`:', childrenArray);
     const currentChild = childrenArray[step];
-    console.log('i am `currentChild`:', currentChild)
+    // console.log('i am `currentChild`:', currentChild)
 
 
     //>set up array to hold `stepperSteps`
     let stepperSteps = childrenArray.map((child) => child.props.stepperStep);
     const totalSteps = [...new Set(stepperSteps)];
 
-    console.log("i am stepperSteps", stepperSteps);
-    console.log("i am totalSteps", totalSteps);
+    // console.log("i am stepperSteps", stepperSteps);
+    // console.log("i am totalSteps", totalSteps);
 
 
 
