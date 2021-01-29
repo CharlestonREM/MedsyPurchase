@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
-
+import { discreteSlider } from "./radio-group-tabs-discrete-slider";
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -78,26 +78,36 @@ function valuetext(value: number) {
 }
 
 export interface DiscreteSliderProps {
-
+    discreteSlider: discreteSlider
 }
 
 const DiscreteSlider: React.FC<DiscreteSliderProps> = (props) => {
     const classes = useStyles();
+    const { label,
+        defaultValue,
+        getAriaValueText,
+        ariaLabelledby,
+        step,
+        valueLabelDisplay,
+        //marks,
+        min,
+        max } = props.discreteSlider;
+    console.log(marks)
 
     return (
         <div className={classes.root}>
             <Typography id="discrete-slider-custom" gutterBottom>
-                Custom marks
-        </Typography>
+                {label}
+            </Typography>
             <Slider
-                defaultValue={1}
-                getAriaValueText={valuetext}
-                aria-labelledby="discrete-slider-custom"
-                step={1}
-                valueLabelDisplay="on"
+                defaultValue={defaultValue}
+
+                aria-labelledby={ariaLabelledby}
+                step={step}
+                valueLabelDisplay={valueLabelDisplay}
                 marks={marks}
-                min={0}
-                max={6}
+                min={min}
+                max={max}
             />
         </div>
     );

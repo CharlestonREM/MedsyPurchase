@@ -54,7 +54,7 @@ export enum ValueLabelDisplayTypes {
     Auto = "auto",
     Off = "off"
 }
-interface discreteSlider {
+export interface discreteSlider {
     label: string,
     defaultValue: number,
     getAriaValueText: Function | string,
@@ -119,7 +119,7 @@ const RadioGroupTabsDiscreteSlider: React.FC<RadioGroupTabsDiscreteSliderProps> 
                 options.map((option, index) => {
                     return (
                         <TabPanel key={option.key} value={value} index={index}>
-                            <DiscreteSlider />
+                            <DiscreteSlider discreteSlider={option.discreteSlider} />
                         </TabPanel>
                     )
                 })

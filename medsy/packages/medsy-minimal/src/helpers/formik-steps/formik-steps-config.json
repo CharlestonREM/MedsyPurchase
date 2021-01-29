@@ -63,7 +63,7 @@
                 "value": " land",
                 "optionImageUrl": "https://picsum.photos/id/10/300/85",
                 "discreteSlider": {
-                  "label": "Property Size (Square Footage)",
+                  "label": "Property Size (Acreage)",
                   "defaultValue": 1,
                   "getAriaValueText": "function",
                   "ariaLabelledby": "house-label",
