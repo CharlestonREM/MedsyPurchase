@@ -92,7 +92,7 @@ const DiscreteSlider: React.FC<DiscreteSliderProps> = (props) => {
         //marks,
         min,
         max } = props.discreteSlider;
-    console.log(marks)
+    console.log('marks', marks)
 
     return (
         <div className={classes.root}>

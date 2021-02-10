@@ -60,7 +60,7 @@ export interface discreteSlider {
     getAriaValueText: Function | string,
     ariaLabelledby: string,
     step: number,
-    valueLabelDisplay: string,
+    valueLabelDisplay?: 'on' | 'auto' | 'off';
     //? why are specific strings literals not working?
     // valueLabelDisplay: ValueLabelDisplayTypes,
     marks: boolean | Array<any>,
