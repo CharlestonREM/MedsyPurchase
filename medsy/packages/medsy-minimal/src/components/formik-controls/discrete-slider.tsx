@@ -92,7 +92,6 @@ const DiscreteSlider: React.FC<DiscreteSliderProps> = (props) => {
         //marks,
         min,
         max } = props.discreteSlider;
-    console.log('valueLabelDisplay', valueLabelDisplay)
 
     return (
         <div className={classes.root}>
