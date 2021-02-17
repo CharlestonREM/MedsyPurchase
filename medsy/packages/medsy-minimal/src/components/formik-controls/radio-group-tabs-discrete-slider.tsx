@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+
+//attempt to use formik in component
+import Formik, { useFormikContext } from 'formik';
+
 
 import DiscreteSlider from "./discrete-slider";
 //>mui simple tabs code
@@ -79,18 +84,40 @@ export interface RadioGroupTabsDiscreteSliderProps {
 }
 
 const RadioGroupTabsDiscreteSlider: React.FC<RadioGroupTabsDiscreteSliderProps> = (props) => {
+
+    // > tip from here for renaming destructured variables
+    //> ---> https://wesbos.com/destructuring-renaming
+    const { values: formValues } = useFormikContext();
+
+
+
     console.log(props)
     //>simpleTab example component methods
     const classes = useStyles();
     //>`usestate` is tracking the clicks and changes
-    const [value, setValue] = React.useState(0);
-
+    const [value, setValue] = useState(0);
+    //info - handleChange handler
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+        console.log('i am handle change for tabs...')
         //>The value is a numeric value of the index of the Tabs array, which is zero-indexed
         setValue(newValue);
     };
+
+    //info ---> actionHandler
+    const getPropertyType = (currentTab) => {
+        console.log('i am getpropertytype callback firing', currentTab)
+    }
+
     //>info desconstruct props object for props variables
     const { label, name, options, ...rest } = props;
+
+    //info ---> useEffect for componentDidMount behavior
+    useEffect(() => {
+        console.log('propertyType', formValues[name]);
+        //console.log(props);
+        formValues[name] = options[value].key;
+        console.log("afterchange", formValues)
+    }, []);
 
     return (
         <div className={classes.root}>

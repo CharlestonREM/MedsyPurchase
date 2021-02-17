@@ -1,9 +1,13 @@
 //imp IMPORT REACT
 import * as React from 'react';
 //imp MATERIAL UI
-import { Card, CardContent, Typography, Button, LinearProgress, FormControl, FormHelperText, FormGroup, Stepper, Step, StepLabel, StepIcon } from '@material-ui/core';
+import { Box, Card, CardContent, Typography, Button, LinearProgress, FormControl, FormHelperText, FormGroup, MenuItem, Stepper, Step, StepLabel, StepIcon } from '@material-ui/core';
+import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
+import VideocamOutlinedIcon from '@material-ui/icons/VideocamOutlined';
+import EventSeatOutlinedIcon from '@material-ui/icons/EventSeatOutlined';
+import HomeWorkOutlinedIcon from '@material-ui/icons/HomeWorkOutlined';
 //imp FORMIK
-import { Field, Form, Formik, ErrorMessage, FormikConfig, FormikValues } from 'formik';
+import { Field, Form, Formik, useFormikContext, ErrorMessage, FormikConfig, FormikValues, useFormik } from 'formik';
 //imp FORMIK-MATERIAL-UI LIBRARY OF BINDINGS
 import { CheckboxWithLabel, TextField } from 'formik-material-ui';
 //imp Yup
@@ -17,7 +21,8 @@ import { RadioGroup } from 'formik-material-ui';
 
 //imp Custom FormikControl Components
 import RadioGroupTabsDiscreteSlider from 'components/formik-controls/radio-group-tabs-discrete-slider'
-
+import RadioButtons from 'components/formik-controls/radio-buttons'
+import CheckboxGroup from 'components/formik-controls/checkbox-group'
 
 
 
@@ -32,6 +37,15 @@ import * as formikStepsConfig from 'helpers/formik-steps/formik-steps-config.jso
 
 //use state
 import { useState } from 'react';
+import { Event } from '@material-ui/icons';
+
+import BaseProductCheckboxStep from 'components/baseProductCheckboxStep'
+import UpgradeCheckboxStep from "components/formik-controls/upgradeCheckboxStep";
+import ConfirmSelectionStep from "components/confirm-selection-step";
+
+
+
+
 
 
 
@@ -49,6 +63,50 @@ export default function Crem({ products, basePackageList, upgradeList }) {
     //> enumerate and breakdown basePackageList here
 
 
+    //>test radio options
+    const radioOptions = [
+        { key: "Land", value: "land" },
+        { key: "House", value: "house" }
+    ];
+    //>test checkbox options
+    const checkboxOptions = [
+        { key: "Photography", value: "p" },
+        { key: "Videography", value: "v" },
+        { key: "Aerial Services", value: "a" },
+        { key: "3D Services", value: "d" }
+    ];
+    //> test ranges with temporary select
+    const ranges = [
+        {
+            value: '0-2000',
+            label: 'Under 2,000 Sq. Ft.',
+        },
+        {
+            value: '2000-3499',
+            label: '2,000 - 3,499 Sq. Ft.',
+        },
+        {
+            value: '3500-4999',
+            label: '3,500 - 4,999 Sq. Ft.',
+        },
+        {
+            value: '5000-6499',
+            label: '5,000 - 6,499 Sq. Ft.',
+        },
+        {
+            value: '6500-7999',
+            label: '6,500 - 7,999 Sq. Ft.'
+        },
+        {
+            value: '8000-9499',
+            label: '8,000 - 9,499 Sq. Ft.'
+        },
+        {
+            value: '9500-10999',
+            label: '9,500 - 10,999 Sq. Ft.'
+        }
+    ];
+
     /* 
     ! -----------------------
     ! FORMIK CODE BEGINS
@@ -58,8 +116,8 @@ export default function Crem({ products, basePackageList, upgradeList }) {
     //> set up initialValues parameter for Formik component
     //  >Formik will make these values available to render methods component as `values`
     const initialValues = {
-        propertyType: '',
-        propertySize: 0,
+        propertyType: 'house',
+        propertySize: '0-2000',
         baseServiceCheckbox: '',
         basePackageCheckbox: '',
         upgradeCheckbox: '',
@@ -112,9 +170,10 @@ export default function Crem({ products, basePackageList, upgradeList }) {
     }
     //info `validationSchema` with Yup
     //> this Yup schema's keys should match those of values
-    const validationSchema = Yup.object({
-        propertyType: Yup.string().required('Required'),
-        propertySize: Yup.number().typeError('it has to be number').required('Required'),
+    const step1ValidationSchema = Yup.object({
+        propertyType: Yup.string(),
+        propertySize: Yup.string()
+        //propertySize: Yup.number().typeError('it has to be number').required('Required'),
         // baseServiceCheckbox: Yup.string().required('Required'),
         // basePackageCheckbox: Yup.string().required('Required'),
         // upgradeCheckbox: Yup.string().required('Required'),
@@ -149,18 +208,43 @@ export default function Crem({ products, basePackageList, upgradeList }) {
         <Card>
             <CardContent>
                 <FormikStepper initialValues={initialValues} onSubmit={onSubmit} >
-                    {/* 
-                    //? Getting Started docs has me passing submitForm variable as parameter in an anonymous function
-                        //?is it an anonymous render function?
-                     */}
-                    {/* {({ submitForm, isSubmitting }) => ( */}
 
-                    {/* 
-                                //info place fields here from initial values
-                             */}
-                    <FormikStep validationSchema={validationSchema} stepperStep={1}>
+
+
+                    <FormikStep validationSchema={step1ValidationSchema} stepperStep={1}>
+
+                        {/* //? how do i implement slider? */}
+
+                        {/* //TODO --> implement custom radio button tab group later */}
+                        <RadioButtons label="Radio Topic"
+                            name="propertyType"
+                            options={radioOptions} />
+
+
+                        <Field
+                            component={TextField}
+                            type="text"
+                            name="propertySize"
+                            label="Property Size"
+                            select
+                            variant="standard"
+                            helperText="Please select Range"
+                            margin="normal"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        >
+                            {ranges.map((option) => (
+                                <MenuItem key={option.value} value={option.value}>
+                                    {option.label}
+                                </MenuItem>
+                            ))}
+                        </Field>
+
+
                         {/* //>imp RadioGroupTabsDiscreteSlider */}
-                        <RadioGroupTabsDiscreteSlider label={step1Radio.props.label} name={step1Radio.props.name} options={step1Radio.props.options} />
+                        {/* <RadioGroupTabsDiscreteSlider label={step1Radio.props.label} name={step1Radio.props.name} options={step1Radio.props.options} /> */}
+
                         {/* <FormControl>
                             <Field component={RadioGroup} name="propertyType">
                                 <FormHelperText>Is the property we're shooting land or a house?</FormHelperText>
@@ -184,27 +268,18 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                     </FormikStep>
 
                     <FormikStep stepperStep={2}>
-                        <FormControl>
-                            <FormGroup>
-                                <Field name="baseServiceCheckbox" type="checkbox" component={CheckboxWithLabel} Label={{ label: 'Photography' }} />
-                            </FormGroup>
-                        </FormControl>
-
+                        <CheckboxGroup label="Checkbox Topics"
+                            name="baseServiceCheckbox"
+                            options={checkboxOptions} />
                     </FormikStep>
                     <FormikStep stepperStep={2}>
-                        <FormControl>
-                            <Field name="basePackageCheckbox" type="checkbox" label="Select your base package" component={CheckboxWithLabel} Label={{ label: 'Twilight' }} />
-                        </FormControl>
+                        <BaseProductCheckboxStep basePackages={basePackageList} />
                     </FormikStep>
                     <FormikStep stepperStep={2}>
-                        <FormControl>
-                            <Field name="upgradeCheckbox" type="checkbox" label="Select your upgrade" component={CheckboxWithLabel} Label={{ label: 'amenities' }} />
-                        </FormControl>
+                        <UpgradeCheckboxStep upgrades={upgradeList} products={basePackageList} />
                     </FormikStep>
                     <FormikStep stepperStep={2}>
-                        <FormControl>
-                            <Field name="confirmSelectionCheckbox" label="Confirm your selection" component={TextField} />
-                        </FormControl>
+                        <ConfirmSelectionStep upgrades={upgradeList} products={basePackageList} />
                     </FormikStep>
                     <FormikStep stepperStep={3}>
                         <FormControl>
@@ -271,12 +346,9 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                     </FormikStep>
                     <FormikStep stepperStep={3}>
                         <h1>confirm order</h1>
-                        {/* 
-                            //info the Button
-                             */}
 
-                        {/* {isSubmitting && <LinearProgress />} */}
-                        {/* <Button
+                        {/* {isSubmitting && <LinearProgress />}
+                        <Button
                             variant="contained"
                             color="primary"
                             disabled={isSubmitting}
@@ -285,29 +357,14 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                             Submit
                             </Button> */}
 
-                        {/* )} */}
+
                     </FormikStep>
                 </FormikStepper>
-                {/* //> incorporate the calculator component */}
+
 
                 <Calculator />
 
 
-
-                <h1>basePackageList</h1>
-                <ol>
-                    {basePackageList.map((value, index) => {
-                        return <li key={index}>{value.productName}</li>
-                    })}
-                </ol>
-
-                <br />
-                <h1>upgradeList</h1>
-                <ol>
-                    {upgradeList.map((value, index) => {
-                        return <li key={index}>index:{value.index} <br />name: {value.productName} <br /> id: {value.id}</li>
-                    })}
-                </ol>
 
 
 
@@ -331,13 +388,13 @@ export async function getServerSideProps() {
     };
 }
 
-/* 
+/*
 !----------------------------
 !BRUNO FORMIK STEPPER CODE BELOW
 !-----------------------------
  */
 
-/* 
+/*
    >`FormikStep` Component that will be required child of `FormikStepper`
    >   -this is to deal with validation schema being applied
 */
@@ -361,30 +418,32 @@ export function FormikStep({ children }: FormikStepProps) {
 //?     - why do we pass the children
 
 export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>) {
+    console.log('i am Formik', Formik)
+    console.log('props', props)
     //info -- push children to an array of components that are the children of our custom `FormikStepper` components; i.e. steps
-    //> employ TypeScript `as` keyword for Type Assertion to tell the compiler to consider the object as another type than the type the compiler infers the object to be 
+    //> employ TypeScript `as` keyword for Type Assertion to tell the compiler to consider the object as another type than the type the compiler infers the object to be
     //>     -the type is defined by our interface above
     const childrenArray = React.Children.toArray(children) as React.ReactElement<FormikStepProps>[];
 
     //info -- employ react's `useState` hook to set the state of the custom stepper component
     //> set up conditions for showing children based on current step
-    //>     *we use destructuring assignment 
-    /* 
+    //>     *we use destructuring assignment
+    /*
     > i use javascript destructuring assignment syntax (which is a js expression) to make two new distinct variables
-            >the `useState` hook returns an array with 2 elements
-            >i declare each constant in order of the elements of the array that is returned
-            >so first
+    >the `useState` hook returns an array with 2 elements
+    >i declare each constant in order of the elements of the array that is returned
+    >so first
     > -- the array of distinct variables state, and setState (here step = state && setStep = setState) are returned from the execution of `useState` hook
     > --- during initial render, the returned state of "step" is the same as the value passed as the first argument, or initialState, so here, the integer `0`
     > --- `0` is used as the initial state because we are creating an array of steps. arrays are zero-indexed, so this starts us with the first step
-     */
+    */
     const [step, setStep] = useState(0);
-    //>this seems based on the `activeStep` prop on mui `<Stepper/>` component
+    //>this seems based on the `activeStep` prop on mui `<Stepper />` component
     // todo - check ref: https://material-ui.com/api/stepper/
     // console.log('i am `step`', step)
     // console.log('i am `childrenArray`:', childrenArray);
     const currentChild = childrenArray[step];
-    // console.log('i am `currentChild`:', currentChild)
+    console.log('i am `currentChild`:', currentChild)
 
 
     //>set up array to hold `stepperSteps`
@@ -396,7 +455,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
 
 
 
-    /* 
+    /*
         info helper function to make code DRY
         >this function corresponds to the condition of being on the last child ofchildren array
         >       i.e. being on the last step
@@ -408,8 +467,8 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
 
     //info -- return jsx to a render method for the FormikStepper component
     return (
-        /* 
-            ? our FormikStepper component is built with Formik and has all the props of formik applied to it with the spread operator 
+        /*
+            ? our FormikStepper component is built with Formik and has all the props of formik applied to it with the spread operator
             > this is currently a thin wrapper of Formik
         */
         <Formik {...props}
@@ -427,11 +486,12 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                     setStep(s => s + 1);
                 }
             }}>
-            <Form>
-                {/* //info Material UI `Stepper` Component */}
-                <Stepper activeStep={currentChild.props.stepperStep - 1}>
-                    {/* //? do we need to change the `i` iterator value as the unique key */}
-                    {/* {
+            {({ values, errors, isSubmitting }) => (
+                <Form>
+                    {/* //info Material UI `Stepper` Component */}
+                    <Stepper activeStep={currentChild.props.stepperStep - 1}>
+                        {/* //? do we need to change the `i` iterator value as the unique key */}
+                        {/* {
                         stepperSteps.map((stepperStep, i) => {
                             return (
                                 <Step key={i}>
@@ -442,28 +502,39 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                     } */}
 
 
-                    {/* // > implement multistep fix from codesandbox */}
-                    {totalSteps.map((step, index) => (
-                        <Step key={step}>
-                            <StepLabel>
-                                {/* {index}
+                        {/* // > implement multistep fix from codesandbox */}
+                        {totalSteps.map((step, index) => (
+                            <Step key={step}>
+                                <StepLabel>
+                                    {/* {index}
                                 <br />
                                 {currentChild.props.stepperStep}
                                 <br />
                                 {step} */}
-                            </StepLabel>
-                        </Step>
-                    ))}
+                                </StepLabel>
+                            </Step>
+                        ))}
 
 
 
 
-                </Stepper>
+                    </Stepper>
 
-                {/* //> render only the dom/React.element contained within the `currentChild` const variable */}
-                {currentChild}
+                    {/* //> render only the dom/React.element contained within the `currentChild` const variable */}
 
-                {/* 
+                    {currentChild}
+
+
+
+
+                    <Box bgcolor="#e0e0e0">
+                        <Typography>Formik Form and Data Values</Typography>
+                        <pre>{JSON.stringify(values, null, 2)}</pre>
+                        <pre>{JSON.stringify(errors, null, 2)}</pre>
+                    </Box>
+
+
+                    {/* 
                     //> when this button is clicked it executes an anonymous function 
                     //> the execution block of this function calls the useState setState method we created called `setStep`
                     //> `setStep` is used to update the state; it accepts a new state value and enqueues a re-render of the component 
@@ -471,11 +542,12 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                     //>     * the `setStep` function receives the previous value of the index of the `childrenArray` that holds our steps and then subtracts the state by 1
                     //>
                  */}
-                {/* //info - CONDITIONAL VALIDATION - don't show anything if step is less than 0 */}
-                {/* //> if step value is greater than 0 show Button component, show no dom via null, i.e. hide Button component from view */}
-                {step > 0 ? <Button onClick={() => setStep(s => s - 1)}>Back</Button> : null}
-                <Button type="submit">{isLastStep() ? 'Submit' : 'Next'}</Button>
-            </Form>
+                    {/* //info - CONDITIONAL VALIDATION - don't show anything if step is less than 0 */}
+                    {/* //> if step value is greater than 0 show Button component, show no dom via null, i.e. hide Button component from view */}
+                    {step > 0 ? <Button onClick={() => setStep(s => s - 1)}>Back</Button> : null}
+                    <Button type="submit">{isLastStep() ? 'Submit' : 'Next'}</Button>
+                </Form>
+            )}
         </Formik >
     )
 }

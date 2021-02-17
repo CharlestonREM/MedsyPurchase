@@ -3,6 +3,35 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import { discreteSlider } from "./radio-group-tabs-discrete-slider";
+
+//!    ATTEMPTED FIX
+// import MuiSlider, { SliderProps as MuiSliderProps } from "@material-ui/core/Slider";
+// import { FieldProps } from "formik";
+// type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+// export interface SliderProps extends FieldProps, Omit<MuiSliderProps, "name" | "onChange" | "value" | "defaultValue"> { }
+// export const fieldToSlider = ({
+//     field,
+//     form: { isSubmitting },
+//     disabled = false,
+//     ...props
+// }: SliderProps): MuiSliderProps => {
+//     return {
+//         disabled: isSubmitting || disabled,
+//         ...props,
+//         ...field,
+//         name: field.name,
+//         value: field.value
+//     };
+// };
+// export const Slider: React.ComponentType<SliderProps> = (props: SliderProps) => (
+//     <MuiSlider {...fieldToSlider(props)}
+//         onChange={(e, value) => props.form.setFieldValue(props.field.name, value)} />
+// );
+// Slider.displayName = "FormikMaterialUISlider";
+
+//! END OF ATTEMPTED FORMIK SLIDER FIX
+
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
