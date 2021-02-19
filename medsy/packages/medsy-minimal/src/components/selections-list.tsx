@@ -1,6 +1,5 @@
 import { Box, Button, FormControlLabel, Typography } from '@material-ui/core'
-import { useFormikContext, useField, Field } from "formik";
-import { Switch } from 'formik-material-ui'
+import { useFormikContext, useField } from "formik";
 import _ from 'lodash';
 //custom helpers for services
 import { getServiceIcon } from "helpers/get-service-icon";
@@ -32,6 +31,17 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
 
     console.log('basePackageField', basePackageField.value)
     console.log('formValues', formValues)
+
+    //> check for no upgrades selected
+    const upgradesWereSelected = (upgradeCheckbox) => {
+        if (upgradeCheckbox) {
+            console.log('upgradese were selected.');
+            return true;
+        } else {
+            console.log('NO UPGRADES SELECTED')
+            return false;
+        }
+    }
 
 
     //>_________REMOVE FUNCTIONS
@@ -147,7 +157,8 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
     const { upgrades, products, ...rest } = props;
     // console.log("upgrades in confirm selection step", upgrades);
 
-    const { basePackageCheckbox, upgradeCheckbox } = formValues;
+    const { basePackageCheckbox } = formValues;
+    let { upgradeCheckbox } = formValues;
     // console.log("basepackagecheckbox", basePackageCheckbox);
     // console.log("upgradecheckbox", upgradeCheckbox);
     //todo - get all selected products sorted by service
@@ -173,14 +184,16 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
         })
     })
     //> grab all selected upgrade service categories
-    upgradeCheckbox.map((selectedUpgrade) => {
-        upgrades.map((upgrade) => {
-            if (selectedUpgrade === upgrade.id) {
-                selectedUpgradesArray.push(upgrade);
-                selectedServices.push(upgrade.productService)
-            }
+    if (upgradesWereSelected(upgradeCheckbox)) {
+        upgradeCheckbox.map((selectedUpgrade) => {
+            upgrades.map((upgrade) => {
+                if (selectedUpgrade === upgrade.id) {
+                    selectedUpgradesArray.push(upgrade);
+                    selectedServices.push(upgrade.productService)
+                }
+            })
         })
-    })
+    }
     //>make selecteds services array be unique
     selectedServices = _.uniq(selectedServices);
     const selectedUpgrades = _.groupBy(selectedUpgradesArray, 'productService');
@@ -279,14 +292,6 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
                 })
             }
 
-            <Box margin={1}>
-                <FormControlLabel
-                    control={
-                        <Field component={Switch} type="checkbox" name="confirmSelectionCheckbox" />
-                    }
-                    label="Looks good!"
-                />
-            </Box>
         </main>
     );
 }

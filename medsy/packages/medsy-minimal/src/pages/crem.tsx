@@ -171,8 +171,8 @@ export default function Crem({ products, basePackageList, upgradeList }) {
     //info `validationSchema` with Yup
     //> this Yup schema's keys should match those of values
     const step1ValidationSchema = Yup.object({
-        propertyType: Yup.string(),
-        propertySize: Yup.string()
+        propertyType: Yup.string().required('Required'),
+        propertySize: Yup.string().required('Required')
         //propertySize: Yup.number().typeError('it has to be number').required('Required'),
         // baseServiceCheckbox: Yup.string().required('Required'),
         // basePackageCheckbox: Yup.string().required('Required'),
@@ -200,6 +200,24 @@ export default function Crem({ products, basePackageList, upgradeList }) {
         // licenseType: Yup.string().required('Required'),
         // sessionSpecialRequests: Yup.string().required('Required')
     })
+    const validationSchema = {
+        step1: Yup.object({
+            propertyType: Yup.string().required('Required'),
+            propertySize: Yup.string().required('Required')
+        }),
+        step2: Yup.object({
+            baseServiceCheckbox: Yup.array().min(1, "There should be at least one checked option.").required('Please select at least one service.')
+        }),
+        step3: Yup.object({
+            basePackageCheckbox: Yup.array().min(1, "There should be at least one checked option.").required('Please select at least one base package.')
+        }),
+        step4: {
+
+        },
+        step5: Yup.object({
+            confirmSelectionCheckbox: Yup.bool().oneOf([true], 'Please let us know that your order is right!').required('Please let us know that your order is right!')
+        })
+    }
 
 
 
@@ -211,7 +229,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
 
 
 
-                    <FormikStep validationSchema={step1ValidationSchema} stepperStep={1}>
+                    <FormikStep validationSchema={validationSchema.step1} stepperStep={1}>
 
 
                         <RadioButtons label="Radio Topic"
@@ -246,18 +264,18 @@ export default function Crem({ products, basePackageList, upgradeList }) {
 
                     </FormikStep>
 
-                    <FormikStep stepperStep={2}>
-                        <CheckboxGroup label="Checkbox Topics"
+                    <FormikStep stepperStep={2} validationSchema={validationSchema.step2}>
+                        <CheckboxGroup label="Select a base service"
                             name="baseServiceCheckbox"
                             options={checkboxOptions} />
                     </FormikStep>
-                    <FormikStep stepperStep={2}>
+                    <FormikStep stepperStep={2} validationSchema={validationSchema.step3}>
                         <BaseProductCheckboxStep basePackages={basePackageList} />
                     </FormikStep>
                     <FormikStep stepperStep={2}>
                         <UpgradeCheckboxStep upgrades={upgradeList} products={basePackageList} />
                     </FormikStep>
-                    <FormikStep stepperStep={2}>
+                    <FormikStep stepperStep={2} validationSchema={validationSchema.step5}>
                         <ConfirmSelectionStep upgrades={upgradeList} products={basePackageList} upgradeField='upgradeCheckbox' basePackageField="basePackageCheckbox" />
                     </FormikStep>
                     <FormikStep stepperStep={3}>

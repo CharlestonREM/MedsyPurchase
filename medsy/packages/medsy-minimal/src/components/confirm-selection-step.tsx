@@ -1,5 +1,7 @@
 import React, { forwardRef, useRef, useImperativeHandle } from 'react'
 import { Box, Button, FormControlLabel, Link, Typography } from "@material-ui/core";
+import { Field, ErrorMessage } from "formik";
+import { Switch } from 'formik-material-ui'
 
 import { getServiceIcon } from "helpers/get-service-icon";
 import { getServiceData, serviceData } from "helpers/get-service-data";
@@ -56,6 +58,15 @@ const ConfirmSelectionStep: React.FC<ConfirmSelectionStepProps> = (props) => {
         </Box> */}
 
         <SelectionsList upgrades={upgrades} products={products} upgradeField={upgradeField} basePackageField={basePackageField} />
+        <Box margin={1}>
+            <FormControlLabel
+                control={
+                    <Field component={Switch} type="checkbox" name="confirmSelectionCheckbox" />
+                }
+                label="Looks good!"
+            />
+            <div><ErrorMessage name="confirmSelectionCheckbox" /></div>
+        </Box>
 
         <aside>
             <div className="banner">
