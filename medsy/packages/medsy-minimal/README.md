@@ -7,6 +7,10 @@ https://medsy-minimal-test-ae7fwwor4.vercel.app/crem
 the github repo:
 https://github.com/CharlestonREM/MedsyPurchase
 
+- [x] Start Posting Instructions here
+- [x] notify @divine_code
+- [ ] read the about section
+
 ## About
 
 This project includes Google Spreadsheet and serverless API routes. On visiting, the app calls the method `getBasePackageList()` located at `helpers/product-list/get-base-package-list.tsx` & `getUpgradeList()` located at`helpers/product-list/get-upgrade-list.tsx` which store the basePackage and upgrade products info .
