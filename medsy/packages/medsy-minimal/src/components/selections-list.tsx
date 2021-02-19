@@ -9,6 +9,7 @@ import { getServiceData, serviceData } from "helpers/get-service-data";
 import { theme } from "../theme";
 
 import { upgrade as upgradeInterface, product as productInterface } from "interfaces/google-spreadsheet-data";
+import { formikSelectionList } from "interfaces/form-values";
 
 export interface SelectionsListProps {
     upgrades: upgradeInterface[]
@@ -18,7 +19,11 @@ export interface SelectionsListProps {
 }
 
 const SelectionsList: React.FC<SelectionsListProps> = (props) => {
-    const { values: formValues } = useFormikContext();
+    //type error fix: https://stackoverflow.com/a/55502664/14657615
+    const formikContext = useFormikContext();
+    const formValues: formikSelectionList = formikContext.values;
+
+    console.log('formikContext.values', formValues)
 
     //> employ useField
     // info https://formik.org/docs/api/useField
@@ -26,7 +31,7 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
     const [upgradeField, upgradeMeta, upgradeHelpers] = useField(props.upgradeField);
 
     console.log('basePackageField', basePackageField.value)
-    console.log('formValues[basePackageField]', formValues['basePackageCheckbox'])
+    console.log('formValues', formValues)
 
 
     //>_________REMOVE FUNCTIONS

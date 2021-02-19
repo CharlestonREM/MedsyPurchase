@@ -14,14 +14,19 @@ export interface formikFormValues {
     propertyState: string;
     propertyZip: number;
     propertyOccupancy: true,
-    propertyGateCode: '',
-    propertyPets: '',
-    propertyLockCode: '',
-    propertySpecialRequests: '',
-    sessionPreferredDate: '',
-    sessionPreferredTime: '',
-    sessionAlternateDate: '',
-    sessionAlternateTime: '',
-    licenseType: 'single',
-    sessionSpecialRequests: ''
+    propertyGateCode: string;
+    propertyPets: boolean;
+    propertyLockCode: string;
+    propertySpecialRequests: string;
+    sessionPreferredDate: Date;
+    sessionPreferredTime: Date;
+    sessionAlternateDate: Date;
+    sessionAlternateTime: Date;
+    licenseType: string;
+    sessionSpecialRequests: string;
+}
+
+export interface formikSelectionList {
+    basePackageCheckbox?: string[];
+    upgradeCheckbox?: string[];
 }
