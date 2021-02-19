@@ -4,6 +4,7 @@
 
 a link to one of the latest pushes onto vercel:
 https://medsy-minimal-test-ae7fwwor4.vercel.app/crem
+
 the github repo:
 https://github.com/CharlestonREM/MedsyPurchase
 
@@ -11,6 +12,7 @@ https://github.com/CharlestonREM/MedsyPurchase
 - [x] notify @divine_code
 - [ ] take a look at figma overview of look and feel : https://www.figma.com/file/nKZ4LPx81kzhw7fvazwZJt/Charleston-REM-Pricing-Calculator-(Copy)?node-id=0%3A1
 - [ ] read the about section
+- [ ] take a look at this issue I created for the `CalculatorComponent`: https://github.com/CharlestonREM/MedsyPurchase/issues/1
 
 ## About
 
