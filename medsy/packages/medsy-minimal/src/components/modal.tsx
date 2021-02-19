@@ -75,7 +75,7 @@ const SimpleModal = forwardRef((props, ref) => {
       </p>
             <Button onClick={() => {
                 console.log(props)
-                props.startOver()
+                //props.startOver()
             }}>Start Over</Button>
 
         </div>
