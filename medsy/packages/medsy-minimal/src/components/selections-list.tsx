@@ -159,15 +159,15 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
 
     //> set up array for all selections
     let selectedServices = [];
-    let selectedProducts: productInterface[] | object = [];
-    let selectedUpgrades: upgradeInterface[] | object = [];
+    let selectedProductsArray: any[] = [];
+    let selectedUpgradesArray: any[] = [];
     //> grab all selected base package service categories
     basePackageCheckbox.map((selectedPackage) => {
         //check selectedPackage against product list to find product object
         products.map((product) => {
             if (selectedPackage === product.id) {
                 //push the product service into selected Services
-                selectedProducts.push(product);
+                selectedProductsArray.push(product);
                 selectedServices.push(product.productService)
             }
         })
@@ -176,15 +176,15 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
     upgradeCheckbox.map((selectedUpgrade) => {
         upgrades.map((upgrade) => {
             if (selectedUpgrade === upgrade.id) {
-                selectedUpgrades.push(upgrade);
+                selectedUpgradesArray.push(upgrade);
                 selectedServices.push(upgrade.productService)
             }
         })
     })
     //>make selecteds services array be unique
     selectedServices = _.uniq(selectedServices);
-    selectedUpgrades = _.groupBy(selectedUpgrades, 'productService');
-    selectedProducts = _.groupBy(selectedProducts, 'productService');
+    const selectedUpgrades = _.groupBy(selectedUpgradesArray, 'productService');
+    const selectedProducts = _.groupBy(selectedProductsArray, 'productService');
 
 
 
