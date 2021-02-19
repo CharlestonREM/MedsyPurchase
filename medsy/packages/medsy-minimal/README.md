@@ -1,12 +1,17 @@
-# Google SS tips
+# CREM - Calculator Project
 
-https://www.benlcollins.com/spreadsheets/data-best-practices/
+### For @divine_code @Amin-Essid
 
-# Project Name: Crem Calculator Project
+a link to one of the latest pushes onto vercel:
+https://medsy-minimal-test-ae7fwwor4.vercel.app/crem
+the github repo:
+https://github.com/CharlestonREM/MedsyPurchase
 
 ## About
 
-This project includes Google Spreadsheet and serverless API routes. On visiting, the app calls get products method, which stores the product's info . On order, the app calls /api/order to place a order on google spreadsheet.
+This project includes Google Spreadsheet and serverless API routes. On visiting, the app calls the method `getBasePackageList()` located at `helpers/product-list/get-base-package-list.tsx` & `getUpgradeList()` located at`helpers/product-list/get-upgrade-list.tsx` which store the basePackage and upgrade products info .
+
+On order, the app calls `/api/postData` to place a order on google spreadsheet.
 
 ## Requirement:
 
