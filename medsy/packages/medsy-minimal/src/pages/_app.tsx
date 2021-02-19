@@ -12,6 +12,7 @@ import React from 'react';
 //! import 'assets/styles/index.css';
 import { CartProvider } from 'contexts/cart/cart.provider';
 import { DrawerProvider } from 'contexts/drawer/drawer.provider';
+import { ModalProvider } from 'contexts/modal/modal.provider';
 import { StickyProvider } from 'contexts/sticky/sticky.provider';
 import { SearchProvider } from 'contexts/search/use-search';
 //! import 'typeface-open-sans';
@@ -25,6 +26,7 @@ import { AppBar, Box, Container, CssBaseline, ThemeProvider, Toolbar, Typography
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { theme } from 'theme';
+
 
 //! added `AppProps` type --> bruno
 export default function CustomApp({ Component, pageProps }: AppProps) {
@@ -47,9 +49,11 @@ export default function CustomApp({ Component, pageProps }: AppProps) {
         <SearchProvider>
           <StickyProvider>
             <DrawerProvider>
-              <CartProvider>
-                <Component {...pageProps} />
-              </CartProvider>
+              <ModalProvider>
+                <CartProvider>
+                  <Component {...pageProps} />
+                </CartProvider>
+              </ModalProvider>
             </DrawerProvider>
           </StickyProvider>
         </SearchProvider>

@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef, useImperativeHandle } from 'react'
+import React, { forwardRef, useRef, useImperativeHandle, useContext, useEffect } from 'react'
 import { Box, Button, FormControlLabel, Link, Typography } from "@material-ui/core";
 import { Field, ErrorMessage } from "formik";
 import { Switch } from 'formik-material-ui'
@@ -7,9 +7,11 @@ import { getServiceIcon } from "helpers/get-service-icon";
 import { getServiceData, serviceData } from "helpers/get-service-data";
 
 
-import SelectionsList from 'components/selections-list';
 
-import SimpleModal from 'components/modal'
+
+import SelectionsList from 'components/selections-list';
+import SimpleModal from 'containers/modal/modal'
+
 
 import _ from 'lodash';
 
@@ -23,12 +25,11 @@ export interface ConfirmSelectionStepProps {
 
 
 const ConfirmSelectionStep: React.FC<ConfirmSelectionStepProps> = (props) => {
-    //modal helpers
-    const modalRef = useRef();
+
     //setup props
     const { upgrades, products, upgradeField, basePackageField, ...rest } = props;
-    console.log('UPGRADES', upgrades)
-    console.log('PRODUCTS', products)
+    // console.log('UPGRADES', upgrades)
+    // console.log('PRODUCTS', products)
 
 
     return (<Box>
@@ -45,7 +46,7 @@ const ConfirmSelectionStep: React.FC<ConfirmSelectionStepProps> = (props) => {
             component="button"
             variant="body2"
             onClick={() => {
-                console.info("begin navigating to base service selection step using setStep variant on stepper component");
+                //console.info("begin navigating to base service selection step using setStep variant on stepper component");
             }}
         >
             Checkout
@@ -88,6 +89,7 @@ const ConfirmSelectionStep: React.FC<ConfirmSelectionStepProps> = (props) => {
             basePackageHelpers.setValue(newValue);
 
         }} /> */}
+        <SimpleModal />
     </Box>);
 }
 

@@ -35,7 +35,7 @@ export function BaseProductCheckboxStep(props) {
   const { values: formValues } = useFormikContext();
 
   const { basePackages, ...rest } = props;
-  console.log("bpcs props", basePackages);
+  //console.log("bpcs props", basePackages);
 
   return (
     <>

@@ -1,3 +1,8 @@
+import React, { useContext, useEffect } from 'react'
+
+import { ModalContext } from 'contexts/modal/modal.provider';
+
+
 import { Box, Button, FormControlLabel, Typography } from '@material-ui/core'
 import { useFormikContext, useField } from "formik";
 import _ from 'lodash';
@@ -18,27 +23,49 @@ export interface SelectionsListProps {
 }
 
 const SelectionsList: React.FC<SelectionsListProps> = (props) => {
+
+    //>MODAL
+    //modal helpers
+    // const modalRef = useRef();
+    //employing `useEffect` because of stack example: https://stackoverflow.com/questions/62336340/cannot-update-a-component-while-rendering-a-different-component-warning
+    const { dispatch } = useContext(ModalContext);
+    const openModal = (removeUpgrades, setFieldValue, newValue) => {
+        console.log('i am openModal firing!')
+        dispatch({
+            type: 'OPEN_MODAL',
+            payload: {
+                removeUpgrades: removeUpgrades,
+                setFieldValue: setFieldValue,
+                newValue: newValue
+            },
+        });
+    };
+    // useEffect(() => {
+    //     openModal();
+    // })
+
+
     //type error fix: https://stackoverflow.com/a/55502664/14657615
     const formikContext = useFormikContext();
     const formValues: formikSelectionList = formikContext.values;
 
-    console.log('formikContext.values', formValues)
+    // console.log('formikContext.values', formValues)
 
     //> employ useField
     // info https://formik.org/docs/api/useField
     const [basePackageField, basePackageMeta, basePackageHelpers] = useField(props.basePackageField);
     const [upgradeField, upgradeMeta, upgradeHelpers] = useField(props.upgradeField);
 
-    console.log('basePackageField', basePackageField.value)
-    console.log('formValues', formValues)
+    // console.log('basePackageField', basePackageField.value)
+    // console.log('formValues', formValues)
 
     //> check for no upgrades selected
     const upgradesWereSelected = (upgradeCheckbox) => {
         if (upgradeCheckbox) {
-            console.log('upgradese were selected.');
+            // console.log('upgradese were selected.');
             return true;
         } else {
-            console.log('NO UPGRADES SELECTED')
+            // console.log('NO UPGRADES SELECTED')
             return false;
         }
     }
@@ -78,7 +105,7 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
     const isLastBaseProductOfServiceType = (service, productArray, allSelected) => {
         //first what is the service type
         //then grab all the products in the basePackageCheckbox of that service type for comparison
-        console.log(productArray)
+        // console.log(productArray)
         let productsOfThisServiceType = [];
         productArray.map((productId) => {
             allSelected[service].map((product) => {
@@ -90,7 +117,7 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
         });
         //then see if length is greater than 1
         if (productsOfThisServiceType.length === 1) {
-            console.log('isLastBaseProductOfServiceType...')
+            // console.log('isLastBaseProductOfServiceType...')
             return true;
         } else {
             return false;
@@ -105,7 +132,7 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
         upgradeHelpers.setValue([]);
     }
     const removeAllUpgradesOfServiceType = (service, upgradeArray) => {
-        console.log('time to remove all upgraes of the specific service type:', service);
+        // console.log('time to remove all upgraes of the specific service type:', service);
         //upgradeArray
     }
 
@@ -125,6 +152,8 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
                 //trigger modal window
                 //info -- https://medium.com/@nugen/react-hooks-calling-child-component-function-from-parent-component-4ea249d00740
                 //modalRef.current.handleOpen(removeAllUpgrades, basePackageHelpers.setValue, newValue);
+                //new attempt with modal
+                openModal(removeAllUpgrades, basePackageHelpers.setValue, newValue);
                 //it's the very last base package
                 //removeAllUpgrades();
 
@@ -147,7 +176,7 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
 
         } else {
             //it's an upgrade; so just remove it cuz its optional
-            console.log('type', type)
+            // console.log('type', type)
             upgradeHelpers.setValue(newValue)
         }
 

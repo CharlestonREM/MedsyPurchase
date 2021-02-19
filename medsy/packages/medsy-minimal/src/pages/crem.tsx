@@ -56,7 +56,7 @@ import ConfirmSelectionStep from "components/confirm-selection-step";
 export default function Crem({ products, basePackageList, upgradeList }) {
 
 
-    console.log("formikStepsConfig", formikStepsConfig.formikSteps)
+    // console.log("formikStepsConfig", formikStepsConfig.formikSteps)
     const step1 = formikStepsConfig.formikSteps[0];
     const step1Radio = step1.fields[0];
 
@@ -145,7 +145,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
     //> onSubmit handler to pass to Formik component
     const onSubmit = async (values, { setSubmitting }) => {
         alert('clicked submit')
-        console.log('submit button was clicked.VALUES:', values);
+        // console.log('submit button was clicked.VALUES:', values);
         //employ javascripts global fetch method for easy,logical way to fetch resources asynchronously across the network
         //employ the await operator to wait for the returned promise; the await operator is used inside the async function started above because this is the only context the operator can be used. the syntax is [rv] await expression; so it awaits an expression that is a Promise or any value to wait for. the rv is the returned value;  it returns the fulfilled value of the promise, or the value itself if its not the promise
         const res = await fetch('/api/postData', {
@@ -155,8 +155,8 @@ export default function Crem({ products, basePackageList, upgradeList }) {
             },
             body: JSON.stringify(values),
         });
-        console.log('i am res in postData:')
-        console.log(res);
+        // console.log('i am res in postData:')
+        // console.log(res);
         if (res.status === 200) {
             //setSuccess(true);
 
@@ -423,8 +423,8 @@ export function FormikStep({ children }: FormikStepProps) {
 //?     - why do we pass the children
 
 export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>) {
-    console.log('i am Formik', Formik)
-    console.log('props', props)
+    // console.log('i am Formik', Formik)
+    // console.log('props', props)
     //info -- push children to an array of components that are the children of our custom `FormikStepper` components; i.e. steps
     //> employ TypeScript `as` keyword for Type Assertion to tell the compiler to consider the object as another type than the type the compiler infers the object to be
     //>     -the type is defined by our interface above
@@ -448,7 +448,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
     // console.log('i am `step`', step)
     // console.log('i am `childrenArray`:', childrenArray);
     const currentChild = childrenArray[step];
-    console.log('i am `currentChild`:', currentChild)
+    // console.log('i am `currentChild`:', currentChild)
 
 
     //>set up array to hold `stepperSteps`

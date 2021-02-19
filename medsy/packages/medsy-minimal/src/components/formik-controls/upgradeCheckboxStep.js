@@ -37,10 +37,10 @@ export function UpgradeCheckboxStep(props) {
   const { values: formValues } = useFormikContext();
 
   const { upgrades, products, ...rest } = props;
-  console.log("upgrades step props", upgrades);
+  // console.log("upgrades step props", upgrades);
 
   const { basePackageCheckbox } = formValues;
-  console.log("basepackagecheckbox", basePackageCheckbox);
+  // console.log("basepackagecheckbox", basePackageCheckbox);
 
   //> get available upgrades
   function groupBy(arr, property) {
@@ -77,8 +77,8 @@ export function UpgradeCheckboxStep(props) {
   const sortedUpgrades = groupBy(availableUpgrades, "productService");
 
   Object.entries(sortedUpgrades).forEach(([key, value]) => {
-    console.log("value dude", value);
-    console.log("key dude", key);
+    // console.log("value dude", value);
+    // console.log("key dude", key);
     sortedUpgrades[key].checkboxOptions = [];
     value.map((upgrade) => {
       let option = {
@@ -99,9 +99,9 @@ export function UpgradeCheckboxStep(props) {
   //     serviceGroup.checkboxOptions.push(option);
   //   });
   // });
-  console.log("I AM AVAILABLE UPGRADES", availableUpgrades);
-  console.log("I AM UPGRADE OPTIONS", upgradeCheckboxOptions);
-  console.log("I AM SORTED BY SERVICES", sortedUpgrades);
+  // console.log("I AM AVAILABLE UPGRADES", availableUpgrades);
+  // console.log("I AM UPGRADE OPTIONS", upgradeCheckboxOptions);
+  // console.log("I AM SORTED BY SERVICES", sortedUpgrades);
 
   return (
     <>
