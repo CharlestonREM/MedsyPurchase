@@ -9,8 +9,8 @@ https://github.com/CharlestonREM/MedsyPurchase
 
 - [x] Start Posting Instructions here
 - [x] notify @divine_code
-- [x] take a look at figma overview of look and feel : https://www.figma.com/file/nKZ4LPx81kzhw7fvazwZJt/Charleston-REM-Pricing-Calculator-(Copy)?node-id=0%3A1
-- [ ] read the about section
+- [] take a look at figma overview of look and feel : https://www.figma.com/file/nKZ4LPx81kzhw7fvazwZJt/Charleston-REM-Pricing-Calculator-(Copy)?node-id=0%3A1
+- [] read the about section
 
 ## About
 
