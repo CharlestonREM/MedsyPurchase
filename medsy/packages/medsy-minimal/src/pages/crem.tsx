@@ -9,7 +9,7 @@ import HomeWorkOutlinedIcon from '@material-ui/icons/HomeWorkOutlined';
 //imp FORMIK
 import { Field, Form, Formik, useFormikContext, ErrorMessage, FormikConfig, FormikValues, useFormik } from 'formik';
 //imp FORMIK-MATERIAL-UI LIBRARY OF BINDINGS
-import { CheckboxWithLabel, TextField } from 'formik-material-ui';
+import { CheckboxWithLabel, TextField, Switch } from 'formik-material-ui';
 //imp Yup
 import * as Yup from 'yup';
 //imp calculator
@@ -121,7 +121,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
         baseServiceCheckbox: '',
         basePackageCheckbox: '',
         upgradeCheckbox: '',
-        confirmSelectionCheckbox: '',
+        confirmSelectionCheckbox: false,
         customerName: '',
         brokerage: '',
         email: '',
@@ -130,7 +130,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
         propertyCity: '',
         propertyState: '',
         propertyZip: '',
-        propertyOccupancy: '',
+        propertyOccupancy: true,
         propertyGateCode: '',
         propertyPets: '',
         propertyLockCode: '',
@@ -213,9 +213,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
 
                     <FormikStep validationSchema={step1ValidationSchema} stepperStep={1}>
 
-                        {/* //? how do i implement slider? */}
 
-                        {/* //TODO --> implement custom radio button tab group later */}
                         <RadioButtons label="Radio Topic"
                             name="propertyType"
                             options={radioOptions} />
@@ -242,29 +240,10 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                         </Field>
 
 
-                        {/* //>imp RadioGroupTabsDiscreteSlider */}
-                        {/* <RadioGroupTabsDiscreteSlider label={step1Radio.props.label} name={step1Radio.props.name} options={step1Radio.props.options} /> */}
 
-                        {/* <FormControl>
-                            <Field component={RadioGroup} name="propertyType">
-                                <FormHelperText>Is the property we're shooting land or a house?</FormHelperText>
-                                <FormControlLabel
-                                    value={products[0].name}
-                                    control={<Radio />}
-                                    label={products[0].name}
-                                />
-                                <FormControlLabel
-                                    value="land"
-                                    control={<Radio />}
-                                    label="Land"
-                                />
-                            </Field>
-                            <ErrorMessage name="propertyType" />
-                        </FormControl>
-                        <FormControl>
-                            <Field name="propertySize" type="number" component={TextField} label="Property Size" />
 
-                        </FormControl> */}
+
+
                     </FormikStep>
 
                     <FormikStep stepperStep={2}>
@@ -279,7 +258,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                         <UpgradeCheckboxStep upgrades={upgradeList} products={basePackageList} />
                     </FormikStep>
                     <FormikStep stepperStep={2}>
-                        <ConfirmSelectionStep upgrades={upgradeList} products={basePackageList} />
+                        <ConfirmSelectionStep upgrades={upgradeList} products={basePackageList} upgradeField='upgradeCheckbox' basePackageField="basePackageCheckbox" />
                     </FormikStep>
                     <FormikStep stepperStep={3}>
                         <FormControl>
@@ -309,7 +288,15 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                             <Field name="propertyZip" label="Zip Code" component={TextField} />
                         </FormControl>
                         <FormControl>
-                            <Field name="propertyOccupancy" label="Property Occupancy" component={TextField} />
+                            //todo - use custom antswitcy yes or no based on this: - https://codesandbox.io/s/x8bz8
+                            <Box margin={1}>
+                                <FormControlLabel
+                                    control={
+                                        <Field component={Switch} type="checkbox" name="propertyOccupancy" />
+                                    }
+                                    label="the property is occupied"
+                                />
+                            </Box>
                         </FormControl>
                         <FormControl>
                             <Field name="propertyGateCode" label="Gate Code (if applicable)" component={TextField} />

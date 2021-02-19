@@ -1,3 +1,4 @@
+import { stringToBoolean } from "helpers/product-list/list-interface-setup";
 export async function getBasePackageList() {
   if (
     !(
@@ -23,7 +24,7 @@ export async function getBasePackageList() {
   const sheet = doc.sheetsByIndex[0]; // or use doc.sheetsById[id]
   // read rows
   const rows = await sheet.getRows(); // can pass in { limit, offset }
-  const basePackageList = rows?.map(
+  let basePackageList = rows?.map(
     ({
       index,
       id,
@@ -46,5 +47,23 @@ export async function getBasePackageList() {
       primaryProduct,
     })
   );
+
+  let typedArray = [];
+  //get types sorted for each product
+  basePackageList.map((product) => {
+    let typedProduct = {
+      index: parseInt(product.index),
+      id: product.id,
+      productName: product.productName,
+      propertyType: product.propertyType,
+      productService: product.productService,
+      squareFootBased: stringToBoolean(product.squareFootBased),
+      basePrice: parseInt(product.basePrice),
+      discountPrice: parseInt(product.discountPrice),
+      primaryProduct: stringToBoolean(product.primaryProduct)
+    }
+    typedArray.push(typedProduct);
+  })
+  basePackageList = typedArray;
   return basePackageList;
 }

@@ -56,9 +56,9 @@ export function UpgradeCheckboxStep(props) {
   const checkedUpgrades = [];
   const upgradeCheckboxOptions = [];
 
-  basePackageCheckbox.map((selectedProductName) => {
+  basePackageCheckbox.map((selectedProductId) => {
     products.map((product) => {
-      if (selectedProductName === product.productName) {
+      if (selectedProductId === product.id) {
         upgrades.map((upgrade) => {
           if (
             (upgrade.productService === product.productService) |
@@ -83,7 +83,7 @@ export function UpgradeCheckboxStep(props) {
     value.map((upgrade) => {
       let option = {
         key: upgrade.productName,
-        value: upgrade.productName,
+        value: upgrade.id,
       };
       sortedUpgrades[key].checkboxOptions.push(option);
     });

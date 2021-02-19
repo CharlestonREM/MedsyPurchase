@@ -120,7 +120,8 @@ const RadioGroupTabsDiscreteSlider: React.FC<RadioGroupTabsDiscreteSliderProps> 
     }, []);
 
     return (
-        <div className={classes.root}>
+        {/* <RadioGroupTabsDiscreteSlider label={step1Radio.props.label} name={step1Radio.props.name} options={step1Radio.props.options} /> */ }
+        < div className = { classes.root } >
             <figure>
                 {
                     options.map((option, index) => {
@@ -141,16 +142,16 @@ const RadioGroupTabsDiscreteSlider: React.FC<RadioGroupTabsDiscreteSliderProps> 
                     })
                 }
             </Tabs>
-            {
-                options.map((option, index) => {
-                    return (
-                        <TabPanel key={option.key} value={value} index={index}>
-                            <DiscreteSlider discreteSlider={option.discreteSlider} />
-                        </TabPanel>
-                    )
-                })
-            }
-        </div>
+    {
+        options.map((option, index) => {
+            return (
+                <TabPanel key={option.key} value={value} index={index}>
+                    <DiscreteSlider discreteSlider={option.discreteSlider} />
+                </TabPanel>
+            )
+        })
+    }
+        </div >
     );;
 }
 

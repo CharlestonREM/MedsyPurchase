@@ -1,3 +1,4 @@
+import { stringToBoolean } from 'helpers/product-list/list-interface-setup';
 export async function getUpgradeList() {
   if (
     !(
@@ -23,7 +24,7 @@ export async function getUpgradeList() {
   const sheet = doc.sheetsByIndex[1]; // or use doc.sheetsById[id]
   // read rows
   const rows = await sheet.getRows(); // can pass in { limit, offset }
-  const upgradeList = rows?.map(
+  let upgradeList = rows?.map(
     ({
       index,
       id,
@@ -46,5 +47,22 @@ export async function getUpgradeList() {
       primaryProduct,
     })
   );
+  let typedArray = [];
+  //get types sorted for each product
+  upgradeList.map((product) => {
+    let typedProduct = {
+      index: parseInt(product.index),
+      id: product.id,
+      productName: product.productName,
+      propertyType: product.propertyType,
+      productService: product.productService,
+      squareFootBased: stringToBoolean(product.squareFootBased),
+      basePrice: parseInt(product.basePrice),
+      discountPrice: parseInt(product.discountPrice),
+      primaryProduct: stringToBoolean(product.primaryProduct)
+    }
+    typedArray.push(typedProduct);
+  })
+  upgradeList = typedArray;
   return upgradeList;
 }

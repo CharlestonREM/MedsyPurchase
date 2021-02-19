@@ -49,7 +49,7 @@ export function BaseProductCheckboxStep(props) {
             specificBasePackageProducts.push(product);
             let option = {
               key: product.productName,
-              value: product.productName,
+              value: product.id,
             };
             basePackageOptions.push(option);
           }
