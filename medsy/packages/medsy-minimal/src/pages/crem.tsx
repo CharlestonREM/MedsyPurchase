@@ -409,11 +409,9 @@ export async function getServerSideProps() {
 export interface FormikStepProps
     extends Pick<FormikConfig<FormikValues>, 'children' | 'validationSchema'> {
     stepperStep: number;
-    setStepNumber: Function;
 }
 
-export function FormikStep({ children, setStepNumber, ...props }: FormikStepProps) {
-    console.log('i am formikstep props@@@@@@@@@@@@@', setStepNumber);
+export function FormikStep({ children, ...props }: FormikStepProps) {
 
     return <React.Fragment >
 
