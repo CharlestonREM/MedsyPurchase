@@ -351,7 +351,12 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                         </FormControl>
                     </FormikStep>
                     <FormikStep stepperStep={3}>
-                        <ConfirmOrder />
+                        <ConfirmOrder
+                            upgrades={upgradeList}
+                            products={basePackageList}
+                            upgradeField='upgradeCheckbox'
+                            basePackageField="basePackageCheckbox"
+                        />
 
                         {/* {isSubmitting && <LinearProgress />}
                         <Button

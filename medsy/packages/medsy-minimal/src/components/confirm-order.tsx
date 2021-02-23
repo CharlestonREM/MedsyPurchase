@@ -9,7 +9,11 @@ export interface ConfirmOrderProps extends SelectionListProps {
 
 }
 
-const ConfirmOrder: React.FC<ConfirmOrderProps> = () => {
+const ConfirmOrder: React.FC<ConfirmOrderProps> = (props) => {
+    //setup props
+    const { upgrades, products, upgradeField, basePackageField, ...rest } = props;
+    // console.log('UPGRADES', upgrades)
+    // console.log('PRODUCTS', products)
     return (
         <React.Fragment>
             {/* //todo - CSS - put border botoom on header element */}
@@ -18,7 +22,7 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = () => {
                 <Typography variant="body1" align="center">Please review your selections before placing your order</Typography>
             </header>
             {/* selections-list */}
-            {/* <SelectionsList /> */}
+            <SelectionsList upgrades={upgrades} products={products} upgradeField={upgradeField} basePackageField={basePackageField} />
         </React.Fragment>
     );
 }
