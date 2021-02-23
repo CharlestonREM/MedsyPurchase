@@ -50,10 +50,10 @@ const SimpleModal = forwardRef((props, ref) => {
         () => ({
             handleOpen(pF1, pF2, value) {
                 setOpen(true);
-                console.log('i am pF1', pF1);
-                console.log(this)
-                // pF1();
-                // pF2(value);
+                // console.log('i am pF1', pF1);
+                // console.log(this)
+                // // pF1();
+                // // pF2(value);
             },
             handleClose() {
                 setOpen(false);
@@ -74,7 +74,7 @@ const SimpleModal = forwardRef((props, ref) => {
                 Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
       </p>
             <Button onClick={() => {
-                console.log(props)
+                // console.log(props)
                 //props.startOver()
             }}>Start Over</Button>
 

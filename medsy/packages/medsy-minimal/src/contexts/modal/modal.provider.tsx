@@ -17,9 +17,10 @@ type ActionType =
 
 type StateType = typeof INITIAL_STATE;
 
-const startOver = (removeUpgrades, setFieldValue, newValue) => {
+const startOver = (removeUpgrades, setFieldValue, newValue, setStep, step) => {
     removeUpgrades();
     setFieldValue(newValue);
+    setStep(step);
 }
 
 function reducer(state: StateType, action: ActionType) {
@@ -33,6 +34,10 @@ function reducer(state: StateType, action: ActionType) {
                     removeUpgrades: action.payload.removeUpgrades,
                     setFieldValue: action.payload.setFieldValue,
                     newValue: action.payload.newValue,
+                    setStep: action.payload.setStep,
+                    setSpecificStep: action.payload.setSpecificStep,
+                    step: action.payload.step,
+                    newStep: action.payload.newStep
                 })
             };
         case 'NO_VALUE':
@@ -59,8 +64,8 @@ function reducer(state: StateType, action: ActionType) {
 
 export const ModalProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
-    console.log('modalProvider state', state)
-    console.log('modalProvider dispatch', dispatch)
+    // console.log('modalProvider state', state)
+    // console.log('modalProvider dispatch', dispatch)
     return (
         <ModalContext.Provider value={{ state, dispatch }}>
             {children}

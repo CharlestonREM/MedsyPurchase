@@ -14,6 +14,7 @@ import { theme } from "../theme";
 
 import { upgrade as upgradeInterface, product as productInterface } from "interfaces/google-spreadsheet-data";
 import { formikSelectionList } from "interfaces/form-values";
+import { StepperContext } from 'contexts/stepper/stepper.provider';
 
 export interface SelectionsListProps {
     upgrades: upgradeInterface[]
@@ -29,14 +30,18 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
     // const modalRef = useRef();
     //employing `useEffect` because of stack example: https://stackoverflow.com/questions/62336340/cannot-update-a-component-while-rendering-a-different-component-warning
     const { dispatch } = useContext(ModalContext);
-    const openModal = (removeUpgrades, setFieldValue, newValue) => {
+    const openModal = (removeUpgrades, setFieldValue, newValue, setStep) => {
         console.log('i am openModal firing!')
         dispatch({
             type: 'OPEN_MODAL',
             payload: {
                 removeUpgrades: removeUpgrades,
                 setFieldValue: setFieldValue,
-                newValue: newValue
+                newValue: newValue,
+                setStep: setStep,
+                setSpecificStep: setSpecificStep,
+                step: step,
+                newStep: newStep
             },
         });
     };
@@ -136,8 +141,14 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
         //upgradeArray
     }
 
+    const stepperContext = useContext(StepperContext)
+    console.log('i am stepperContext', stepperContext)
 
-
+    const setSpecificStep = (step, newStep) => {
+        return newStep
+    }
+    const step = stepperContext.step;
+    const newStep = 1;
 
 
     //>basic remove handler
@@ -153,7 +164,7 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
                 //info -- https://medium.com/@nugen/react-hooks-calling-child-component-function-from-parent-component-4ea249d00740
                 //modalRef.current.handleOpen(removeAllUpgrades, basePackageHelpers.setValue, newValue);
                 //new attempt with modal
-                openModal(removeAllUpgrades, basePackageHelpers.setValue, newValue);
+                openModal(removeAllUpgrades, basePackageHelpers.setValue, newValue, stepperContext.setStep, setSpecificStep, step, newStep);
                 //it's the very last base package
                 //removeAllUpgrades();
 
@@ -292,7 +303,7 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
                             }
                         </section>
                     } else {
-                        return <article>
+                        return <article key={index}>
                             <Typography variant="h6">{getServiceData(service).name} {getServiceIcon(service)}</Typography>
                             {
                                 Object.keys(selectedUpgrades).map((upKey, upI) => {

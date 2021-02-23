@@ -35,11 +35,11 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const SimpleModal = (props, ref) => {
-    console.log('simpl modal called in containers/modal')
+    //console.log('simpl modal called in containers/modal')
     //setup context for modal
     const { state, dispatch }: any = useContext(ModalContext);
-    console.log('i am state', state);
-    console.log('i am dispatch', dispatch)
+    //console.log('i am state', state);
+    //console.log('i am dispatch', dispatch)
 
     const classes = useStyles();
     // getModalStyle is not a pure function, we roll the style only on the first render
@@ -47,7 +47,7 @@ const SimpleModal = (props, ref) => {
 
     //setup open and close hanlder for modal context
     const handleOpen = () => {
-        console.log('handleOpen was just fired')
+        //console.log('handleOpen was just fired')
         dispatch({
             type: 'OPEN_MODAL',
             payload: {
@@ -116,6 +116,7 @@ const SimpleModal = (props, ref) => {
                 state.startOver.setFieldValue(state.startOver.newValue)
                 handleClose();
                 //todo --> figure out how to navigate back to step 3
+                state.startOver.setStep(state.startOver.setSpecificStep(state.startOver.step, state.startOver.newStep))
             }}>Start Over</Button>
 
         </div>
