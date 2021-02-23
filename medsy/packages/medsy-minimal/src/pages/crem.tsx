@@ -42,6 +42,7 @@ import { Event } from '@material-ui/icons';
 import BaseProductCheckboxStep from 'components/baseProductCheckboxStep'
 import UpgradeCheckboxStep from "components/formik-controls/upgradeCheckboxStep";
 import ConfirmSelectionStep from "components/confirm-selection-step";
+import ConfirmOrder from "components/confirm-order";
 
 
 
@@ -350,7 +351,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                         </FormControl>
                     </FormikStep>
                     <FormikStep stepperStep={3}>
-                        <h1>confirm order</h1>
+                        <ConfirmOrder />
 
                         {/* {isSubmitting && <LinearProgress />}
                         <Button
