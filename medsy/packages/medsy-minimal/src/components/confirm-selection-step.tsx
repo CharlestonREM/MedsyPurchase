@@ -15,12 +15,11 @@ import SimpleModal from 'containers/modal/modal'
 
 import _ from 'lodash';
 
+import { SelectionListProps } from 'interfaces/selections-list';
 
-export interface ConfirmSelectionStepProps {
-    upgrades: [];
-    products: [];
-    upgradeField: string;
-    basePackageField: string;
+//todo- check to see if i need to define props the same way in `ConfirmOrder` component
+export interface ConfirmSelectionStepProps extends SelectionListProps {
+
 }
 
 
