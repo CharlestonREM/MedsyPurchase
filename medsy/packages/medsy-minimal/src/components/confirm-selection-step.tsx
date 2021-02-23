@@ -11,6 +11,7 @@ import { getServiceData, serviceData } from "helpers/get-service-data";
 
 import SelectionsList from 'components/selections-list';
 import SimpleModal from 'containers/modal/modal'
+import NavStepButton from "components/nav-step-button";
 
 
 import _ from 'lodash';
@@ -32,6 +33,10 @@ const ConfirmSelectionStep: React.FC<ConfirmSelectionStepProps> = (props) => {
 
 
     return (<Box>
+        <nav>
+            <NavStepButton text="Add Products" stepDestination={2} />
+            <NavStepButton text="Check Out" stepDestination={6} />
+        </nav>
         <Link
             component="button"
             variant="body2"

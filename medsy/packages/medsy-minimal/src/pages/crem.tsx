@@ -425,10 +425,10 @@ export function FormikStep({ children, ...props }: FormikStepProps) {
 
         {children}
 
-        <Box bgcolor="deepPink">
+        {/* <Box bgcolor="deepPink">
             <Typography>formik step props</Typography>
             <pre>{JSON.stringify(props, null, 2)}</pre>
-        </Box>
+        </Box> */}
     </React.Fragment>;
 }
 
