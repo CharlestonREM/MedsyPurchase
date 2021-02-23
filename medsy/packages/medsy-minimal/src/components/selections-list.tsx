@@ -30,7 +30,7 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
     // const modalRef = useRef();
     //employing `useEffect` because of stack example: https://stackoverflow.com/questions/62336340/cannot-update-a-component-while-rendering-a-different-component-warning
     const { dispatch } = useContext(ModalContext);
-    const openModal = (removeUpgrades, setFieldValue, newValue, setStep) => {
+    const openModal = (removeUpgrades, setFieldValue, newValue, setStep, step, newStep) => {
         console.log('i am openModal firing!')
         dispatch({
             type: 'OPEN_MODAL',
