@@ -34,6 +34,7 @@ import { getUpgradeList } from "helpers/product-list/get-upgrade-list";
 //info - FORMIK STEPS FOR FORM STEPS
 import * as formikStepsConfig from 'helpers/formik-steps/formik-steps-config.json'
 import { StepperContext } from 'contexts/stepper/stepper.provider'
+import SimpleModal from 'containers/modal/modal'
 
 //use state
 import { useState } from 'react';
@@ -388,6 +389,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
 
 
             </CardContent>
+            <SimpleModal />
         </Card >
     );
 }

@@ -10,7 +10,6 @@ import { getServiceData, serviceData } from "helpers/get-service-data";
 
 
 import SelectionsList from 'components/selections-list';
-import SimpleModal from 'containers/modal/modal'
 import NavStepButton from "components/nav-step-button";
 
 import { StepperContext } from "contexts/stepper/stepper.provider";
@@ -68,12 +67,6 @@ const ConfirmSelectionStep: React.FC<ConfirmSelectionStepProps> = (props) => {
                 }
             </ul>
         </aside>
-        {/* <SimpleModal ref={modalRef} startOver={() => {
-            removeAllUpgrades();
-            basePackageHelpers.setValue(newValue);
-
-        }} /> */}
-        <SimpleModal />
     </Box>);
 }
 

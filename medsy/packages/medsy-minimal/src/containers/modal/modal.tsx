@@ -120,7 +120,7 @@ const SimpleModal = (props, ref) => {
                 //todo --> figure out how to navigate back to step 3
                 dispatchStepper({ type: state.stepperAction });
                 // state.startOver.setStep(state.startOver.setSpecificStep(state.startOver.step, state.startOver.newStep))
-            }}>Start Over</Button>
+            }}>RE-SELECT PRODUCTS</Button>
 
         </div>
     );
