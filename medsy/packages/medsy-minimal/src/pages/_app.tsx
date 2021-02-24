@@ -26,6 +26,7 @@ import { AppBar, Box, Container, CssBaseline, ThemeProvider, Toolbar, Typography
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { theme } from 'theme';
+import { StepperProvider } from 'contexts/stepper/stepper.provider';
 
 
 //! added `AppProps` type --> bruno
@@ -49,11 +50,13 @@ export default function CustomApp({ Component, pageProps }: AppProps) {
         <SearchProvider>
           <StickyProvider>
             <DrawerProvider>
-              <ModalProvider>
-                <CartProvider>
-                  <Component {...pageProps} />
-                </CartProvider>
-              </ModalProvider>
+              <StepperProvider>
+                <ModalProvider>
+                  <CartProvider>
+                    <Component {...pageProps} />
+                  </CartProvider>
+                </ModalProvider>
+              </StepperProvider>
             </DrawerProvider>
           </StickyProvider>
         </SearchProvider>

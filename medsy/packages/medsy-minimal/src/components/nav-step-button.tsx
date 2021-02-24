@@ -1,15 +1,29 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Typography } from "@material-ui/core";
+import { StepperContext } from 'contexts/stepper/stepper.provider';
+
+
+
 export interface NavStepButtonProps {
     text: string;
-    stepDestination: number;
+    action: string;
+    payload?: object;
+    disabled?: boolean;
 }
 
-const NavStepButton: React.SFC<NavStepButtonProps> = (props) => {
-    const { text, stepDestination, ...rest } = props;
+const NavStepButton: React.FC<NavStepButtonProps> = (props) => {
+    const { dispatch: dispatchStepper } = useContext(StepperContext);
+    const { text, action, disabled, ...rest } = props;
+    let { payload } = props;
     return (<Button onClick={() => {
-        console.log('i am navstepbutton stepDestination:', stepDestination)
-    }} {...rest}>
+        if (payload === undefined) {
+            payload = {}
+        }
+
+        console.log('i am navstepbutton props:', action, payload);
+
+        dispatchStepper({ type: action, payload: payload })
+    }} {...rest} disabled={disabled}>
         <Typography>{text}</Typography>
     </Button>);
 }

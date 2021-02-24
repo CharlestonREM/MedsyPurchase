@@ -30,15 +30,10 @@ function reducer(state: StateType, action: ActionType) {
                 ...state,
                 isModalOpen: true,
                 modalContent: 'Are you sure you want to remove the last product? You can restart the process of picking  a product.',
-                startOver: ({
-                    removeUpgrades: action.payload.removeUpgrades,
-                    setFieldValue: action.payload.setFieldValue,
-                    newValue: action.payload.newValue,
-                    setStep: action.payload.setStep,
-                    setSpecificStep: action.payload.setSpecificStep,
-                    step: action.payload.step,
-                    newStep: action.payload.newStep
-                })
+                stepperAction: action.payload.stepperAction,
+                removeUpgrades: action.payload.removeUpgrades,
+                setFieldValue: action.payload.setFieldValue,
+                newValue: action.payload.newValue,
             };
         case 'NO_VALUE':
             return {

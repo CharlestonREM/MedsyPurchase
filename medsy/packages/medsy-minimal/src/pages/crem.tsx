@@ -462,18 +462,27 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
     > --- during initial render, the returned state of "step" is the same as the value passed as the first argument, or initialState, so here, the integer `0`
     > --- `0` is used as the initial state because we are creating an array of steps. arrays are zero-indexed, so this starts us with the first step
     */
-    const [step, setStep] = useState(0);
+
+
+    // const [step, setStep] = useState(0);
+    const { state, dispatch } = React.useContext(StepperContext);
+    console.log('i am stepperContext', state)
+
+    const { step } = state;
+
+
+
     //>this seems based on the `activeStep` prop on mui `<Stepper />` component
     // todo - check ref: https://material-ui.com/api/stepper/
     console.log('i am `step`', step)
-    console.log('i am `setStep`', setStep)
+    // console.log('i am `setStep`', setStep)
 
 
     //>try to make children have props
     const childrenWithProps = React.Children.map(children, child => {
         if (React.isValidElement(child)) {
             // console.log('i am child in React.isValidElement', React.cloneElement(child, { setStepNumber: setStep }))
-            return React.cloneElement(child, { setStepNumber: setStep })
+            return React.cloneElement(child, { setStepNumber: 'test' })
         }
         return child
     })
@@ -522,30 +531,37 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                ? our FormikStepper component is built with Formik and has all the props of formik applied to it with the spread operator
                > this is currently a thin wrapper of Formik
                */
-        <StepperContext.Provider value={{ step: step, setStep: setStep }}>
 
-            <Formik {...props}
-                /* //>we have to pass the activeStep's (i.e. `currentChild`'s) `validationSchema` property as the validationSchema so that the next submit button advances */
-                /* //>  -i.e. each step needs and gets its own validationSchema */
-                validationSchema={currentChild.props.validationSchema}
-                onSubmit={async (values, helpers) => {
-                    //calling our parent when we are on the last step
-                    //basically if we are on the last child/last step, we tell the button to behave like a submit button
-                    if (isLastStep()) {
-                        await props.onSubmit(values, helpers);
-                    } else {
-                        //but if we are not on the last step, behave like a next button
-                        //todo : this will likely need to be changed later to match wireframes
-                        //> setStep is the function i need to perform from within the formik step...
-                        setStep(s => s + 1);
-                    }
-                }}>
-                {({ values, errors, isSubmitting }) => (
-                    <Form>
-                        {/* //info Material UI `Stepper` Component */}
-                        <Stepper activeStep={currentChild.props.stepperStep - 1}>
-                            {/* //? do we need to change the `i` iterator value as the unique key */}
-                            {/* {
+
+        <Formik {...props}
+            /* //>we have to pass the activeStep's (i.e. `currentChild`'s) `validationSchema` property as the validationSchema so that the next submit button advances */
+            /* //>  -i.e. each step needs and gets its own validationSchema */
+            validationSchema={currentChild.props.validationSchema}
+            onSubmit={async (values, helpers) => {
+                //calling our parent when we are on the last step
+                //basically if we are on the last child/last step, we tell the button to behave like a submit button
+                if (isLastStep()) {
+                    await props.onSubmit(values, helpers);
+                } else {
+                    //but if we are not on the last step, behave like a next button
+                    //todo : this will likely need to be changed later to match wireframes
+                    //> setStep is the function i need to perform from within the formik step...
+                    // setStep(s => s + 1);
+                    console.log('about to dispatch step next')
+                    dispatch({
+                        type: 'STEP_NEXT',
+                        payload: {
+                            step: step,
+                        },
+                    });
+                }
+            }}>
+            {({ values, errors, isSubmitting }) => (
+                <Form>
+                    {/* //info Material UI `Stepper` Component */}
+                    <Stepper activeStep={currentChild.props.stepperStep - 1}>
+                        {/* //? do we need to change the `i` iterator value as the unique key */}
+                        {/* {
                         stepperSteps.map((stepperStep, i) => {
                             return (
                                 <Step key={i}>
@@ -556,41 +572,41 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                     } */}
 
 
-                            {/* // > implement multistep fix from codesandbox */}
-                            {totalSteps.map((step, index) => (
-                                <Step key={step}>
-                                    <StepLabel>
-                                        {/* {index}
+                        {/* // > implement multistep fix from codesandbox */}
+                        {totalSteps.map((step, index) => (
+                            <Step key={step}>
+                                <StepLabel>
+                                    {/* {index}
                                 <br />
                                 {currentChild.props.stepperStep}
                                 <br />
                                 {step} */}
-                                    </StepLabel>
-                                </Step>
-                            ))}
+                                </StepLabel>
+                            </Step>
+                        ))}
 
 
 
 
-                        </Stepper>
+                    </Stepper>
 
-                        {/* //> render only the dom/React.element contained within the `currentChild` const variable */}
+                    {/* //> render only the dom/React.element contained within the `currentChild` const variable */}
 
-                        {currentChild}
-                        {/* {React.cloneElement(currentChild, { setStepNumber: setStep })} */}
-
-
+                    {currentChild}
+                    {/* {React.cloneElement(currentChild, { setStepNumber: setStep })} */}
 
 
-                        <Box bgcolor="#e0e0e0">
-                            <Typography>Formik Form and Data Values</Typography>
-                            <pre>{JSON.stringify(values, null, 2)}</pre>
-                            <pre>{JSON.stringify(errors, null, 2)}</pre>
-                            <pre>{JSON.stringify(props, null, 2)}</pre>
-                        </Box>
 
 
-                        {/* 
+                    <Box bgcolor="#e0e0e0">
+                        <Typography>Formik Form and Data Values</Typography>
+                        <pre>{JSON.stringify(values, null, 2)}</pre>
+                        <pre>{JSON.stringify(errors, null, 2)}</pre>
+                        <pre>{JSON.stringify(props, null, 2)}</pre>
+                    </Box>
+
+
+                    {/* 
                     //> when this button is clicked it executes an anonymous function 
                     //> the execution block of this function calls the useState setState method we created called `setStep`
                     //> `setStep` is used to update the state; it accepts a new state value and enqueues a re-render of the component 
@@ -598,13 +614,21 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                     //>     * the `setStep` function receives the previous value of the index of the `childrenArray` that holds our steps and then subtracts the state by 1
                     //>
                  */}
-                        {/* //info - CONDITIONAL VALIDATION - don't show anything if step is less than 0 */}
-                        {/* //> if step value is greater than 0 show Button component, show no dom via null, i.e. hide Button component from view */}
-                        {step > 0 ? <Button onClick={() => setStep(s => s - 1)}>Back</Button> : null}
-                        <Button type="submit">{isLastStep() ? 'Submit' : 'Next'}</Button>
-                    </Form>
-                )}
-            </Formik >
-        </StepperContext.Provider>
+                    {/* //info - CONDITIONAL VALIDATION - don't show anything if step is less than 0 */}
+                    {/* //> if step value is greater than 0 show Button component, show no dom via null, i.e. hide Button component from view */}
+                    {step > 0 ? <Button onClick={() => {
+                        //setStep(s => s - 1)
+                        dispatch({
+                            type: 'STEP_BACK',
+                            payload: {
+                                step: step,
+                            },
+                        })
+                    }}>Back</Button> : null}
+                    <Button type="submit">{isLastStep() ? 'Submit' : 'Next'}</Button>
+                </Form>
+            )}
+        </Formik >
+
     )
 }

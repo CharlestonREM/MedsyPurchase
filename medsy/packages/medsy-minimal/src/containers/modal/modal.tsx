@@ -5,6 +5,7 @@ import { ModalContext } from 'contexts/modal/modal.provider'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { Button } from '@material-ui/core'
+import { StepperContext } from 'contexts/stepper/stepper.provider';
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -38,6 +39,7 @@ const SimpleModal = (props, ref) => {
     //console.log('simpl modal called in containers/modal')
     //setup context for modal
     const { state, dispatch }: any = useContext(ModalContext);
+    const { dispatch: dispatchStepper } = useContext(StepperContext)
     //console.log('i am state', state);
     //console.log('i am dispatch', dispatch)
 
@@ -110,13 +112,14 @@ const SimpleModal = (props, ref) => {
                 handleClose();
             }}>Keep the Product</Button>
             <Button variant="contained" color="secondary" onClick={() => {
-                console.log(props)
+                console.log('i am start over button modal state', state);
                 //props.startOver()
-                state.startOver.removeUpgrades()
-                state.startOver.setFieldValue(state.startOver.newValue)
+                state.removeUpgrades()
+                state.setFieldValue(state.newValue)
                 handleClose();
                 //todo --> figure out how to navigate back to step 3
-                state.startOver.setStep(state.startOver.setSpecificStep(state.startOver.step, state.startOver.newStep))
+                dispatchStepper({ type: state.stepperAction });
+                // state.startOver.setStep(state.startOver.setSpecificStep(state.startOver.step, state.startOver.newStep))
             }}>Start Over</Button>
 
         </div>

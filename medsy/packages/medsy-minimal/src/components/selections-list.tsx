@@ -30,7 +30,7 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
     // const modalRef = useRef();
     //employing `useEffect` because of stack example: https://stackoverflow.com/questions/62336340/cannot-update-a-component-while-rendering-a-different-component-warning
     const { dispatch } = useContext(ModalContext);
-    const openModal = (removeUpgrades, setFieldValue, newValue, setStep, setSpecificStep, step, newStep) => {
+    const openModal = (removeUpgrades, setFieldValue, newValue, stepperAction) => {
         console.log('i am openModal firing!')
         dispatch({
             type: 'OPEN_MODAL',
@@ -38,13 +38,25 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
                 removeUpgrades: removeUpgrades,
                 setFieldValue: setFieldValue,
                 newValue: newValue,
-                setStep: setStep,
-                setSpecificStep: setSpecificStep,
-                step: step,
-                newStep: newStep
+                stepperAction: stepperAction
             },
         });
     };
+    // const openModal = (removeUpgrades, setFieldValue, newValue, setStep, setSpecificStep, step, newStep) => {
+    //     console.log('i am openModal firing!')
+    //     dispatch({
+    //         type: 'OPEN_MODAL',
+    //         payload: {
+    //             removeUpgrades: removeUpgrades,
+    //             setFieldValue: setFieldValue,
+    //             newValue: newValue,
+    //             setStep: setStep,
+    //             setSpecificStep: setSpecificStep,
+    //             step: step,
+    //             newStep: newStep
+    //         },
+    //     });
+    // };
     // useEffect(() => {
     //     openModal();
     // })
@@ -105,7 +117,6 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
         //else return false
     }
 
-
     //>isLastBaseProductOfServiceType
     const isLastBaseProductOfServiceType = (service, productArray, allSelected) => {
         //first what is the service type
@@ -164,7 +175,8 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
                 //info -- https://medium.com/@nugen/react-hooks-calling-child-component-function-from-parent-component-4ea249d00740
                 //modalRef.current.handleOpen(removeAllUpgrades, basePackageHelpers.setValue, newValue);
                 //new attempt with modal
-                openModal(removeAllUpgrades, basePackageHelpers.setValue, newValue, stepperContext.setStep, setSpecificStep, step, newStep);
+                openModal(removeAllUpgrades, basePackageHelpers.setValue, newValue, 'GO_TO_BASE_SERVICE_SELECTION');
+                // openModal(removeAllUpgrades, basePackageHelpers.setValue, newValue, stepperContext.setStep, setSpecificStep, step, newStep);
                 //it's the very last base package
                 //removeAllUpgrades();
 
