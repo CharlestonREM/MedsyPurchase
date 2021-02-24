@@ -123,25 +123,31 @@ export default function Crem({ products, basePackageList, upgradeList }) {
         basePackageCheckbox: '',
         upgradeCheckbox: '',
         confirmSelectionCheckbox: false,
-        customerName: '',
-        brokerage: '',
-        email: '',
-        phone: '',
-        propertyStreetAddress: '',
-        propertyCity: '',
-        propertyState: '',
-        propertyZip: '',
-        propertyOccupancy: true,
-        propertyGateCode: '',
-        propertyPets: '',
-        propertyLockCode: '',
-        propertySpecialRequests: '',
-        sessionPreferredDate: '',
-        sessionPreferredTime: '',
-        sessionAlternateDate: '',
-        sessionAlternateTime: '',
-        licenseType: 'single',
-        sessionSpecialRequests: ''
+        profile: {
+            customerName: '',
+            brokerage: '',
+            email: '',
+            phone: ''
+        },
+        property: {
+            propertyStreetAddress: '',
+            propertyCity: '',
+            propertyState: '',
+            propertyZip: '',
+            propertyOccupancy: true,
+            propertyGateCode: '',
+            propertyPets: '',
+            propertyLockCode: '',
+            propertySpecialRequests: ''
+        },
+        session: {
+            sessionPreferredDate: '',
+            sessionPreferredTime: '',
+            sessionAlternateDate: '',
+            sessionAlternateTime: '',
+            licenseType: 'single',
+            sessionSpecialRequests: ''
+        }
     }
     //> onSubmit handler to pass to Formik component
     const onSubmit = async (values, { setSubmitting }) => {
@@ -281,73 +287,73 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                     </FormikStep>
                     <FormikStep stepperStep={3}>
                         <FormControl>
-                            <Field name="customerName" label="Name" component={TextField} />
+                            <Field name="profile.customerName" label="Name" component={TextField} />
                         </FormControl>
                         <FormControl>
-                            <Field name="brokerage" label="Name of Brokerage (optional)" component={TextField} />
+                            <Field name="profile.brokerage" label="Name of Brokerage (optional)" component={TextField} />
                         </FormControl>
                         <FormControl>
-                            <Field name="email" label="Email address" component={TextField} />
+                            <Field name="profile.email" label="Email address" component={TextField} />
                         </FormControl>
                         <FormControl>
-                            <Field name="phone" label="Phone Number" component={TextField} />
+                            <Field name="profile.phone" label="Phone Number" component={TextField} />
                         </FormControl>
                     </FormikStep>
                     <FormikStep stepperStep={3}>
                         <FormControl>
-                            <Field name="propertyStreetAddress" label="Street Address" component={TextField} />
+                            <Field name="property.propertyStreetAddress" label="Street Address" component={TextField} />
                         </FormControl>
                         <FormControl>
-                            <Field name="propertyCity" label="City" component={TextField} />
+                            <Field name="property.propertyCity" label="City" component={TextField} />
                         </FormControl>
                         <FormControl>
-                            <Field name="propertyState" label="State" component={TextField} />
+                            <Field name="property.propertyState" label="State" component={TextField} />
                         </FormControl>
                         <FormControl>
-                            <Field name="propertyZip" label="Zip Code" component={TextField} />
+                            <Field name="property.propertyZip" label="Zip Code" component={TextField} />
                         </FormControl>
                         <FormControl>
                             //todo - use custom antswitcy yes or no based on this: - https://codesandbox.io/s/x8bz8
                             <Box margin={1}>
                                 <FormControlLabel
                                     control={
-                                        <Field component={Switch} type="checkbox" name="propertyOccupancy" />
+                                        <Field component={Switch} type="checkbox" name="property.propertyOccupancy" />
                                     }
                                     label="the property is occupied"
                                 />
                             </Box>
                         </FormControl>
                         <FormControl>
-                            <Field name="propertyGateCode" label="Gate Code (if applicable)" component={TextField} />
+                            <Field name="property.propertyGateCode" label="Gate Code (if applicable)" component={TextField} />
                         </FormControl>
                         <FormControl>
-                            <Field name="propertyPets" label="Do you have pets?" component={TextField} />
+                            <Field name="property.propertyPets" label="Do you have pets?" component={TextField} />
                         </FormControl>
                         <FormControl>
-                            <Field name="propertyLockCode" label="Lock Code (if applicable)" component={TextField} />
+                            <Field name="property.propertyLockCode" label="Lock Code (if applicable)" component={TextField} />
                         </FormControl>
                         <FormControl>
-                            <Field name="propertySpecialRequests" label="Special Requests (e.g.)" component={TextField} />
+                            <Field name="property.propertySpecialRequests" label="Special Requests (e.g.)" component={TextField} />
                         </FormControl>
                     </FormikStep>
                     <FormikStep stepperStep={3}>
                         <FormControl>
-                            <Field name="sessionPreferredDate" label="Preferred Date" component={TextField} />
+                            <Field name="session.sessionPreferredDate" label="Preferred Date" component={TextField} />
                         </FormControl>
                         <FormControl>
-                            <Field name="sessionPreferredTime" label="Preferred Time" component={TextField} />
+                            <Field name="session.sessionPreferredTime" label="Preferred Time" component={TextField} />
                         </FormControl>
                         <FormControl>
-                            <Field name="sessionAlternateDate" label="Alternate Date" component={TextField} />
+                            <Field name="session.sessionAlternateDate" label="Alternate Date" component={TextField} />
                         </FormControl>
                         <FormControl>
-                            <Field name="sessionAlternateTime" label="Alternate Time" component={TextField} />
+                            <Field name="session.sessionAlternateTime" label="Alternate Time" component={TextField} />
                         </FormControl>
                         <FormControl>
-                            <Field name="licenseType" label="Select your license type" component={TextField} />
+                            <Field name="session.licenseType" label="Select your license type" component={TextField} />
                         </FormControl>
                         <FormControl>
-                            <Field name="sessionSpecialRequests" label="Special Requests (e.g.)" component={TextField} />
+                            <Field name="session.sessionSpecialRequests" label="Special Requests (e.g.)" component={TextField} />
                         </FormControl>
                     </FormikStep>
                     <FormikStep stepperStep={3}>
@@ -466,7 +472,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
 
     // const [step, setStep] = useState(0);
     const { state, dispatch } = React.useContext(StepperContext);
-    console.log('i am stepperContext', state)
+    //console.log('i am stepperContext', state)
 
     const { step } = state;
 
@@ -474,7 +480,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
 
     //>this seems based on the `activeStep` prop on mui `<Stepper />` component
     // todo - check ref: https://material-ui.com/api/stepper/
-    console.log('i am `step`', step)
+    //console.log('i am `step`', step)
     // console.log('i am `setStep`', setStep)
 
 
@@ -486,7 +492,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
         }
         return child
     })
-    console.log('!!!!!!!!! i am childrenwithprops', childrenWithProps)
+    //console.log('!!!!!!!!! i am childrenwithprops', childrenWithProps)
 
     //info -- push children to an array of components that are the children of our custom `FormikStepper` components; i.e. steps
     //> employ TypeScript `as` keyword for Type Assertion to tell the compiler to consider the object as another type than the type the compiler infers the object to be
@@ -495,9 +501,9 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
     // const childrenArray = React.Children.toArray(childrenWithProps) as React.ReactElement<FormikStepProps>[];
 
 
-    console.log('i am `childrenArray`:', childrenArray);
+    //onsole.log('i am `childrenArray`:', childrenArray);
     const currentChild = childrenArray[step];
-    console.log('i am `currentChild`:', currentChild)
+    //console.log('i am `currentChild`:', currentChild)
     //testing setStep
     // setTimeout(() => {
     //     console.log('i take four seconds')
@@ -547,7 +553,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                     //todo : this will likely need to be changed later to match wireframes
                     //> setStep is the function i need to perform from within the formik step...
                     // setStep(s => s + 1);
-                    console.log('about to dispatch step next')
+                    //console.log('about to dispatch step next')
                     dispatch({
                         type: 'STEP_NEXT',
                         payload: {
@@ -602,7 +608,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                         <Typography>Formik Form and Data Values</Typography>
                         <pre>{JSON.stringify(values, null, 2)}</pre>
                         <pre>{JSON.stringify(errors, null, 2)}</pre>
-                        <pre>{JSON.stringify(props, null, 2)}</pre>
+                        {/* <pre>{JSON.stringify(props, null, 2)}</pre> */}
                     </Box>
 
 

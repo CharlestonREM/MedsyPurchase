@@ -45,6 +45,7 @@ function reducer(state: StateType, action: ActionType) {
         case 'GO_TO_SPECIFIC_STEP':
             return {
                 ...state,
+                step: parseInt(action.payload.step)
             };
         default:
             return state;

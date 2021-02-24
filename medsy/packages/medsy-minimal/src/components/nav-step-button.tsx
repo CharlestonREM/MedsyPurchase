@@ -20,9 +20,10 @@ const NavStepButton: React.FC<NavStepButtonProps> = (props) => {
             payload = {}
         }
 
-        console.log('i am navstepbutton props:', action, payload);
+
 
         dispatchStepper({ type: action, payload: payload })
+        console.log('i am navstepbutton props:', action, payload);
     }} {...rest} disabled={disabled}>
         <Typography>{text}</Typography>
     </Button>);
