@@ -1,11 +1,13 @@
 //imp IMPORT REACT
 import * as React from 'react';
 //imp MATERIAL UI
-import { Box, Card, CardContent, Typography, Button, LinearProgress, FormControl, FormHelperText, FormGroup, MenuItem, Stepper, Step, StepLabel, StepIcon } from '@material-ui/core';
+import { Box, Card, CardContent, Grid, Typography, Button, LinearProgress, FormControl, FormHelperText, FormGroup, MenuItem, Paper, Stepper, Step, StepLabel, StepIcon } from '@material-ui/core';
 import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
 import VideocamOutlinedIcon from '@material-ui/icons/VideocamOutlined';
 import EventSeatOutlinedIcon from '@material-ui/icons/EventSeatOutlined';
 import HomeWorkOutlinedIcon from '@material-ui/icons/HomeWorkOutlined';
+
+
 //imp FORMIK
 import { Field, Form, Formik, useFormikContext, ErrorMessage, FormikConfig, FormikValues, useFormik } from 'formik';
 //imp FORMIK-MATERIAL-UI LIBRARY OF BINDINGS
@@ -40,6 +42,7 @@ import SimpleModal from 'containers/modal/modal'
 import { useState } from 'react';
 import { Event } from '@material-ui/icons';
 
+import BaseServiceToggleButtonGroup from "components/formik-controls/base-service-toggle-button-group";
 import BaseProductCheckboxStep from 'components/baseProductCheckboxStep'
 import UpgradeCheckboxStep from "components/formik-controls/upgradeCheckboxStep";
 import ConfirmSelectionStep from "components/confirm-selection-step";
@@ -48,6 +51,20 @@ import DateOrTimePicker from 'components/formik-controls/date-or-time-picker';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+//setup styles for grid
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            flexGrow: 1,
+        },
+        paper: {
+            padding: theme.spacing(2),
+            textAlign: 'center',
+            color: theme.palette.text.secondary,
+        },
+    }),
+);
 
 
 
@@ -60,6 +77,7 @@ import DateFnsUtils from '@date-io/date-fns';
 //---> you have to pass in `products` as a parameter of the component, i.e. as arbitrary arguments, i.e. as props!
 export default function Crem({ products, basePackageList, upgradeList }) {
 
+    const classes = useStyles();
 
     // console.log("formikStepsConfig", formikStepsConfig.formikSteps)
     const step1 = formikStepsConfig.formikSteps[0];
@@ -123,7 +141,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
     const initialValues = {
         propertyType: 'house',
         propertySize: '0-2000',
-        baseServiceCheckbox: '',
+        baseServiceCheckbox: [],
         basePackageCheckbox: '',
         upgradeCheckbox: '',
         confirmSelectionCheckbox: false,
@@ -242,169 +260,174 @@ export default function Crem({ products, basePackageList, upgradeList }) {
 
 
     return (
-        <Card>
-            <CardContent>
-                <FormikStepper initialValues={initialValues} onSubmit={onSubmit} >
+        <div className={classes.root}>
+            <Grid container spacing={3}>
+                <Grid item xs={12}>
+
+                    <FormikStepper initialValues={initialValues} onSubmit={onSubmit} >
 
 
-                    {/* //TODO- through object deconstruction i pass initial values as example; i now need to dynamicaly add state as prop to `FormikStepper` component and add to `FormikStep` manually */}
-                    <FormikStep validationSchema={validationSchema.step1} stepperStep={1}>
+                        {/* //TODO- through object deconstruction i pass initial values as example; i now need to dynamicaly add state as prop to `FormikStepper` component and add to `FormikStep` manually */}
+                        <FormikStep validationSchema={validationSchema.step1} stepperStep={1}>
 
 
-                        <RadioButtons label="Radio Topic"
-                            name="propertyType"
-                            options={radioOptions} />
+                            <RadioButtons label="Radio Topic"
+                                name="propertyType"
+                                options={radioOptions} />
 
 
-                        <Field
-                            component={TextField}
-                            type="text"
-                            name="propertySize"
-                            label="Property Size"
-                            select
-                            variant="standard"
-                            helperText="Please select Range"
-                            margin="normal"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                        >
-                            {ranges.map((option) => (
-                                <MenuItem key={option.value} value={option.value}>
-                                    {option.label}
-                                </MenuItem>
-                            ))}
-                        </Field>
-
-
-
-
-
-
-                    </FormikStep>
-
-                    <FormikStep stepperStep={2} validationSchema={validationSchema.step2}>
-                        <CheckboxGroup label="Select a base service"
-                            name="baseServiceCheckbox"
-                            options={checkboxOptions} />
-                    </FormikStep>
-                    <FormikStep stepperStep={2} validationSchema={validationSchema.step3}>
-                        <BaseProductCheckboxStep basePackages={basePackageList} />
-                    </FormikStep>
-                    <FormikStep stepperStep={2}>
-                        <UpgradeCheckboxStep upgrades={upgradeList} products={basePackageList} />
-                    </FormikStep>
-                    <FormikStep stepperStep={2} validationSchema={validationSchema.step5}>
-                        <ConfirmSelectionStep upgrades={upgradeList} products={basePackageList} upgradeField='upgradeCheckbox' basePackageField="basePackageCheckbox" />
-                    </FormikStep>
-                    <FormikStep stepperStep={3} validationSchema={validationSchema.step6}>
-                        <FormControl>
-                            <Field name="profile.customerName" label="Name" component={TextField} />
-                        </FormControl>
-                        <FormControl>
-                            <Field name="profile.brokerage" label="Name of Brokerage (optional)" component={TextField} />
-                        </FormControl>
-                        <FormControl>
-                            <Field name="profile.email" label="Email address" component={TextField} />
-                        </FormControl>
-                        <FormControl>
-                            <Field name="profile.phone" label="Phone Number" component={TextField} />
-                        </FormControl>
-                    </FormikStep>
-                    <FormikStep stepperStep={3} validationSchema={validationSchema.step7}>
-                        <FormControl>
-                            <Field name="property.propertyStreetAddress" label="Street Address" component={TextField} />
-                        </FormControl>
-                        <FormControl>
-                            <Field name="property.propertyCity" label="City" component={TextField} />
-                        </FormControl>
-                        <FormControl>
-                            <Field name="property.propertyState" label="State" component={TextField} />
-                        </FormControl>
-                        <FormControl>
-                            <Field name="property.propertyZip" label="Zip Code" component={TextField} />
-                        </FormControl>
-                        <FormControl>
-                            //todo - use custom antswitcy yes or no based on this: - https://codesandbox.io/s/x8bz8
-                            <Box margin={1}>
-                                <FormControlLabel
-                                    control={
-                                        <Field component={Switch} type="checkbox" name="property.propertyOccupancy" />
-                                    }
-                                    label="the property is occupied"
-                                />
-                            </Box>
-                        </FormControl>
-                        <FormControl>
-                            <Field name="property.propertyGateCode" label="Gate Code (if applicable)" component={TextField} />
-                        </FormControl>
-                        <FormControl>
-                            <Field name="property.propertyPets" label="Do you have pets?" component={TextField} />
-                        </FormControl>
-                        <FormControl>
-                            <Field name="property.propertyLockCode" label="Lock Code (if applicable)" component={TextField} />
-                        </FormControl>
-                        <FormControl>
-                            <Field name="property.propertySpecialRequests" label="Special Requests (e.g.)" component={TextField} />
-                        </FormControl>
-                    </FormikStep>
-                    <FormikStep stepperStep={3} validationSchema={validationSchema.step8}>
-                        <FormControl>
-                            <DateOrTimePicker component="DatePicker" name="session.sessionPreferredDate" label="Preferred Date" />
-
-                        </FormControl>
-                        <FormControl>
-                            <DateOrTimePicker component="TimePicker" name="session.sessionPreferredTime" label="Preferred Time" />
-
-                        </FormControl>
-                        <FormControl>
-                            <DateOrTimePicker component="DatePicker" name="session.sessionAlternateDate" label="Alternate Date" />
-                        </FormControl>
-                        <FormControl>
-                            <DateOrTimePicker component="TimePicker" name="session.sessionAlternateTime" label="Alternate Time" />
-
-                        </FormControl>
-                        <FormControl>
-                            <Field name="session.licenseType" label="Select your license type" component={TextField} />
-                        </FormControl>
-                        <FormControl>
-                            <Field name="session.sessionSpecialRequests" label="Special Requests (e.g.)" component={TextField} />
-                        </FormControl>
-                    </FormikStep>
-                    <FormikStep stepperStep={3}>
-                        <ConfirmOrder
-                            upgrades={upgradeList}
-                            products={basePackageList}
-                            upgradeField='upgradeCheckbox'
-                            basePackageField="basePackageCheckbox"
-                        />
-
-
-                        {/* {isSubmitting && <LinearProgress />}
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            disabled={isSubmitting}
-                            onClick={submitForm}
-                        >
-                            Submit
-                            </Button> */}
-
-
-                    </FormikStep>
-                </FormikStepper>
-
-
-                <Calculator />
+                            <Field
+                                component={TextField}
+                                type="text"
+                                name="propertySize"
+                                label="Property Size"
+                                select
+                                variant="standard"
+                                helperText="Please select Range"
+                                margin="normal"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            >
+                                {ranges.map((option) => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                            </Field>
 
 
 
 
 
 
-            </CardContent>
-            <SimpleModal />
-        </Card >
+                        </FormikStep>
+
+                        <FormikStep stepperStep={2} validationSchema={validationSchema.step2}>
+                            {/* <CheckboxGroup label="Select a base service"
+        name="baseServiceCheckbox"
+        options={checkboxOptions} /> */}
+
+                            <BaseServiceToggleButtonGroup name="baseServiceCheckbox" />
+                        </FormikStep>
+                        <FormikStep stepperStep={2} validationSchema={validationSchema.step3}>
+                            <BaseProductCheckboxStep basePackages={basePackageList} />
+                        </FormikStep>
+                        <FormikStep stepperStep={2}>
+                            <UpgradeCheckboxStep upgrades={upgradeList} products={basePackageList} />
+                        </FormikStep>
+                        <FormikStep stepperStep={2} validationSchema={validationSchema.step5}>
+                            <ConfirmSelectionStep upgrades={upgradeList} products={basePackageList} upgradeField='upgradeCheckbox' basePackageField="basePackageCheckbox" />
+                        </FormikStep>
+                        <FormikStep stepperStep={3} validationSchema={validationSchema.step6}>
+                            <FormControl>
+                                <Field name="profile.customerName" label="Name" component={TextField} />
+                            </FormControl>
+                            <FormControl>
+                                <Field name="profile.brokerage" label="Name of Brokerage (optional)" component={TextField} />
+                            </FormControl>
+                            <FormControl>
+                                <Field name="profile.email" label="Email address" component={TextField} />
+                            </FormControl>
+                            <FormControl>
+                                <Field name="profile.phone" label="Phone Number" component={TextField} />
+                            </FormControl>
+                        </FormikStep>
+                        <FormikStep stepperStep={3} validationSchema={validationSchema.step7}>
+                            <FormControl>
+                                <Field name="property.propertyStreetAddress" label="Street Address" component={TextField} />
+                            </FormControl>
+                            <FormControl>
+                                <Field name="property.propertyCity" label="City" component={TextField} />
+                            </FormControl>
+                            <FormControl>
+                                <Field name="property.propertyState" label="State" component={TextField} />
+                            </FormControl>
+                            <FormControl>
+                                <Field name="property.propertyZip" label="Zip Code" component={TextField} />
+                            </FormControl>
+                            <FormControl>
+                                //todo - use custom antswitcy yes or no based on this: - https://codesandbox.io/s/x8bz8
+        <Box margin={1}>
+                                    <FormControlLabel
+                                        control={
+                                            <Field component={Switch} type="checkbox" name="property.propertyOccupancy" />
+                                        }
+                                        label="the property is occupied"
+                                    />
+                                </Box>
+                            </FormControl>
+                            <FormControl>
+                                <Field name="property.propertyGateCode" label="Gate Code (if applicable)" component={TextField} />
+                            </FormControl>
+                            <FormControl>
+                                <Field name="property.propertyPets" label="Do you have pets?" component={TextField} />
+                            </FormControl>
+                            <FormControl>
+                                <Field name="property.propertyLockCode" label="Lock Code (if applicable)" component={TextField} />
+                            </FormControl>
+                            <FormControl>
+                                <Field name="property.propertySpecialRequests" label="Special Requests (e.g.)" component={TextField} />
+                            </FormControl>
+                        </FormikStep>
+                        <FormikStep stepperStep={3} validationSchema={validationSchema.step8}>
+                            <FormControl>
+                                <DateOrTimePicker component="DatePicker" name="session.sessionPreferredDate" label="Preferred Date" />
+
+                            </FormControl>
+                            <FormControl>
+                                <DateOrTimePicker component="TimePicker" name="session.sessionPreferredTime" label="Preferred Time" />
+
+                            </FormControl>
+                            <FormControl>
+                                <DateOrTimePicker component="DatePicker" name="session.sessionAlternateDate" label="Alternate Date" />
+                            </FormControl>
+                            <FormControl>
+                                <DateOrTimePicker component="TimePicker" name="session.sessionAlternateTime" label="Alternate Time" />
+
+                            </FormControl>
+                            <FormControl>
+                                <Field name="session.licenseType" label="Select your license type" component={TextField} />
+                            </FormControl>
+                            <FormControl>
+                                <Field name="session.sessionSpecialRequests" label="Special Requests (e.g.)" component={TextField} />
+                            </FormControl>
+                        </FormikStep>
+                        <FormikStep stepperStep={3}>
+                            <ConfirmOrder
+                                upgrades={upgradeList}
+                                products={basePackageList}
+                                upgradeField='upgradeCheckbox'
+                                basePackageField="basePackageCheckbox"
+                            />
+
+
+                            {/* {isSubmitting && <LinearProgress />}
+    <Button
+        variant="contained"
+        color="primary"
+        disabled={isSubmitting}
+        onClick={submitForm}
+    >
+        Submit
+        </Button> */}
+
+
+                        </FormikStep>
+                    </FormikStepper>
+
+
+                    <Calculator />
+
+
+
+
+
+                    <SimpleModal />
+                </Grid>
+            </Grid>
+        </div>
+
     );
 }
 
@@ -441,8 +464,10 @@ export interface FormikStepProps
 }
 
 export function FormikStep({ children, ...props }: FormikStepProps) {
+    const classes = useStyles();
 
-    return <React.Fragment >
+
+    return <Paper className={classes.paper} >
 
 
         {children}
@@ -451,7 +476,7 @@ export function FormikStep({ children, ...props }: FormikStepProps) {
             <Typography>formik step props</Typography>
             <pre>{JSON.stringify(props, null, 2)}</pre>
         </Box> */}
-    </React.Fragment>;
+    </Paper>;
 }
 
 
