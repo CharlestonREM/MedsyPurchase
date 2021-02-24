@@ -37,9 +37,9 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = (props) => {
                 </div>
             </section>
             {/* review info x 3 */}
-            <ReviewInfo title="Profile" infoGroupName="profile" infoStep={5} info={[{ fieldName: 'name', fieldValue: 'Joe Smith' }]} />
-            <ReviewInfo title="Property" infoGroupName="property" infoStep={6} info={[{ fieldName: 'address', fieldValue: '1600 Somewhere Nice Lane' }]} />
-            <ReviewInfo title="Session" infoGroupName="session" infoStep={7} info={[{ fieldName: 'preferred schedule date', fieldValue: '8/24/2020' }]} />
+            <ReviewInfo title="Profile" infoGroupName="profile" infoStep={5} />
+            <ReviewInfo title="Property" infoGroupName="property" infoStep={6} />
+            <ReviewInfo title="Session" infoGroupName="session" infoStep={7} />
             <Button>Place Order</Button>
         </React.Fragment>
     );
