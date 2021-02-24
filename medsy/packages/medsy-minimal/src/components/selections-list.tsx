@@ -158,8 +158,8 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
     const setSpecificStep = (step, newStep) => {
         return newStep
     }
-    const step = stepperContext.step;
-    const newStep = 1;
+    // const step = stepperContext.state.step;
+    // const newStep = 1;
 
 
     //>basic remove handler

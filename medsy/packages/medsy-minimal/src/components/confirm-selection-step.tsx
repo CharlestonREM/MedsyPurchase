@@ -33,7 +33,7 @@ const ConfirmSelectionStep: React.FC<ConfirmSelectionStepProps> = (props) => {
     // console.log('PRODUCTS', products)
     const confirmSelectionCheckbox = useField('confirmSelectionCheckbox');
 
-    console.log('useField confirmSelectionCheckbox', confirmSelectionCheckbox[1]);
+    //console.log('useField confirmSelectionCheckbox', confirmSelectionCheckbox[1]);
 
 
     return (<Box>

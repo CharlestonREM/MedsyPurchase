@@ -54,7 +54,7 @@ function reducer(state: StateType, action: ActionType) {
 
 export const StepperProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
-    console.log('i am stepper provider!')
+    //console.log('i am stepper provider!')
     return (
         <StepperContext.Provider value={{ state, dispatch }}>
             {children}

@@ -44,6 +44,9 @@ import BaseProductCheckboxStep from 'components/baseProductCheckboxStep'
 import UpgradeCheckboxStep from "components/formik-controls/upgradeCheckboxStep";
 import ConfirmSelectionStep from "components/confirm-selection-step";
 import ConfirmOrder from "components/confirm-order";
+import DateOrTimePicker from 'components/formik-controls/date-or-time-picker';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 
 
@@ -125,27 +128,27 @@ export default function Crem({ products, basePackageList, upgradeList }) {
         upgradeCheckbox: '',
         confirmSelectionCheckbox: false,
         profile: {
-            customerName: '',
-            brokerage: '',
-            email: '',
-            phone: ''
+            customerName: 'test name',
+            brokerage: 'test brokerage',
+            email: 'test@testemail.com',
+            phone: '555-555-5555'
         },
         property: {
-            propertyStreetAddress: '',
-            propertyCity: '',
-            propertyState: '',
-            propertyZip: '',
+            propertyStreetAddress: '1776 fake st.',
+            propertyCity: ' charleston',
+            propertyState: 'sc',
+            propertyZip: '29455',
             propertyOccupancy: true,
-            propertyGateCode: '',
-            propertyPets: '',
-            propertyLockCode: '',
-            propertySpecialRequests: ''
+            propertyGateCode: '000',
+            propertyPets: 'no',
+            propertyLockCode: '555',
+            propertySpecialRequests: 'i am test property special requests'
         },
         session: {
-            sessionPreferredDate: '',
-            sessionPreferredTime: '',
-            sessionAlternateDate: '',
-            sessionAlternateTime: '',
+            sessionPreferredDate: null,
+            sessionPreferredTime: null,
+            sessionAlternateDate: null,
+            sessionAlternateTime: null,
             licenseType: 'single',
             sessionSpecialRequests: ''
         }
@@ -181,32 +184,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
     const step1ValidationSchema = Yup.object({
         propertyType: Yup.string().required('Required'),
         propertySize: Yup.string().required('Required')
-        //propertySize: Yup.number().typeError('it has to be number').required('Required'),
-        // baseServiceCheckbox: Yup.string().required('Required'),
-        // basePackageCheckbox: Yup.string().required('Required'),
-        // upgradeCheckbox: Yup.string().required('Required'),
-        // confirmSelectionCheckbox: Yup.string().required('Required'),
-        // customerName: Yup.string().required('Required'),
-        // brokerage: Yup.string().required('Required'),
-        // email: Yup.string()
-        //     .email('Invalid email format')
-        //     .required('Required'),
-        // phone: Yup.string().required('Required'),
-        // propertyStreetAddress: Yup.string().required('Required'),
-        // propertyCity: Yup.string().required('Required'),
-        // propertyState: Yup.string().required('Required'),
-        // propertyZip: Yup.string().required('Required'),
-        // propertyOccupancy: Yup.string().required('Required'),
-        // propertyGateCode: Yup.string().required('Required'),
-        // propertyPets: Yup.string().required('Required'),
-        // propertyLockCode: Yup.string().required('Required'),
-        // propertySpecialRequests: Yup.string().required('Required'),
-        // sessionPreferredDate: Yup.string().required('Required'),
-        // sessionPreferredTime: Yup.string().required('Required'),
-        // sessionAlternateDate: Yup.string().required('Required'),
-        // sessionAlternateTime: Yup.string().required('Required'),
-        // licenseType: Yup.string().required('Required'),
-        // sessionSpecialRequests: Yup.string().required('Required')
+        // propertySize: Yup.number().typeError('it has to be number').required('Required'),
     })
     const validationSchema = {
         step1: Yup.object({
@@ -224,6 +202,39 @@ export default function Crem({ products, basePackageList, upgradeList }) {
         },
         step5: Yup.object({
             confirmSelectionCheckbox: Yup.bool().oneOf([true], 'Please let us know that your order is right!').required('Please let us know that your order is right!')
+        }),
+        step6: Yup.object({
+            profile: Yup.object({
+                customerName: Yup.string().required('Required'),
+                brokerage: Yup.string().required('Required'),
+                email: Yup.string()
+                    .email('Invalid email format')
+                    .required('Required'),
+                phone: Yup.string().required('Required'),
+            })
+        }),
+        step7: Yup.object({
+            property: Yup.object({
+                propertyStreetAddress: Yup.string().required('Required'),
+                propertyCity: Yup.string().required('Required'),
+                propertyState: Yup.string().required('Required'),
+                propertyZip: Yup.string().required('Required'),
+                propertyOccupancy: Yup.string().required('Required'),
+                propertyGateCode: Yup.string().required('Required'),
+                propertyPets: Yup.string().required('Required'),
+                propertyLockCode: Yup.string().required('Required'),
+                propertySpecialRequests: Yup.string().required('Required'),
+            })
+        }),
+        step8: Yup.object({
+            session: Yup.object({
+                sessionPreferredDate: Yup.date().typeError('Please select a valid Date').required('Required'),
+                sessionPreferredTime: Yup.date().typeError('Please select a valid Date').required('Required'),
+                sessionAlternateDate: Yup.date().typeError('Please select a valid Date').required('Required'),
+                sessionAlternateTime: Yup.date().typeError('Please select a valid Date').required('Required'),
+                licenseType: Yup.string().required('Required'),
+                sessionSpecialRequests: Yup.string().required('Required')
+            })
         })
     }
 
@@ -286,7 +297,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                     <FormikStep stepperStep={2} validationSchema={validationSchema.step5}>
                         <ConfirmSelectionStep upgrades={upgradeList} products={basePackageList} upgradeField='upgradeCheckbox' basePackageField="basePackageCheckbox" />
                     </FormikStep>
-                    <FormikStep stepperStep={3}>
+                    <FormikStep stepperStep={3} validationSchema={validationSchema.step6}>
                         <FormControl>
                             <Field name="profile.customerName" label="Name" component={TextField} />
                         </FormControl>
@@ -300,7 +311,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                             <Field name="profile.phone" label="Phone Number" component={TextField} />
                         </FormControl>
                     </FormikStep>
-                    <FormikStep stepperStep={3}>
+                    <FormikStep stepperStep={3} validationSchema={validationSchema.step7}>
                         <FormControl>
                             <Field name="property.propertyStreetAddress" label="Street Address" component={TextField} />
                         </FormControl>
@@ -337,18 +348,21 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                             <Field name="property.propertySpecialRequests" label="Special Requests (e.g.)" component={TextField} />
                         </FormControl>
                     </FormikStep>
-                    <FormikStep stepperStep={3}>
+                    <FormikStep stepperStep={3} validationSchema={validationSchema.step8}>
                         <FormControl>
-                            <Field name="session.sessionPreferredDate" label="Preferred Date" component={TextField} />
+                            <DateOrTimePicker component="DatePicker" name="session.sessionPreferredDate" label="Preferred Date" />
+
                         </FormControl>
                         <FormControl>
-                            <Field name="session.sessionPreferredTime" label="Preferred Time" component={TextField} />
+                            <DateOrTimePicker component="TimePicker" name="session.sessionPreferredTime" label="Preferred Time" />
+
                         </FormControl>
                         <FormControl>
-                            <Field name="session.sessionAlternateDate" label="Alternate Date" component={TextField} />
+                            <DateOrTimePicker component="DatePicker" name="session.sessionAlternateDate" label="Alternate Date" />
                         </FormControl>
                         <FormControl>
-                            <Field name="session.sessionAlternateTime" label="Alternate Time" component={TextField} />
+                            <DateOrTimePicker component="TimePicker" name="session.sessionAlternateTime" label="Alternate Time" />
+
                         </FormControl>
                         <FormControl>
                             <Field name="session.licenseType" label="Select your license type" component={TextField} />
@@ -565,11 +579,12 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                 }
             }}>
             {({ values, errors, isSubmitting }) => (
-                <Form>
-                    {/* //info Material UI `Stepper` Component */}
-                    <Stepper activeStep={currentChild.props.stepperStep - 1}>
-                        {/* //? do we need to change the `i` iterator value as the unique key */}
-                        {/* {
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <Form>
+                        {/* //info Material UI `Stepper` Component */}
+                        <Stepper activeStep={currentChild.props.stepperStep - 1}>
+                            {/* //? do we need to change the `i` iterator value as the unique key */}
+                            {/* {
                         stepperSteps.map((stepperStep, i) => {
                             return (
                                 <Step key={i}>
@@ -580,41 +595,41 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                     } */}
 
 
-                        {/* // > implement multistep fix from codesandbox */}
-                        {totalSteps.map((step, index) => (
-                            <Step key={step}>
-                                <StepLabel>
-                                    {/* {index}
+                            {/* // > implement multistep fix from codesandbox */}
+                            {totalSteps.map((step, index) => (
+                                <Step key={step}>
+                                    <StepLabel>
+                                        {/* {index}
                                 <br />
                                 {currentChild.props.stepperStep}
                                 <br />
                                 {step} */}
-                                </StepLabel>
-                            </Step>
-                        ))}
+                                    </StepLabel>
+                                </Step>
+                            ))}
 
 
 
 
-                    </Stepper>
+                        </Stepper>
 
-                    {/* //> render only the dom/React.element contained within the `currentChild` const variable */}
+                        {/* //> render only the dom/React.element contained within the `currentChild` const variable */}
 
-                    {currentChild}
-                    {/* {React.cloneElement(currentChild, { setStepNumber: setStep })} */}
-
-
+                        {currentChild}
+                        {/* {React.cloneElement(currentChild, { setStepNumber: setStep })} */}
 
 
-                    <Box bgcolor="#e0e0e0">
-                        <Typography>Formik Form and Data Values</Typography>
-                        <pre>{JSON.stringify(values, null, 2)}</pre>
-                        <pre>{JSON.stringify(errors, null, 2)}</pre>
-                        {/* <pre>{JSON.stringify(props, null, 2)}</pre> */}
-                    </Box>
 
 
-                    {/* 
+                        <Box bgcolor="#e0e0e0">
+                            <Typography>Formik Form and Data Values</Typography>
+                            <pre>{JSON.stringify(values, null, 2)}</pre>
+                            <pre>{JSON.stringify(errors, null, 2)}</pre>
+                            {/* <pre>{JSON.stringify(props, null, 2)}</pre> */}
+                        </Box>
+
+
+                        {/* 
                     //> when this button is clicked it executes an anonymous function 
                     //> the execution block of this function calls the useState setState method we created called `setStep`
                     //> `setStep` is used to update the state; it accepts a new state value and enqueues a re-render of the component 
@@ -622,20 +637,22 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                     //>     * the `setStep` function receives the previous value of the index of the `childrenArray` that holds our steps and then subtracts the state by 1
                     //>
                  */}
-                    {/* //info - CONDITIONAL VALIDATION - don't show anything if step is less than 0 */}
-                    {/* //> if step value is greater than 0 show Button component, show no dom via null, i.e. hide Button component from view */}
-                    {step > 0 ? <Button onClick={() => {
-                        //setStep(s => s - 1)
-                        dispatch({
-                            type: 'STEP_BACK',
-                            payload: {
-                                step: step,
-                            },
-                        })
-                    }}>Back</Button> : null}
-                    <Button type="submit">{isLastStep() ? 'Submit' : 'Next'}</Button>
-                </Form>
+                        {/* //info - CONDITIONAL VALIDATION - don't show anything if step is less than 0 */}
+                        {/* //> if step value is greater than 0 show Button component, show no dom via null, i.e. hide Button component from view */}
+                        {step > 0 ? <Button onClick={() => {
+                            //setStep(s => s - 1)
+                            dispatch({
+                                type: 'STEP_BACK',
+                                payload: {
+                                    step: step,
+                                },
+                            })
+                        }}>Back</Button> : null}
+                        <Button type="submit">{isLastStep() ? 'Submit' : 'Next'}</Button>
+                    </Form>
+                </MuiPickersUtilsProvider>
             )}
+
         </Formik >
 
     )
