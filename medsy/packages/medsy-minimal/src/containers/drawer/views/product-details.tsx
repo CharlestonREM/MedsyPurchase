@@ -84,8 +84,8 @@ export default function ProductDetails() {
             {visibility === true ? (
               <p className="my-5">{state.item.description}</p>
             ) : (
-              ''
-            )}
+                ''
+              )}
 
             {state.item.description && (
               <button
@@ -144,10 +144,10 @@ export default function ProductDetails() {
             onDecrement={() => removeItem(state.item)}
           />
         ) : (
-          <Button className="w-full big" onClick={addToCart}>
-            Add To Cart
-          </Button>
-        )}
+            <Button className="w-full big" onClick={addToCart}>
+              Add To Cart
+            </Button>
+          )}
       </div>
     </div>
   );

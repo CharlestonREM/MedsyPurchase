@@ -37,6 +37,8 @@ export function BaseProductCheckboxStep(props) {
   const { basePackages, ...rest } = props;
   //console.log("bpcs props", basePackages);
 
+  //figure out handlechange here
+
   return (
     <>
       <h1>basePackageList</h1>

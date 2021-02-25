@@ -9,7 +9,13 @@ function CheckboxGroup(props) {
   return (
     <div className="form-control">
       <label>{label}</label>
-      <Field name={name} {...rest}>
+      <Field
+        name={name}
+        onChange={() => {
+          console.log("change handled");
+        }}
+        {...rest}
+      >
         {({ field }) => {
           //console.log("Field", field);
           return options.map((option) => {

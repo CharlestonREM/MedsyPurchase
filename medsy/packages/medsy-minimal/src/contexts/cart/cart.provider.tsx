@@ -98,6 +98,10 @@ export const CartProvider = ({ children }) => {
   } = useCartActions();
   const { rehydrated, error } = useStorage(state, rehydrateLocalState);
 
+
+  // console.log('stella and josh i am a context provider that is present')
+
+
   return (
     <CartContext.Provider
       value={{

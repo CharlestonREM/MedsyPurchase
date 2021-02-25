@@ -27,6 +27,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { theme } from 'theme';
 import { StepperProvider } from 'contexts/stepper/stepper.provider';
+import { CalculatorProvider } from 'contexts/calculator/calculator.provider'
 
 
 //! added `AppProps` type --> bruno
@@ -51,11 +52,13 @@ export default function CustomApp({ Component, pageProps }: AppProps) {
           <StickyProvider>
             <DrawerProvider>
               <StepperProvider>
-                <ModalProvider>
-                  <CartProvider>
-                    <Component {...pageProps} />
-                  </CartProvider>
-                </ModalProvider>
+                <CalculatorProvider>
+                  <ModalProvider>
+                    <CartProvider>
+                      <Component {...pageProps} />
+                    </CartProvider>
+                  </ModalProvider>
+                </CalculatorProvider>
               </StepperProvider>
             </DrawerProvider>
           </StickyProvider>

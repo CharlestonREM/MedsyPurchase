@@ -142,8 +142,8 @@ export default function Crem({ products, basePackageList, upgradeList }) {
         propertyType: 'house',
         propertySize: '0-2000',
         baseServiceCheckbox: [],
-        basePackageCheckbox: '',
-        upgradeCheckbox: '',
+        basePackageCheckbox: [],
+        upgradeCheckbox: [],
         confirmSelectionCheckbox: false,
         profile: {
             customerName: 'test name',
