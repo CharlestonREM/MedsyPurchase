@@ -1,3 +1,10 @@
+import { ToggleButtonGroupClassKey } from '@material-ui/lab/ToggleButtonGroup';
+declare module '@material-ui/core/styles/overrides' {
+    export interface ComponentNameToClassKey {
+        MuiToggleButtonGroup: ToggleButtonGroupClassKey;
+    }
+}
+
 import { createMuiTheme } from '@material-ui/core/styles';
 
 // Create a theme instance.
@@ -17,4 +24,10 @@ theme.overrides = {
             borderRightColor: theme.palette.secondary.main
         }
     },
+    MuiToggleButtonGroup: {
+        root: {
+            display: 'block'
+        }
+    }
+
 };

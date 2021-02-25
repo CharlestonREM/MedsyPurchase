@@ -19,7 +19,7 @@ const ServiceToggleButton: React.FC<ServiceToggleButtonProps> = (props) => {
                 <img src={props.serviceImgSrc} alt={props.serviceImgAlt} />
                 <figcaption>
                     {getServiceIcon(props.value)}
-                    <Typography variant="h2">{getServiceData(props.value).name} </Typography>
+                    <Typography variant="h5">{getServiceData(props.value).name} </Typography>
                     <Chip label={props.chipLabel} color="primary" />
                 </figcaption>
             </figure>

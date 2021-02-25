@@ -14,10 +14,10 @@ const BaseServiceToggleButtonGroup: React.FC<BaseServiceToggleButtonGroupProps> 
         <Grid container spacing={4}>
             <Typography>Toggle button</Typography>
             <Field component={ToggleButtonGroup} name={props.name} type="checkbox">
-                <ToggleButton value="p"><ServiceToggleButton value="p" ariaLabel="photography" serviceImgSrc="https://picsum.photos/450/175" serviceImgAlt="https://picsum.photos" chipLabel="Add Service" /></ToggleButton>
-                <ToggleButton value="v"><ServiceToggleButton value="v" serviceImgSrc="https://picsum.photos/450/175" serviceImgAlt="https://picsum.photos" chipLabel="Add Service" /></ToggleButton>
-                <ToggleButton value="a"><ServiceToggleButton value="a" serviceImgSrc="https://picsum.photos/450/175" serviceImgAlt="https://picsum.photos" chipLabel="Add Service" /></ToggleButton>
-                <ToggleButton value="d"><ServiceToggleButton value="d" serviceImgSrc="https://picsum.photos/450/175" serviceImgAlt="https://picsum.photos" chipLabel="Add Service" /></ToggleButton>
+                <ToggleButton value="p" aria-label="photography" ><ServiceToggleButton value="p" serviceImgSrc="https://picsum.photos/250/75" serviceImgAlt="https://picsum.photos" chipLabel="Add Service" /></ToggleButton>
+                <ToggleButton value="v" aria-label="videography" ><ServiceToggleButton value="v" serviceImgSrc="https://picsum.photos/250/75" serviceImgAlt="https://picsum.photos" chipLabel="Add Service" /></ToggleButton>
+                <ToggleButton value="a" aria-label="aerial services" ><ServiceToggleButton value="a" serviceImgSrc="https://picsum.photos/250/75" serviceImgAlt="https://picsum.photos" chipLabel="Add Service" /></ToggleButton>
+                <ToggleButton value="d" aria-label="3d services" ><ServiceToggleButton value="d" serviceImgSrc="https://picsum.photos/250/75" serviceImgAlt="https://picsum.photos" chipLabel="Add Service" /></ToggleButton>
             </Field>
         </Grid>
     );
