@@ -44,6 +44,7 @@ import { Event } from '@material-ui/icons';
 
 import BaseServiceToggleButtonGroup from "components/formik-controls/base-service-toggle-button-group";
 import BaseProductCheckboxStep from 'components/baseProductCheckboxStep'
+import SelectBaseProductsStep from 'components/select-base-products-step'
 import UpgradeCheckboxStep from "components/formik-controls/upgradeCheckboxStep";
 import ConfirmSelectionStep from "components/confirm-selection-step";
 import ConfirmOrder from "components/confirm-order";
@@ -52,6 +53,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import SelectBaseProductStep from 'components/select-base-products-step';
 //setup styles for grid
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -311,7 +313,8 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                             <BaseServiceToggleButtonGroup name="baseServiceCheckbox" />
                         </FormikStep>
                         <FormikStep stepperStep={2} validationSchema={validationSchema.step3}>
-                            <BaseProductCheckboxStep basePackages={basePackageList} />
+                            <SelectBaseProductsStep basePackages={basePackageList} baseServiceField="baseServiceCheckbox" />
+                            {/* <BaseProductCheckboxStep basePackages={basePackageList} /> */}
                         </FormikStep>
                         <FormikStep stepperStep={2}>
                             <UpgradeCheckboxStep upgrades={upgradeList} products={basePackageList} />

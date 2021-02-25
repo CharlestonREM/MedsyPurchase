@@ -28,7 +28,7 @@ theme.overrides = {
     },
     MuiToggleButtonGroup: {
         root: {
-            display: 'block'
+            //display: 'block'
         }
     }
 
