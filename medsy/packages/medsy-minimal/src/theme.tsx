@@ -1,3 +1,5 @@
+//theme augmentation based on issue
+//https://github.com/mui-org/material-ui/issues/19427#issuecomment-597548533
 import { ToggleButtonGroupClassKey } from '@material-ui/lab/ToggleButtonGroup';
 declare module '@material-ui/core/styles/overrides' {
     export interface ComponentNameToClassKey {
