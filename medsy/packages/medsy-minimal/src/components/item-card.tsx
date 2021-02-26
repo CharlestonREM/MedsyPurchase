@@ -49,9 +49,8 @@ const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
   });
   const icon = `plus-icon ${isOpen ? 'showed' : ''}`.trim();
   const baseClass = `${ItemCardBase} ${isOpen ? 'details-showed' : ''}`.trim();
-  const contentClass = `${ItemCardBaseContent} ${
-    isOpen ? 'rounded-b-none shadow-product-item' : ''
-  }`.trim();
+  const contentClass = `${ItemCardBaseContent} ${isOpen ? 'rounded-b-none shadow-product-item' : ''
+    }`.trim();
 
   const count = getItem(item.id)?.quantity;
   return (
@@ -122,14 +121,14 @@ const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
                 onDecrement={() => removeItem(item)}
               />
             ) : (
-              <Button
-                size="small"
-                className="ml-auto"
-                onClick={() => addItem(item)}
-              >
-                Add To Cart
-              </Button>
-            )}
+                <Button
+                  size="small"
+                  className="ml-auto"
+                  onClick={() => addItem(item)}
+                >
+                  Add To Cart
+                </Button>
+              )}
           </div>
         </animated.div>
       )}

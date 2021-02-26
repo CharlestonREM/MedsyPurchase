@@ -18,23 +18,39 @@ export const calculatorProductsTotalPrice = (products, discountCondition = null)
 //! DEFINE HELPER FUNCTIONS FOR REDUCER HERE
 //TODO - i need to change the helper functions referenced preceding the reducer definition
 //functions for reducer go here
-// cartProducts, cartProductToAdd
+// calculatorProducts, calculatorProductToAdd
 const addProductToCalculator = (state, action) => {
+    console.log('addProductToCalculator just got fired in calculator.reducer', state, action, action.payload)
     const existingCalculatorProductIndex = state.products.findIndex(
         (product) => product.id === action.payload.id
     );
 
+
+    // if (state.products.includes(buttonProductId)) {
+    //     //remove the item cuz it is already there
+    //     newValue = newValue.filter(productId => productId !== buttonProductId)
+    // } else {
+    //     //push the item cuz its not there yet
+    //     newValue.push(buttonProductId);
+    // }
+
+
+    //> if the product isn't already in the calculator then return a new state that includes the new product
     if (existingCalculatorProductIndex > -1) {
         const newState = [...state.products];
-        newState[existingCalculatorProductIndex].quantity += action.payload.quantity;
+        // TODO - consider getting rid of quantity somehow
+        //newState[existingCalculatorProductIndex].quantity += action.payload.quantity;
         return newState;
     }
+    //> return new object property definitons for reducer action to consume
     return [...state.products, action.payload];
 };
 
-// cartProducts, cartProductToRemove
+// calculatorProducts, calculatorProductToRemove
 const removeProductFromCalculator = (state, action) => {
     return state.products.reduce((acc, product) => {
+        console.log('i am the variable acc in state.products.reduce function', acc)
+        console.log('i am the variable product in state.products.reduce function', product)
         if (product.id === action.payload.id) {
             const newQuantity = product.quantity - action.payload.quantity;
 

@@ -52,6 +52,8 @@ import DateOrTimePicker from 'components/formik-controls/date-or-time-picker';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
+import FormDataDisplay from 'components/data-displays/form-data-display';
+
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import SelectBaseProductStep from 'components/select-base-products-step';
 //setup styles for grid
@@ -649,13 +651,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
 
 
 
-                        <Box bgcolor="#e0e0e0">
-                            <Typography>Formik Form and Data Values</Typography>
-                            <pre>{JSON.stringify(values, null, 2)}</pre>
-                            <pre>{JSON.stringify(errors, null, 2)}</pre>
-                            {/* <pre>{JSON.stringify(props, null, 2)}</pre> */}
-                        </Box>
-
+                        <FormDataDisplay values={values} errors={errors} />
 
                         {/* 
                     //> when this button is clicked it executes an anonymous function 

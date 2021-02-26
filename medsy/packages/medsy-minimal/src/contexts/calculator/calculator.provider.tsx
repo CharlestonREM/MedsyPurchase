@@ -26,10 +26,12 @@ const INITIAL_STATE = {
 
 
 //! DEFINE DISPATCH HANDLER ACTIONS FROM REDUCER FUNCTION BELOW
+//> we will need to remove quantity from reducer actions because you can only select one instance of each basepackage or upgrade
 const useCalculatorActions = (initialCalculator = INITIAL_STATE) => {
     const [state, dispatch] = useReducer(reducer, initialCalculator);
 
     const addProductHandler = (product, quantity = 1) => {
+        // object deconstruction takes the product object and makes each property of product be a property of payload here with quantity being the last property added
         dispatch({ type: 'ADD_PRODUCT', payload: { ...product, quantity } });
     };
 
@@ -125,6 +127,7 @@ export const CalculatorProvider = ({ children }) => {
                 discountCondition: state.discountCondition,
                 calculatorProductsCount: state.products?.length,
                 productsCount: getProductsCount,
+                //for now this is our first entry point into testing calculator
                 addProduct: addProductHandler,
                 removeProduct: removeProductHandler,
                 removeProductFromCalculator: clearProductFromCalculatorHandler,
