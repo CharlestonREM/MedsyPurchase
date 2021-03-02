@@ -14,8 +14,8 @@ const setDiscount = () => {
 //TODO - change product property keys that are currently targeted below
 //> our discountCondition parameter will never be null because we don't have an intermediate price displayed before discounts are applied at the end (e.g. with coupons);
 //> instead, we appwide discount conditions to be checked for at all times
-export const calculatorProductsTotalPrice = (propertyType, products, discountCondition = null) => {
-    console.log('calculatorProductsTotalPrice function is firing', propertyType, products)
+export const calculatorProductsTotalPrice = (propertyType, propertySize, products, discountCondition = null) => {
+    console.log('calculatorProductsTotalPrice function is firing', propertyType, propertySize, products)
 
     let total = products.reduce((price, product) => {
         console.log('i am the ACCUMULATOR parameter (`price`) in the products array reduce function', price);
@@ -124,6 +124,10 @@ export const reducer = (state, action) => {
             return { ...state, propertyType: action.payload };
         case 'UPDATE_PROPERTY_SIZE':
             return { ...state, propertySize: action.payload };
+        case 'RESET_PROPERTY_TYPE':
+            return { ...state, propertyType: 'house' }
+        case 'RESET_PROPERTY_SIZE':
+            return { ...state, propertySize: 0 }
         default:
             throw new Error(`Unknown action: ${action.type}`);
     }

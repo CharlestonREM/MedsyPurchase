@@ -8,7 +8,7 @@ export interface CalculatorProps {
 }
 
 const Calculator: React.FC<CalculatorProps> = () => {
-    const { clearCalculator, calculatePrice } = useCalculator();
+    const { clearCalculator, calculatePrice, resetPropertySize, resetPropertyType } = useCalculator();
     return (
         <>
             <Chip color="primary" label="Clickable" icon={<ShoppingCartIcon />} />
@@ -19,6 +19,16 @@ const Calculator: React.FC<CalculatorProps> = () => {
             <Button variant="contained" onClick={() => {
                 clearCalculator();
             }}>Clear Calculator</Button>
+
+
+            <Button variant="contained" onClick={() => {
+                resetPropertyType();
+            }}>Reset property type</Button>
+
+
+            <Button variant="contained" onClick={() => {
+                resetPropertySize();
+            }}>reset property size</Button>
         </>);
 }
 
