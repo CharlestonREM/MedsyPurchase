@@ -67,14 +67,14 @@ const useCalculatorActions = (initialCalculator = INITIAL_STATE) => {
     };
     //this handler precedes discounts
     //we don't need this handler 
-    const getCalculatorProductsPrice = () => calculatorProductsTotalPrice(state.products).toFixed(2);
+    const getCalculatorProductsPrice = () => calculatorProductsTotalPrice(state.propertyType, state.products).toFixed(2);
     //this handler factors in discounts
     //> we should only need this because we always need to be aware of discount conditions
     const getCalculatorProductsTotalPrice = () =>
-        calculatorProductsTotalPrice(state.products, state.discountCondition).toFixed(2);
+        calculatorProductsTotalPrice(state.propertyType, state.products, state.discountCondition).toFixed(2);
 
     const getDiscount = () => {
-        const total = calculatorProductsTotalPrice(state.products);
+        const total = calculatorProductsTotalPrice(state.propertyType, state.products);
         const discount = state.discountCondition
             ? (total * Number(state.discountCondition?.discountInPercent)) / 100
             : 0;
@@ -87,7 +87,7 @@ const useCalculatorActions = (initialCalculator = INITIAL_STATE) => {
     };
     const updatePropertySizeHandler = (propertySize: number) => {
         //fires during discrete slider `onChange` event
-        return propertySize;
+        dispatch({ type: 'UPDATE_PROPERTY_SIZE', payload: propertySize })
     }
     const getProductsCount = state.products?.reduce(
         (acc, product) => acc + product.quantity,

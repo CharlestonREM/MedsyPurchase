@@ -53,6 +53,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
 import RadioButtonsFmui from 'components/formik-controls/radio-buttons-fmui'
+import SelectPropertySizeFmui from 'components/formik-controls/select-property-size-fmui'
 
 import FormDataDisplay from 'components/data-displays/form-data-display';
 import CalculatorContextDataDisplay from 'components/data-displays/calculator-context-data-display';
@@ -280,6 +281,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                         <FormikStep validationSchema={validationSchema.step1} stepperStep={1}>
 
                             <RadioButtonsFmui />
+                            <SelectPropertySizeFmui ranges={ranges} />
 
 
 
@@ -292,26 +294,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                                 options={radioOptions} /> */}
 
 
-                            <Field
-                                component={TextField}
-                                type="text"
-                                name="propertySize"
-                                label="Property Size"
-                                select
-                                variant="standard"
-                                helperText="Please select Range"
-                                margin="normal"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
 
-                            >
-                                {ranges.map((option) => (
-                                    <MenuItem key={option.value} value={option.value}>
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
-                            </Field>
 
                             <FieldDataDisplay fieldName='propertyType' color="violet" />
                             <CalculatorContextDataDisplay color='greenyellow' />
