@@ -11,6 +11,8 @@ import { product as productInterface } from 'interfaces/google-spreadsheet-data'
 export interface AddBasePackageToggleButtonProps {
     service: string;
     serviceProduct: productInterface,
+    serviceImgSrc: string;
+    serviceImgAlt: string;
 }
 
 const AddBasePackageToggleButton: React.FC<AddBasePackageToggleButtonProps> = (props) => {

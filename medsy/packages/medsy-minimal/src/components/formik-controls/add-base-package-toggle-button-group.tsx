@@ -64,7 +64,7 @@ const AddBasePackageToggleButtonGroup: React.FC<AddBasePackageToggleButtonGroupP
             }} >
                 {
                     props.serviceProducts.map((product, index) => {
-                        return <ToggleButton key={index} value={product.id} aria-label={getServiceData(product.productService).name} ><AddBasePackageToggleButton service={product.productService} serviceProduct={product} serviceImgSrc="https://picsum.photos/250/75" serviceImgAlt="https://picsum.photos" chipLabel="Add Service" /></ToggleButton>
+                        return <ToggleButton key={index} value={product.id} aria-label={getServiceData(product.productService).name} ><AddBasePackageToggleButton service={product.productService} serviceProduct={product} serviceImgSrc="https://picsum.photos/250/75" serviceImgAlt="https://picsum.photos" /></ToggleButton>
                     })
                 }
             </Field>

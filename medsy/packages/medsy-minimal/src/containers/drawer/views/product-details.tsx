@@ -9,9 +9,11 @@ import Counter from 'components/counter';
 
 export default function ProductDetails() {
   const [visibility, setVisibility] = useState(false);
+  //compare to calculator context
   const { addItem, getItem, removeItem } = useCart();
   const { state, dispatch } = useContext(DrawerContext);
 
+  //gives the count of items via the quantity property on it from the cart
   const count = getItem(state.item.id)?.quantity;
 
   const toggleVisibility = () => {

@@ -33,6 +33,7 @@ export default function Cart() {
 
   return (
     <div className="flex flex-col w-full h-full">
+      {/* BOOLEAN CONDIATION: items.length returns anything other than a zero, show this, else show no products */}
       {items.length ? (
         <>
           <div className="w-full flex justify-center relative px-30px py-20px border-b border-gray-200">
@@ -54,8 +55,8 @@ export default function Cart() {
           </Scrollbar>
         </>
       ) : (
-        <NoItem />
-      )}
+          <NoItem />
+        )}
 
       <div className="flex flex-col p-30px">
         <div className="flex items-center justify-between">
