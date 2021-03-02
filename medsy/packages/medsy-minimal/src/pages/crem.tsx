@@ -52,7 +52,11 @@ import DateOrTimePicker from 'components/formik-controls/date-or-time-picker';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
+import RadioButtonsFmui from 'components/formik-controls/radio-buttons-fmui'
+
 import FormDataDisplay from 'components/data-displays/form-data-display';
+import CalculatorContextDataDisplay from 'components/data-displays/calculator-context-data-display';
+import FieldDataDisplay from 'components/data-displays/field-data-display';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import SelectBaseProductStep from 'components/select-base-products-step';
@@ -105,31 +109,31 @@ export default function Crem({ products, basePackageList, upgradeList }) {
     //> test ranges with temporary select
     const ranges = [
         {
-            value: '0-2000',
+            value: 0,
             label: 'Under 2,000 Sq. Ft.',
         },
         {
-            value: '2000-3499',
+            value: 1,
             label: '2,000 - 3,499 Sq. Ft.',
         },
         {
-            value: '3500-4999',
+            value: 2,
             label: '3,500 - 4,999 Sq. Ft.',
         },
         {
-            value: '5000-6499',
+            value: 3,
             label: '5,000 - 6,499 Sq. Ft.',
         },
         {
-            value: '6500-7999',
+            value: 4,
             label: '6,500 - 7,999 Sq. Ft.'
         },
         {
-            value: '8000-9499',
+            value: 5,
             label: '8,000 - 9,499 Sq. Ft.'
         },
         {
-            value: '9500-10999',
+            value: 6,
             label: '9,500 - 10,999 Sq. Ft.'
         }
     ];
@@ -144,7 +148,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
     //  >Formik will make these values available to render methods component as `values`
     const initialValues = {
         propertyType: 'house',
-        propertySize: '0-2000',
+        propertySize: 0,
         baseServiceCheckbox: [],
         basePackageCheckbox: [],
         upgradeCheckbox: [],
@@ -267,6 +271,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
         <div className={classes.root}>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
+                    <Calculator />
 
                     <FormikStepper initialValues={initialValues} onSubmit={onSubmit} >
 
@@ -274,10 +279,17 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                         {/* //TODO- through object deconstruction i pass initial values as example; i now need to dynamicaly add state as prop to `FormikStepper` component and add to `FormikStep` manually */}
                         <FormikStep validationSchema={validationSchema.step1} stepperStep={1}>
 
+                            <RadioButtonsFmui />
 
-                            <RadioButtons label="Radio Topic"
+
+
+
+                            {/* <RadioButtons label="Radio Topic"
                                 name="propertyType"
-                                options={radioOptions} />
+                                onChange={() => {
+                                    console.log('i changed')
+                                }}
+                                options={radioOptions} /> */}
 
 
                             <Field
@@ -292,6 +304,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
+
                             >
                                 {ranges.map((option) => (
                                     <MenuItem key={option.value} value={option.value}>
@@ -299,6 +312,9 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                                     </MenuItem>
                                 ))}
                             </Field>
+
+                            <FieldDataDisplay fieldName='propertyType' color="violet" />
+                            <CalculatorContextDataDisplay color='greenyellow' />
 
 
 
@@ -422,7 +438,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                     </FormikStepper>
 
 
-                    <Calculator />
+
 
 
 
@@ -538,7 +554,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
         }
         return child
     })
-    //console.log('!!!!!!!!! i am childrenwithprops', childrenWithProps)
+    console.log('!!!!!!!!! i am childrenwithprops', childrenWithProps)
 
     //info -- push children to an array of components that are the children of our custom `FormikStepper` components; i.e. steps
     //> employ TypeScript `as` keyword for Type Assertion to tell the compiler to consider the object as another type than the type the compiler infers the object to be
@@ -608,7 +624,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                     });
                 }
             }}>
-            {({ values, errors, isSubmitting }) => (
+            {({ values, errors, isSubmitting, getFieldProps }) => (
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <Form>
                         {/* //info Material UI `Stepper` Component */}
@@ -651,7 +667,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
 
 
 
-                        <FormDataDisplay values={values} errors={errors} />
+                        <FormDataDisplay values={values} errors={errors} isSubmitting={isSubmitting} />
 
                         {/* 
                     //> when this button is clicked it executes an anonymous function 

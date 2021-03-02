@@ -2,6 +2,7 @@ import { Box, Typography } from '@material-ui/core'
 export interface FormDataDisplayProps {
     values: object;
     errors: object;
+    isSubmitting: boolean;
 }
 
 const FormDataDisplay: React.SFC<FormDataDisplayProps> = (props) => {
@@ -9,6 +10,7 @@ const FormDataDisplay: React.SFC<FormDataDisplayProps> = (props) => {
         <Typography>Formik Form and Data Values</Typography>
         <pre>{JSON.stringify(props.values, null, 2)}</pre>
         <pre>{JSON.stringify(props.errors, null, 2)}</pre>
+        <pre>{JSON.stringify(props.isSubmitting, null, 2)}</pre>
         {/* <pre>{JSON.stringify(props, null, 2)}</pre> */}
     </Box>
     );

@@ -16,7 +16,7 @@ export const CalculatorContext = createContext({} as any);
 
 //! INITIAL STATE DEFINED BELOW
 const INITIAL_STATE = {
-    propertyType: '',
+    propertyType: 'house',
     //defaults to `Lvl` square foot range of 0, which if propertyType is house, corresponds to under 2000 sq ft and thus has a zero value for the adjustment multiplier
     propertySize: 0,
     products: [],
@@ -58,13 +58,18 @@ const useCalculatorActions = (initialCalculator = INITIAL_STATE) => {
     const rehydrateLocalState = (payload) => {
         dispatch({ type: 'REHYDRATE', payload });
     };
+    //? could this have something to do with items being retained too long in the calculator provider via local storage?
     const isInCalculatorHandler = (id) => {
         return state.products?.some((product) => product.id === id);
     };
     const getProductHandler = (id) => {
         return state.products?.find((product) => product.id === id);
     };
+    //this handler precedes discounts
+    //we don't need this handler 
     const getCalculatorProductsPrice = () => calculatorProductsTotalPrice(state.products).toFixed(2);
+    //this handler factors in discounts
+    //> we should only need this because we always need to be aware of discount conditions
     const getCalculatorProductsTotalPrice = () =>
         calculatorProductsTotalPrice(state.products, state.discountCondition).toFixed(2);
 
@@ -75,6 +80,15 @@ const useCalculatorActions = (initialCalculator = INITIAL_STATE) => {
             : 0;
         return discount.toFixed(2);
     };
+    //handlers for property type and size 
+    const updatePropertyTypeHandler = (propertyType: string) => {
+        //fires during radio tabs `onChange` event
+        dispatch({ type: 'UPDATE_PROPERTY_TYPE', payload: propertyType })
+    };
+    const updatePropertySizeHandler = (propertySize: number) => {
+        //fires during discrete slider `onChange` event
+        return propertySize;
+    }
     const getProductsCount = state.products?.reduce(
         (acc, product) => acc + product.quantity,
         0
@@ -95,6 +109,8 @@ const useCalculatorActions = (initialCalculator = INITIAL_STATE) => {
         discountConditionHandler,
         removeDiscountConditionHandler,
         getDiscount,
+        updatePropertyTypeHandler,
+        updatePropertySizeHandler
     };
 };
 
@@ -116,6 +132,8 @@ export const CalculatorProvider = ({ children }) => {
         removeDiscountConditionHandler,
         getCalculatorProductsPrice,
         getDiscount,
+        updatePropertyTypeHandler,
+        updatePropertySizeHandler
     } = useCalculatorActions();
     const { rehydrated, error } = useStorage(state, rehydrateLocalState);
 
@@ -124,6 +142,8 @@ export const CalculatorProvider = ({ children }) => {
             value={{
                 isOpen: state.isOpen,
                 products: state.products,
+                propertyType: state.propertyType,
+                propertySize: state.propertySize,
                 discountCondition: state.discountCondition,
                 calculatorProductsCount: state.products?.length,
                 productsCount: getProductsCount,
@@ -135,11 +155,15 @@ export const CalculatorProvider = ({ children }) => {
                 isInCalculator: isInCalculatorHandler,
                 getProduct: getProductHandler,
                 toggleCalculator: toggleCalculatorHandler,
+                //> this is the only one we need because it applies discounts
                 calculatePrice: getCalculatorProductsTotalPrice,
+                //> `subTotal` method is unnecessary for our app
                 calculateSubTotalPrice: getCalculatorProductsPrice,
                 applyDiscountCondition: discountConditionHandler,
                 removeDiscountCondition: removeDiscountConditionHandler,
                 calculateDiscount: getDiscount,
+                updatePropertyType: updatePropertyTypeHandler,
+                updatePropertySize: updatePropertySizeHandler
             }}
         >
             {children}

@@ -1,16 +1,43 @@
+//> this helper will return the discount condition that is active
+const setDiscount = () => {
+    //get active discount condition logic
+
+    //calculate based on condition
+
+    //but it returns a number `discountNumber`
+    return 0
+}
+
+
 //! THIS IS THE MAIN CALCULATION FUNCTION WITH DISCOUNT CONDITION TABULATED
 //> keep in mind that my product type definition is different from medsybp so my reduce function will have different properties accessed
 //TODO - change product property keys that are currently targeted below
+//> our discountCondition parameter will never be null because we don't have an intermediate price displayed before discounts are applied at the end (e.g. with coupons);
+//> instead, we appwide discount conditions to be checked for at all times
 export const calculatorProductsTotalPrice = (products, discountCondition = null) => {
+    console.log('calculatorProductsTotalPrice function is firing', products)
+
     let total = products.reduce((price, product) => {
+        console.log('i am the ACCUMULATOR parameter (`price`) in the products array reduce function', price);
+        console.log('i am the ELEMENT parameter `product` in the products array reduce function', product);
+
+        //? so, if the product object possesses the `salePrice` property run this condition block
         if (product.salePrice) {
             return price + product.salePrice * product.quantity;
         }
-        return price + product.price * product.quantity;
+        return price + product.basePrice
+        //this `0` at the end of the reduce method  initializes the ACCUMULATOR to start at 0
     }, 0);
-    const discount = discountCondition
-        ? (total * Number(discountCondition.discountInPercent)) / 100
-        : 0;
+
+    //> we assign the value of discount to the `discountCondition` parameter that was passed into `calculatorProudctsTotalPrice`
+    //todo - consider creating an additional helper function above this called `setDiscount` because we will not decrement based on a percentage model
+
+    const discount = setDiscount();
+
+    //! COMMENTED OUT FOR NOW
+    //! const discount = discountCondition
+    // !    ? (total * Number(discountCondition.discountInPercent)) / 100
+    //!     : 0;
 
     return total - discount;
 };
@@ -48,6 +75,7 @@ const addProductToCalculator = (state, action) => {
 
 // calculatorProducts, calculatorProductToRemove
 const removeProductFromCalculator = (state, action) => {
+    //info - acc means `accumlator` (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
     return state.products.reduce((acc, product) => {
         console.log('i am the variable acc in state.products.reduce function', acc)
         console.log('i am the variable product in state.products.reduce function', product)
@@ -88,6 +116,10 @@ export const reducer = (state, action) => {
             return { ...state, discountCondition: action.payload };
         case 'REMOVE_DISCOUNT_CONDITION':
             return { ...state, discountCondition: null };
+        case 'UPDATE_PROPERTY_TYPE':
+            return { ...state, propertyType: action.payload };
+        case 'UPDATE_PROPERTY_SIZE':
+            return { ...state };
         default:
             throw new Error(`Unknown action: ${action.type}`);
     }

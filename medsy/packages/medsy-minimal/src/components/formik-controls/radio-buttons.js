@@ -3,7 +3,7 @@ import { Field, ErrorMessage } from "formik";
 import TextError from "./text-error";
 
 function RadioButtons(props) {
-  const { label, name, options, ...rest } = props;
+  const { label, name, options, onChange, ...rest } = props;
 
   return (
     <div className="form-control">
@@ -20,6 +20,7 @@ function RadioButtons(props) {
                   {...field}
                   value={option.value}
                   checked={field.value === option.value}
+                  onChange={onChange}
                 />
                 <label htmlFor={option.value}>{option.key}</label>
               </React.Fragment>

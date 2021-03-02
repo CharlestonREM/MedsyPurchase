@@ -14,6 +14,7 @@ const FieldDataDisplay: React.FC<FieldDataDisplayProps> = (props) => {
             <Typography variant="h6">Field: {props.fieldName} Data Display</Typography>
             <pre>{JSON.stringify(field, null, 2)}</pre>
             <pre>{JSON.stringify(helpers, null, 2)}</pre>
+            <pre>{JSON.stringify(meta, null, 2)}</pre>
             {/* <pre>{JSON.stringify(props, null, 2)}</pre> */}
         </Box>
     );
