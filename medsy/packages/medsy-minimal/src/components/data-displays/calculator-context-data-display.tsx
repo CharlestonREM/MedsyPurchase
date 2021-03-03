@@ -7,7 +7,6 @@ export interface CalculatorContextDataDisplayProps {
 
 const CalculatorContextDataDisplay: React.FC<CalculatorContextDataDisplayProps> = (props) => {
     const context = useCalculator();
-    console.log(context)
     return (
 
         <Box bgcolor={props.color}>
@@ -15,6 +14,8 @@ const CalculatorContextDataDisplay: React.FC<CalculatorContextDataDisplayProps> 
             <pre><strong>propertyType: </strong>{JSON.stringify(context.propertyType, null, 2)}</pre>
             <pre><strong>propertySize: </strong>{JSON.stringify(context.propertySize, null, 2)}</pre>
             <pre><strong>products: </strong>{JSON.stringify(context.products, null, 2)}</pre>
+            <pre><strong>squareFootageLevels: </strong>{JSON.stringify(context.squareFootageLevels, null, 2)}</pre>
+            <pre><strong>licenseOptions: </strong>{JSON.stringify(context.licenseOptions, null, 2)}</pre>
         </Box>
     );
 }

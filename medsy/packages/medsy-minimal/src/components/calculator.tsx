@@ -7,8 +7,10 @@ export interface CalculatorProps {
 
 }
 
-const Calculator: React.FC<CalculatorProps> = () => {
+const Calculator: React.FC<CalculatorProps> = (props) => {
     const { clearCalculator, calculatePrice, resetPropertySize, resetPropertyType } = useCalculator();
+
+
     return (
         <>
             <Chip color="primary" label="Clickable" icon={<ShoppingCartIcon />} />

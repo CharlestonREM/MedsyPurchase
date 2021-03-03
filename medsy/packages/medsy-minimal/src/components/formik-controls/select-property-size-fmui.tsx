@@ -2,13 +2,15 @@ import { FormControlLabel, MenuItem, Radio, LinearProgress } from '@material-ui/
 import { Formik, Field, useFormikContext, useField } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { useCalculator } from 'contexts/calculator/calculator.provider'
+import { GET_SQUARE_FOOTAGE_LEVELS } from 'constants/actions'
 export interface SelectPropertySizeFmuiProps {
-    ranges: any[]
+    ranges: any[],
+    squareFootageLevels: any[]
 }
 
 const SelectPropertySizeFmui: React.FC<SelectPropertySizeFmuiProps> = (props) => {
     const [propertySizeField, propertySizeMeta, propertySizeHelpers] = useField('propertySize');
-    const { updatePropertySize } = useCalculator();
+    const { updatePropertySize, getSquareFootageLevels } = useCalculator();
     return (
         <Field
             component={TextField}
@@ -26,6 +28,8 @@ const SelectPropertySizeFmui: React.FC<SelectPropertySizeFmuiProps> = (props) =>
                 console.log('i changed size', e.target.value)
                 propertySizeHelpers.setValue(e.target.value)
                 updatePropertySize(e.target.value)
+                //update the state.squarefootagelevels
+                getSquareFootageLevels(props.squareFootageLevels)
 
             }}
 

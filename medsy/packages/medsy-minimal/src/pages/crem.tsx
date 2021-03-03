@@ -16,6 +16,7 @@ import { CheckboxWithLabel, TextField, Switch } from 'formik-material-ui';
 import * as Yup from 'yup';
 //imp calculator
 import Calculator from "components/calculator";
+import { useCalculator } from 'contexts/calculator/calculator.provider'
 //radio imports
 import { FormControlLabel, Radio } from '@material-ui/core';
 import { RadioGroup } from 'formik-material-ui';
@@ -33,6 +34,8 @@ import { getProducts } from 'helpers/get-products';
 //info - PRODUCT LIST
 import { getBasePackageList } from "helpers/product-list/get-base-package-list";
 import { getUpgradeList } from "helpers/product-list/get-upgrade-list";
+import { getSquareFootage } from 'helpers/product-list/get-square-footage-data'
+import { getLicense } from 'helpers/product-list/get-license'
 //info - FORMIK STEPS FOR FORM STEPS
 import * as formikStepsConfig from 'helpers/formik-steps/formik-steps-config.json'
 import { StepperContext } from 'contexts/stepper/stepper.provider'
@@ -84,7 +87,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 //component
 //---> you have to pass in `products` as a parameter of the component, i.e. as arbitrary arguments, i.e. as props!
-export default function Crem({ products, basePackageList, upgradeList }) {
+export default function Crem({ products, basePackageList, upgradeList, squareFootage, licenseOptions }) {
 
     const classes = useStyles();
 
@@ -109,6 +112,10 @@ export default function Crem({ products, basePackageList, upgradeList }) {
     ];
     //> test ranges with temporary select
     const ranges = [
+        {
+            value: -1,
+            label: 'Please select the size of your house'
+        },
         {
             value: 0,
             label: 'Under 2,000 Sq. Ft.',
@@ -149,7 +156,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
     //  >Formik will make these values available to render methods component as `values`
     const initialValues = {
         propertyType: 'house',
-        propertySize: 0,
+        propertySize: -1,
         baseServiceCheckbox: [],
         basePackageCheckbox: [],
         upgradeCheckbox: [],
@@ -216,7 +223,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
     const validationSchema = {
         step1: Yup.object({
             propertyType: Yup.string().required('Required'),
-            propertySize: Yup.string().required('Required')
+            propertySize: Yup.number().min(0).required('Required')
         }),
         step2: Yup.object({
             baseServiceCheckbox: Yup.array().min(1, "There should be at least one checked option.").required('Please select at least one service.')
@@ -265,6 +272,12 @@ export default function Crem({ products, basePackageList, upgradeList }) {
         })
     }
 
+    const { initializeCalculatorVariables } = useCalculator();
+
+    // setup license data
+    React.useEffect(() => {
+        initializeCalculatorVariables(licenseOptions)
+    }, [])
 
 
 
@@ -272,7 +285,14 @@ export default function Crem({ products, basePackageList, upgradeList }) {
         <div className={classes.root}>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
+
+
                     <Calculator />
+                    {/* <Box bgcolor="red">
+                        <Typography variant="h6">Field: Data Display</Typography>
+                        <pre>{JSON.stringify(squareFootage, null, 2)}</pre>
+                    </Box> */}
+
 
                     <FormikStepper initialValues={initialValues} onSubmit={onSubmit} >
 
@@ -281,7 +301,7 @@ export default function Crem({ products, basePackageList, upgradeList }) {
                         <FormikStep validationSchema={validationSchema.step1} stepperStep={1}>
 
                             <RadioButtonsFmui />
-                            <SelectPropertySizeFmui ranges={ranges} />
+                            <SelectPropertySizeFmui ranges={ranges} squareFootageLevels={squareFootage} />
 
 
 
@@ -439,12 +459,16 @@ export async function getServerSideProps() {
     const products = await getProducts();
     const basePackageList = await getBasePackageList();
     const upgradeList = await getUpgradeList();
+    const squareFootage = await getSquareFootage();
+    const licenseOptions = await getLicense();
 
     return {
         props: {
             products,
             basePackageList,
-            upgradeList
+            upgradeList,
+            squareFootage,
+            licenseOptions
         },
     };
 }
@@ -537,7 +561,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
         }
         return child
     })
-    console.log('!!!!!!!!! i am childrenwithprops', childrenWithProps)
+    // console.log('!!!!!!!!! i am childrenwithprops', childrenWithProps)
 
     //info -- push children to an array of components that are the children of our custom `FormikStepper` components; i.e. steps
     //> employ TypeScript `as` keyword for Type Assertion to tell the compiler to consider the object as another type than the type the compiler infers the object to be

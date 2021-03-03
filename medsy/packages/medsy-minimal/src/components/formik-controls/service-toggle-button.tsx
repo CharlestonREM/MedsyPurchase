@@ -12,7 +12,6 @@ export interface ServiceToggleButtonProps {
 }
 
 const ServiceToggleButton: React.FC<ServiceToggleButtonProps> = (props) => {
-    console.log(props)
     return (
         <React.Fragment>
             <figure>

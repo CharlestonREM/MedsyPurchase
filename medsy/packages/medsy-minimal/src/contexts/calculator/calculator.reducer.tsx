@@ -1,3 +1,14 @@
+//IMPORT CONSTANTS
+import {
+    REHYDRATE, TOGGLE_CALCULATOR, ADD_PRODUCT, REMOVE_PRODUCT, CLEAR_PRODUCT_FROM_CALCULATOR, CLEAR_CALCULATOR, APPLY_DISCOUNT_CONDITION, REMOVE_DISCOUNT_CONDITION, UPDATE_PROPERTY_TYPE, UPDATE_PROPERTY_SIZE, RESET_PROPERTY_TYPE, RESET_PROPERTY_SIZE, GET_SQUARE_FOOTAGE_LEVELS, GET_TOTAL_PRICE, INITIALIZE_CALCULATOR_VARIABLES
+} from 'constants/actions';
+import React from 'react';
+import { getSquareFootage } from 'helpers/product-list/get-square-footage-data'
+
+//> this helper will return the squareFootage data array for calculation
+//https://github.com/maxgfr/react-async-context
+
+
 //> this helper will return the discount condition that is active
 const setDiscount = () => {
     //get active discount condition logic
@@ -7,6 +18,44 @@ const setDiscount = () => {
     //but it returns a number `discountNumber`
     return 0
 }
+const productIsSquareFootBased = (product) => {
+    return product.squareFootBased;
+}
+
+const getAdjustment = (level, squareFootageLevels, service) => {
+    console.log('i am the parameters in getAdjustment', level, squareFootageLevels, service)
+    let adjustmentIndex = squareFootageLevels.findIndex(
+        (squareFootageLevel) => squareFootageLevel.level === level
+    )
+    // console.log('i am adjustment before servide check', adjustmentIndex)
+    // let adjustment;
+    // if (service === 'p') {
+    //     adjustment = squareFootageLevels[adjustmentIndex].adjustmentPhotography;
+    // } else if (service === 'd') {
+    //     adjustment = squareFootageLevels[adjustmentIndex].adjustment3d;
+    // } else {
+
+    // }
+    console.log('i am the adjustment in getAdjustment', adjustmentIndex)
+    return squareFootageLevels[adjustmentIndex].adjustment;
+}
+const getMultiplier = (license, licenseOptions) => {
+    console.log('i am the parameters in getMultiplier', license, licenseOptions)
+    //find that in the licenseOptions array
+    const l = licenseOptions.findIndex(
+        (option) => option.license === license
+    );
+    console.log('i am l.multiplier', l)
+    return licenseOptions[l]['multiplier'];
+}
+
+//setup the calculatedProduct function
+const calculatedProduct = (multiplier, adjustment, price) => {
+    console.log('i am parameters from calculatedProduct', multiplier, adjustment, price)
+    let total = multiplier * (adjustment + price)
+    console.log('i am total from calculatedProduct', total)
+    return total;
+}
 
 
 //! THIS IS THE MAIN CALCULATION FUNCTION WITH DISCOUNT CONDITION TABULATED
@@ -14,22 +63,26 @@ const setDiscount = () => {
 //TODO - change product property keys that are currently targeted below
 //> our discountCondition parameter will never be null because we don't have an intermediate price displayed before discounts are applied at the end (e.g. with coupons);
 //> instead, we appwide discount conditions to be checked for at all times
-export const calculatorProductsTotalPrice = (propertyType, propertySize, products, discountCondition = null) => {
+export const calculatorProductsTotalPrice = (state) => {
+    const { propertyType, propertySize, products, discountCondition, squareFootageLevels, license, licenseOptions } = state;
     console.log('calculatorProductsTotalPrice function is firing', propertyType, propertySize, products)
 
     let total = products.reduce((price, product) => {
         console.log('i am the ACCUMULATOR parameter (`price`) in the products array reduce function', price);
-        console.log('i am the ELEMENT parameter `product` in the products array reduce function', product);
+        console.log('i am the ELEMENT parameter `product` in the products array (representing an individual product) reduce function', product);
 
 
+
+        let prodTotal = calculatedProduct(getMultiplier(license, licenseOptions), getAdjustment(propertySize, squareFootageLevels, product.productService), product.basePrice)
         //push the calculated indiviual prices of each product into this array...
         //const priceOfProduct = [];
+        console.log('i am prodTotal', prodTotal)
 
         //? so, if the product object possesses the `salePrice` property run this condition block
         if (product.salePrice) {
             return price + product.salePrice * product.quantity;
         }
-        return price + product.basePrice
+        return price + prodTotal
         //this `0` at the end of the reduce method  initializes the ACCUMULATOR to start at 0
     }, 0);
 
@@ -104,30 +157,35 @@ const clearProductFromCalculator = (state, action) => {
 //reducer defined below
 export const reducer = (state, action) => {
     switch (action.type) {
-        case 'REHYDRATE':
+
+        case REHYDRATE:
             return { ...state, ...action.payload };
-        case 'TOGGLE_CALCULATOR':
+        case TOGGLE_CALCULATOR:
             return { ...state, isOpen: !state.isOpen };
-        case 'ADD_PRODUCT':
+        case ADD_PRODUCT:
             return { ...state, products: addProductToCalculator(state, action) };
-        case 'REMOVE_PRODUCT':
+        case REMOVE_PRODUCT:
             return { ...state, products: removeProductFromCalculator(state, action) };
-        case 'CLEAR_PRODUCT_FROM_CALCULATOR':
+        case CLEAR_PRODUCT_FROM_CALCULATOR:
             return { ...state, products: clearProductFromCalculator(state, action) };
-        case 'CLEAR_CALCULATOR':
+        case CLEAR_CALCULATOR:
             return { ...state, products: [] };
-        case 'APPLY_DISCOUNT_CONDITION':
+        case APPLY_DISCOUNT_CONDITION:
             return { ...state, discountCondition: action.payload };
-        case 'REMOVE_DISCOUNT_CONDITION':
+        case REMOVE_DISCOUNT_CONDITION:
             return { ...state, discountCondition: null };
-        case 'UPDATE_PROPERTY_TYPE':
+        case UPDATE_PROPERTY_TYPE:
             return { ...state, propertyType: action.payload };
-        case 'UPDATE_PROPERTY_SIZE':
+        case UPDATE_PROPERTY_SIZE:
             return { ...state, propertySize: action.payload };
-        case 'RESET_PROPERTY_TYPE':
+        case RESET_PROPERTY_TYPE:
             return { ...state, propertyType: 'house' }
-        case 'RESET_PROPERTY_SIZE':
+        case RESET_PROPERTY_SIZE:
             return { ...state, propertySize: 0 }
+        case GET_SQUARE_FOOTAGE_LEVELS:
+            return { ...state, squareFootageLevels: action.payload }
+        case INITIALIZE_CALCULATOR_VARIABLES:
+            return { ...state, licenseOptions: action.payload }
         default:
             throw new Error(`Unknown action: ${action.type}`);
     }

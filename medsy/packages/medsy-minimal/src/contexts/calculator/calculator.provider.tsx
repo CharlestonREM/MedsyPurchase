@@ -1,5 +1,9 @@
+//IMPORT CONSTANTS
+import {
+    REHYDRATE, TOGGLE_CALCULATOR, ADD_PRODUCT, REMOVE_PRODUCT, CLEAR_PRODUCT_FROM_CALCULATOR, CLEAR_CALCULATOR, APPLY_DISCOUNT_CONDITION, REMOVE_DISCOUNT_CONDITION, UPDATE_PROPERTY_TYPE, UPDATE_PROPERTY_SIZE, RESET_PROPERTY_TYPE, RESET_PROPERTY_SIZE, GET_SQUARE_FOOTAGE_LEVELS, GET_TOTAL_PRICE, INITIALIZE_CALCULATOR_VARIABLES
+} from 'constants/actions';
 //necessary imports
-import React, { useReducer, useContext, createContext } from 'react';
+import React, { useReducer, useContext, createContext, useEffect } from 'react';
 
 //> the reducer is based on the calculator.reducer as a boilerplate
 import { reducer, calculatorProductsTotalPrice } from './calculator.reducer';
@@ -7,12 +11,14 @@ import { reducer, calculatorProductsTotalPrice } from './calculator.reducer';
 //> medsybp (medsy boilerplate) created helper functions using  localForage, a storage library for javascript
 //info https://github.com/localForage/localForage
 import { useStorage } from 'helpers/use-storage';
+import { getSquareFootage } from 'helpers/product-list/get-square-footage-data';
 
 //info `React.createContext` creates a Context object. when react renders a component that subscribes to this context object, it wil read the current context value from the closest matching Provider above it in the tree.
 //info use React.createContext
 //> use an empty object because dispatches are going to be defined in `useCalculatorActions` which returns a configuration object of key,value pairs for defining helper methods via various specified handlers
 // * use createContext to create the initial context object for the provider
 export const CalculatorContext = createContext({} as any);
+
 
 //! INITIAL STATE DEFINED BELOW
 const INITIAL_STATE = {
@@ -22,6 +28,9 @@ const INITIAL_STATE = {
     products: [],
     //TODO - consider initialValue being an empty array, instead of null because we can have multiple conditions but medsybp limited the application of only one discountCondition at a time
     discountCondition: null,
+    squareFootageLevels: [],
+    license: 'single',
+    licenseOptions: []
 };
 
 
@@ -67,14 +76,14 @@ const useCalculatorActions = (initialCalculator = INITIAL_STATE) => {
     };
     //this handler precedes discounts
     //we don't need this handler 
-    const getCalculatorProductsPrice = () => calculatorProductsTotalPrice(state.propertyType, state.propertySize, state.products).toFixed(2);
+    const getCalculatorProductsPrice = () => calculatorProductsTotalPrice(state).toFixed(2);
     //this handler factors in discounts
     //> we should only need this because we always need to be aware of discount conditions
     const getCalculatorProductsTotalPrice = () =>
-        calculatorProductsTotalPrice(state.propertyType, state.propertySize, state.products, state.discountCondition).toFixed(2);
+        calculatorProductsTotalPrice(state).toFixed(2);
 
     const getDiscount = () => {
-        const total = calculatorProductsTotalPrice(state.propertyType, state.propertySize, state.products);
+        const total = calculatorProductsTotalPrice(state);
         const discount = state.discountCondition
             ? (total * Number(state.discountCondition?.discountInPercent)) / 100
             : 0;
@@ -94,6 +103,12 @@ const useCalculatorActions = (initialCalculator = INITIAL_STATE) => {
     }
     const resetPropertySizeHandler = () => {
         dispatch({ type: 'RESET_PROPERTY_SIZE' });
+    }
+    const getSquareFootageLevelsHandler = (squareFootageLevels: any[]) => {
+        dispatch({ type: 'GET_SQUARE_FOOTAGE_LEVELS', payload: squareFootageLevels })
+    }
+    const initializeCalculatorVariablesHandler = (variables) => {
+        dispatch({ type: INITIALIZE_CALCULATOR_VARIABLES, payload: variables })
     }
     const getProductsCount = state.products?.reduce(
         (acc, product) => acc + product.quantity,
@@ -118,7 +133,9 @@ const useCalculatorActions = (initialCalculator = INITIAL_STATE) => {
         updatePropertyTypeHandler,
         updatePropertySizeHandler,
         resetPropertyTypeHandler,
-        resetPropertySizeHandler
+        resetPropertySizeHandler,
+        getSquareFootageLevelsHandler,
+        initializeCalculatorVariablesHandler
     };
 };
 
@@ -143,7 +160,9 @@ export const CalculatorProvider = ({ children }) => {
         updatePropertyTypeHandler,
         updatePropertySizeHandler,
         resetPropertyTypeHandler,
-        resetPropertySizeHandler
+        resetPropertySizeHandler,
+        getSquareFootageLevelsHandler,
+        initializeCalculatorVariablesHandler
     } = useCalculatorActions();
     const { rehydrated, error } = useStorage(state, rehydrateLocalState);
 
@@ -157,6 +176,9 @@ export const CalculatorProvider = ({ children }) => {
                 discountCondition: state.discountCondition,
                 calculatorProductsCount: state.products?.length,
                 productsCount: getProductsCount,
+                squareFootageLevels: state.squareFootageLevels,
+                license: state.license,
+                licenseOptions: state.licenseOptions,
                 //for now this is our first entry point into testing calculator
                 addProduct: addProductHandler,
                 removeProduct: removeProductHandler,
@@ -175,7 +197,9 @@ export const CalculatorProvider = ({ children }) => {
                 updatePropertyType: updatePropertyTypeHandler,
                 updatePropertySize: updatePropertySizeHandler,
                 resetPropertyType: resetPropertyTypeHandler,
-                resetPropertySize: resetPropertySizeHandler
+                resetPropertySize: resetPropertySizeHandler,
+                getSquareFootageLevels: getSquareFootageLevelsHandler,
+                initializeCalculatorVariables: initializeCalculatorVariablesHandler
             }}
         >
             {children}
