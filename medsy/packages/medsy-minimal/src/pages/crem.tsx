@@ -275,6 +275,7 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
     const { initializeCalculatorVariables } = useCalculator();
 
     // setup license data
+    //https://stackoverflow.com/a/55421770/14657615
     React.useEffect(() => {
         initializeCalculatorVariables(licenseOptions)
     }, [])
