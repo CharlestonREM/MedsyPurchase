@@ -1,9 +1,10 @@
 //IMPORT CONSTANTS
 import {
-    REHYDRATE, TOGGLE_CALCULATOR, ADD_PRODUCT, REMOVE_PRODUCT, CLEAR_PRODUCT_FROM_CALCULATOR, CLEAR_CALCULATOR, APPLY_DISCOUNT_CONDITION, REMOVE_DISCOUNT_CONDITION, UPDATE_PROPERTY_TYPE, UPDATE_PROPERTY_SIZE, RESET_PROPERTY_TYPE, RESET_PROPERTY_SIZE, GET_SQUARE_FOOTAGE_LEVELS, GET_TOTAL_PRICE, INITIALIZE_CALCULATOR_VARIABLES
+    REHYDRATE, TOGGLE_CALCULATOR, ADD_PRODUCT, REMOVE_PRODUCT, REMOVE_PRODUCTS_OF_SERVICE_TYPE, CLEAR_PRODUCT_FROM_CALCULATOR, CLEAR_CALCULATOR, APPLY_DISCOUNT_CONDITION, REMOVE_DISCOUNT_CONDITION, UPDATE_PROPERTY_TYPE, UPDATE_PROPERTY_SIZE, RESET_PROPERTY_TYPE, RESET_PROPERTY_SIZE, GET_SQUARE_FOOTAGE_LEVELS, GET_TOTAL_PRICE, INITIALIZE_CALCULATOR_VARIABLES
 } from 'constants/actions';
 import React from 'react';
 import { getSquareFootage } from 'helpers/product-list/get-square-footage-data'
+import _ from 'lodash';
 
 //> this helper will return the squareFootage data array for calculation
 //https://github.com/maxgfr/react-async-context
@@ -22,11 +23,17 @@ const productIsSquareFootBased = (product) => {
     return product.squareFootBased;
 }
 
-const getAdjustment = (level, squareFootageLevels, service) => {
-    console.log('i am the parameters in getAdjustment', level, squareFootageLevels, service)
+const getAdjustment = (level, squareFootageLevels, product) => {
+    //console.log('i am the parameters in getAdjustment', level, squareFootageLevels, product)
     let adjustmentIndex = squareFootageLevels.findIndex(
         (squareFootageLevel) => squareFootageLevel.level === level
     )
+    if (product.squareFootBased === true) {
+        //console.log('i am the adjustment in getAdjustment', adjustmentIndex)
+        return squareFootageLevels[adjustmentIndex].adjustment;
+    } else {
+        return 0;
+    }
     // console.log('i am adjustment before servide check', adjustmentIndex)
     // let adjustment;
     // if (service === 'p') {
@@ -36,24 +43,23 @@ const getAdjustment = (level, squareFootageLevels, service) => {
     // } else {
 
     // }
-    console.log('i am the adjustment in getAdjustment', adjustmentIndex)
-    return squareFootageLevels[adjustmentIndex].adjustment;
+
 }
 const getMultiplier = (license, licenseOptions) => {
-    console.log('i am the parameters in getMultiplier', license, licenseOptions)
+    //console.log('i am the parameters in getMultiplier', license, licenseOptions)
     //find that in the licenseOptions array
     const l = licenseOptions.findIndex(
         (option) => option.license === license
     );
-    console.log('i am l.multiplier', l)
+    //console.log('i am l.multiplier', l)
     return licenseOptions[l]['multiplier'];
 }
 
 //setup the calculatedProduct function
 const calculatedProduct = (multiplier, adjustment, price) => {
-    console.log('i am parameters from calculatedProduct', multiplier, adjustment, price)
+    //console.log('i am parameters from calculatedProduct', multiplier, adjustment, price)
     let total = multiplier * (adjustment + price)
-    console.log('i am total from calculatedProduct', total)
+    //console.log('i am total from calculatedProduct', total)
     return total;
 }
 
@@ -65,18 +71,18 @@ const calculatedProduct = (multiplier, adjustment, price) => {
 //> instead, we appwide discount conditions to be checked for at all times
 export const calculatorProductsTotalPrice = (state) => {
     const { propertyType, propertySize, products, discountCondition, squareFootageLevels, license, licenseOptions } = state;
-    console.log('calculatorProductsTotalPrice function is firing', propertyType, propertySize, products)
+    console.log('calculatorProductsTotalPrice function is firing:--->', propertyType, propertySize, products, licenseOptions)
 
     let total = products.reduce((price, product) => {
-        console.log('i am the ACCUMULATOR parameter (`price`) in the products array reduce function', price);
-        console.log('i am the ELEMENT parameter `product` in the products array (representing an individual product) reduce function', product);
+        // console.log('i am the ACCUMULATOR parameter (`price`) in the products array reduce function', price);
+        // console.log('i am the ELEMENT parameter `product` in the products array (representing an individual product) reduce function', product);
 
 
 
-        let prodTotal = calculatedProduct(getMultiplier(license, licenseOptions), getAdjustment(propertySize, squareFootageLevels, product.productService), product.basePrice)
+        let prodTotal = calculatedProduct(getMultiplier(license, licenseOptions), getAdjustment(propertySize, squareFootageLevels, product), product.basePrice)
         //push the calculated indiviual prices of each product into this array...
         //const priceOfProduct = [];
-        console.log('i am prodTotal', prodTotal)
+        // console.log('i am prodTotal', prodTotal)
 
         //? so, if the product object possesses the `salePrice` property run this condition block
         if (product.salePrice) {
@@ -147,6 +153,16 @@ const removeProductFromCalculator = (state, action) => {
     }, []);
 };
 
+const removeProductsOfServiceTypeFromCalculator = (state, action) => {
+    console.log('i am removeproductsofservicetypefromcalculator', state, action.payload);
+    console.log('i am state.products array deconstruction', [...state.products]);
+    const serviceToRemove = action.payload;
+    const filteredProducts = _.filter(state.products, product => product.productService !== serviceToRemove);
+    console.log('i am filteredProducts', filteredProducts)
+
+    return filteredProducts;
+}
+
 const clearProductFromCalculator = (state, action) => {
     return state.products.filter((product) => product.id !== action.payload.id);
 };
@@ -166,6 +182,8 @@ export const reducer = (state, action) => {
             return { ...state, products: addProductToCalculator(state, action) };
         case REMOVE_PRODUCT:
             return { ...state, products: removeProductFromCalculator(state, action) };
+        case REMOVE_PRODUCTS_OF_SERVICE_TYPE:
+            return { ...state, products: removeProductsOfServiceTypeFromCalculator(state, action) };
         case CLEAR_PRODUCT_FROM_CALCULATOR:
             return { ...state, products: clearProductFromCalculator(state, action) };
         case CLEAR_CALCULATOR:
@@ -185,6 +203,7 @@ export const reducer = (state, action) => {
         case GET_SQUARE_FOOTAGE_LEVELS:
             return { ...state, squareFootageLevels: action.payload }
         case INITIALIZE_CALCULATOR_VARIABLES:
+            console.log('i am the payload from INITIALIZECALCULATORVARIABLES', action.payload)
             return { ...state, licenseOptions: action.payload }
         default:
             throw new Error(`Unknown action: ${action.type}`);

@@ -1,6 +1,6 @@
 //IMPORT CONSTANTS
 import {
-    REHYDRATE, TOGGLE_CALCULATOR, ADD_PRODUCT, REMOVE_PRODUCT, CLEAR_PRODUCT_FROM_CALCULATOR, CLEAR_CALCULATOR, APPLY_DISCOUNT_CONDITION, REMOVE_DISCOUNT_CONDITION, UPDATE_PROPERTY_TYPE, UPDATE_PROPERTY_SIZE, RESET_PROPERTY_TYPE, RESET_PROPERTY_SIZE, GET_SQUARE_FOOTAGE_LEVELS, GET_TOTAL_PRICE, INITIALIZE_CALCULATOR_VARIABLES
+    REHYDRATE, TOGGLE_CALCULATOR, ADD_PRODUCT, REMOVE_PRODUCT, REMOVE_PRODUCTS_OF_SERVICE_TYPE, CLEAR_PRODUCT_FROM_CALCULATOR, CLEAR_CALCULATOR, APPLY_DISCOUNT_CONDITION, REMOVE_DISCOUNT_CONDITION, UPDATE_PROPERTY_TYPE, UPDATE_PROPERTY_SIZE, RESET_PROPERTY_TYPE, RESET_PROPERTY_SIZE, GET_SQUARE_FOOTAGE_LEVELS, GET_TOTAL_PRICE, INITIALIZE_CALCULATOR_VARIABLES
 } from 'constants/actions';
 //necessary imports
 import React, { useReducer, useContext, createContext, useEffect } from 'react';
@@ -47,6 +47,10 @@ const useCalculatorActions = (initialCalculator = INITIAL_STATE) => {
     const removeProductHandler = (product, quantity = 1) => {
         dispatch({ type: 'REMOVE_PRODUCT', payload: { ...product, quantity } });
     };
+
+    const removeProductsofServiceTypeHandler = (service) => {
+        dispatch({ type: REMOVE_PRODUCTS_OF_SERVICE_TYPE, payload: service })
+    }
 
     const clearProductFromCalculatorHandler = (product) => {
         dispatch({ type: 'CLEAR_PRODUCT_FROM_CALCULATOR', payload: product });
@@ -108,6 +112,7 @@ const useCalculatorActions = (initialCalculator = INITIAL_STATE) => {
         dispatch({ type: 'GET_SQUARE_FOOTAGE_LEVELS', payload: squareFootageLevels })
     }
     const initializeCalculatorVariablesHandler = (variables) => {
+        console.log('i am initializecalculatorsvariablehandler', variables)
         dispatch({ type: INITIALIZE_CALCULATOR_VARIABLES, payload: variables })
     }
     const getProductsCount = state.products?.reduce(
@@ -120,6 +125,7 @@ const useCalculatorActions = (initialCalculator = INITIAL_STATE) => {
         rehydrateLocalState,
         addProductHandler,
         removeProductHandler,
+        removeProductsofServiceTypeHandler,
         clearProductFromCalculatorHandler,
         clearCalculatorHandler,
         isInCalculatorHandler,
@@ -147,6 +153,7 @@ export const CalculatorProvider = ({ children }) => {
         getProductsCount,
         addProductHandler,
         removeProductHandler,
+        removeProductsofServiceTypeHandler,
         clearProductFromCalculatorHandler,
         clearCalculatorHandler,
         isInCalculatorHandler,
@@ -182,6 +189,7 @@ export const CalculatorProvider = ({ children }) => {
                 //for now this is our first entry point into testing calculator
                 addProduct: addProductHandler,
                 removeProduct: removeProductHandler,
+                removeProductsOfServiceType: removeProductsofServiceTypeHandler,
                 removeProductFromCalculator: clearProductFromCalculatorHandler,
                 clearCalculator: clearCalculatorHandler,
                 isInCalculator: isInCalculatorHandler,

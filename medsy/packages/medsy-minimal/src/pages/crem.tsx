@@ -27,7 +27,7 @@ import RadioGroupTabsDiscreteSlider from 'components/formik-controls/radio-group
 import RadioButtons from 'components/formik-controls/radio-buttons'
 import CheckboxGroup from 'components/formik-controls/checkbox-group'
 
-
+import { serviceData } from 'helpers/get-service-data';
 
 
 import { getProducts } from 'helpers/get-products';
@@ -276,9 +276,11 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
 
     // setup license data
     //https://stackoverflow.com/a/55421770/14657615
+    //seems to have to watch licenseooptions changing based on this in react docs:
+    //https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects
     React.useEffect(() => {
         initializeCalculatorVariables(licenseOptions)
-    }, [])
+    }, [licenseOptions])
 
 
 
@@ -332,7 +334,7 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
         name="baseServiceCheckbox"
         options={checkboxOptions} /> */}
 
-                            <BaseServiceToggleButtonGroup name="baseServiceCheckbox" />
+                            <BaseServiceToggleButtonGroup name="baseServiceCheckbox" baseServices={serviceData} />
                         </FormikStep>
                         <FormikStep stepperStep={2} validationSchema={validationSchema.step3}>
                             <SelectBaseProductsStep basePackages={basePackageList} baseServiceField="baseServiceCheckbox" />
