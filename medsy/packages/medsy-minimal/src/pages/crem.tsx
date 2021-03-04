@@ -77,6 +77,12 @@ const useStyles = makeStyles((theme: Theme) =>
             textAlign: 'center',
             color: theme.palette.text.secondary,
         },
+        stepperAction: {
+            backgroundColor: theme.palette.secondary.main
+        },
+        stepperContainer: {
+            backgroundColor: theme.palette.secondary.main
+        }
     }),
 );
 
@@ -611,6 +617,8 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
     function isLastStep() {
         return step === childrenArray.length - 1;
     }
+    //setup some styles
+    const classes = useStyles();
 
     //info -- return jsx to a render method for the FormikStepper component
     return (
@@ -647,39 +655,40 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
             {({ values, errors, isSubmitting, getFieldProps }) => (
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <Form>
-                        {/* //info Material UI `Stepper` Component */}
-                        <Stepper activeStep={currentChild.props.stepperStep - 1}>
-                            {/* //? do we need to change the `i` iterator value as the unique key */}
-                            {/* {
-                        stepperSteps.map((stepperStep, i) => {
-                            return (
-                                <Step key={i}>
-                                    <StepLabel icon={stepperStep}></StepLabel>
-                                </Step>
-                            )
-                        })
-                    } */}
 
+                        <Grid container spacing={2} className={classes.stepperContainer}>
+                            <Grid item xs={2}>
+                                {step > 0 ? <Button onClick={() => {
+                                    //setStep(s => s - 1)
+                                    dispatch({
+                                        type: 'STEP_BACK',
+                                        payload: {
+                                            step: step,
+                                            stepTitle: childrenArray[step - 1].props.stepTitle
+                                        },
+                                    })
+                                }} >Back</Button> : <Button disabled>Back</Button>}
+                            </Grid>
+                            <Grid item xs={8}>
+                                {/* //info Material UI `Stepper` Component */}
+                                <Stepper activeStep={currentChild.props.stepperStep - 1}>
+                                    {/* // > implement multistep fix from codesandbox */}
+                                    {totalSteps.map((step, index) => (
+                                        <Step key={step}>
+                                            <StepLabel>
+                                            </StepLabel>
+                                        </Step>
+                                    ))}
+                                </Stepper>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <Button type="submit">{isLastStep() ? 'Submit' : 'Next'}</Button>
+                            </Grid>
+                        </Grid>
 
-                            {/* // > implement multistep fix from codesandbox */}
-                            {totalSteps.map((step, index) => (
-                                <Step key={step}>
-                                    <StepLabel>
-                                        {/* {index}
-                                <br />
-                                {currentChild.props.stepperStep}
-                                <br />
-                                {step} */}
-                                    </StepLabel>
-                                </Step>
-                            ))}
-
-
-
-
-                        </Stepper>
 
                         {/* //> render only the dom/React.element contained within the `currentChild` const variable */}
+
 
                         {currentChild}
                         {/* {React.cloneElement(currentChild, { setStepNumber: setStep })} */}
@@ -699,17 +708,8 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                  */}
                         {/* //info - CONDITIONAL VALIDATION - don't show anything if step is less than 0 */}
                         {/* //> if step value is greater than 0 show Button component, show no dom via null, i.e. hide Button component from view */}
-                        {step > 0 ? <Button onClick={() => {
-                            //setStep(s => s - 1)
-                            dispatch({
-                                type: 'STEP_BACK',
-                                payload: {
-                                    step: step,
-                                    stepTitle: childrenArray[step - 1].props.stepTitle
-                                },
-                            })
-                        }}>Back</Button> : null}
-                        <Button type="submit">{isLastStep() ? 'Submit' : 'Next'}</Button>
+
+
                     </Form>
                 </MuiPickersUtilsProvider>
             )}
