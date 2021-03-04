@@ -69,8 +69,6 @@ const SelectBaseProductsStep: React.FC<SelectBaseProductsStepProps> = (props) =>
                     </Grid>
                 );
             })}
-            <FieldDataDisplay fieldName='basePackageCheckbox' color="violet" />
-            <CalculatorContextDataDisplay color='greenyellow' />
         </>
     );
 }

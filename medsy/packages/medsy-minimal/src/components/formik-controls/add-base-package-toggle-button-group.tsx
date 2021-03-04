@@ -57,7 +57,7 @@ const AddBasePackageToggleButtonGroup: React.FC<AddBasePackageToggleButtonGroupP
 
             {/* //todo make orientation vertical of togglebuttongroup */}
             {/* //todo figure out onChange functionality for Field ToggleButtonGroup */}
-            <Field component={ToggleButtonGroup} name={props.name} orientation="vertical" type="checkbox" onChange={(e: any) => {
+            <Field component={ToggleButtonGroup} name={props.name} orientation="vertical" style={{ width: '100%' }} type="checkbox" onChange={(e: any) => {
                 const buttonProductId = e.target['offsetParent']['value'];
                 const buttonProduct = props.serviceProducts?.find((product) => product.id === buttonProductId);
                 setFieldValue(basePackageField.value, buttonProductId)

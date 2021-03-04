@@ -311,7 +311,7 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
                 <Grid item xs={12}>
 
 
-                    <Calculator />
+
                     {/* <Box bgcolor="red">
                         <Typography variant="h6">Field: Data Display</Typography>
                         <pre>{JSON.stringify(squareFootage, null, 2)}</pre>
@@ -322,31 +322,10 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
 
 
                         {/* //TODO- through object deconstruction i pass initial values as example; i now need to dynamicaly add state as prop to `FormikStepper` component and add to `FormikStep` manually */}
-                        <FormikStep stepTitle="Tell us about your property" validationSchema={validationSchema.step1} stepperStep={1}>
+                        <FormikStep stepTitle="Tell us about your property" validationSchema={validationSchema.step1} stepperStep={1} fieldDataDisplay={'propertyType'}>
 
                             <RadioButtonsFmui />
                             <SelectPropertySizeFmui ranges={ranges} squareFootageLevels={squareFootage} />
-
-
-
-
-                            {/* <RadioButtons label="Radio Topic"
-                                name="propertyType"
-                                onChange={() => {
-                                    console.log('i changed')
-                                }}
-                                options={radioOptions} /> */}
-
-
-
-
-                            <FieldDataDisplay fieldName='propertyType' color="violet" />
-                            <CalculatorContextDataDisplay color='greenyellow' />
-
-
-
-
-
 
                         </FormikStep>
 
@@ -357,7 +336,7 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
 
                             <BaseServiceToggleButtonGroup name="baseServiceCheckbox" baseServices={serviceData} />
                         </FormikStep>
-                        <FormikStep stepTitle="Select your base packages" stepperStep={2} validationSchema={validationSchema.step3}>
+                        <FormikStep stepTitle="Select your base packages" stepperStep={2} validationSchema={validationSchema.step3} fieldDataDisplay={'basePackageCheckbox'}>
                             <SelectBaseProductsStep basePackages={basePackageList} baseServiceField="baseServiceCheckbox" />
                             {/* <BaseProductCheckboxStep basePackages={basePackageList} /> */}
                         </FormikStep>
@@ -514,6 +493,7 @@ export interface FormikStepProps
     extends Pick<FormikConfig<FormikValues>, 'children' | 'validationSchema'> {
     stepperStep: number;
     stepTitle: string;
+    fieldDataDisplay?: string;
 }
 
 export function FormikStep({ children, ...props }: FormikStepProps) {
@@ -611,7 +591,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
     const totalSteps = [...new Set(stepperSteps)];
 
     // console.log("i am stepperSteps", stepperSteps);
-    // console.log("i am totalSteps", totalSteps);
+    // console.log("i am totalSteps", totalSteps); 
 
 
 
@@ -703,7 +683,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
 
 
 
-                        <FormDataDisplay values={values} errors={errors} isSubmitting={isSubmitting} />
+
 
                         {/* 
                     //> when this button is clicked it executes an anonymous function 
@@ -718,7 +698,13 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
 
 
                     </Form>
+                    <Calculator />
+                    { currentChild.props.fieldDataDisplay !== undefined ? <FieldDataDisplay fieldName={currentChild.props.fieldDataDisplay} color="violet" /> : null}
+
+                    <CalculatorContextDataDisplay color='greenyellow' />
+                    <FormDataDisplay values={values} errors={errors} isSubmitting={isSubmitting} />
                 </MuiPickersUtilsProvider>
+
             )}
 
         </Formik >
