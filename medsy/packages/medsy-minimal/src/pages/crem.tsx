@@ -87,7 +87,8 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: theme.palette.secondary.main
         },
         stepperContainer: {
-            backgroundColor: theme.palette.secondary.main
+            backgroundColor: theme.palette.secondary.main,
+            marginBottom: 0
         }
     }),
 );
