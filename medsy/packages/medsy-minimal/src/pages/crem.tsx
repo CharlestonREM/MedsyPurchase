@@ -7,6 +7,8 @@ import VideocamOutlinedIcon from '@material-ui/icons/VideocamOutlined';
 import EventSeatOutlinedIcon from '@material-ui/icons/EventSeatOutlined';
 import HomeWorkOutlinedIcon from '@material-ui/icons/HomeWorkOutlined';
 
+//imp layout components
+import TopNav from 'containers/layout/top-nav'
 
 //imp FORMIK
 import { Field, Form, Formik, useFormikContext, ErrorMessage, FormikConfig, FormikValues, useFormik } from 'formik';
@@ -272,6 +274,9 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
         })
     }
 
+    //use stepper context
+    const stepperContext = React.useContext(StepperContext);
+
     const { initializeCalculatorVariables } = useCalculator();
 
     // setup license data
@@ -288,6 +293,9 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
         <div className={classes.root}>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
+                    <TopNav title={stepperContext.state.stepTitle} />
+                </Grid>
+                <Grid item xs={12}>
 
 
                     <Calculator />
@@ -301,7 +309,7 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
 
 
                         {/* //TODO- through object deconstruction i pass initial values as example; i now need to dynamicaly add state as prop to `FormikStepper` component and add to `FormikStep` manually */}
-                        <FormikStep validationSchema={validationSchema.step1} stepperStep={1}>
+                        <FormikStep stepTitle="Tell us about your property" validationSchema={validationSchema.step1} stepperStep={1}>
 
                             <RadioButtonsFmui />
                             <SelectPropertySizeFmui ranges={ranges} squareFootageLevels={squareFootage} />
@@ -329,26 +337,26 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
 
                         </FormikStep>
 
-                        <FormikStep stepperStep={2} validationSchema={validationSchema.step2}>
+                        <FormikStep stepTitle="Select your base services" stepperStep={2} validationSchema={validationSchema.step2}>
                             {/* <CheckboxGroup label="Select a base service"
         name="baseServiceCheckbox"
         options={checkboxOptions} /> */}
 
                             <BaseServiceToggleButtonGroup name="baseServiceCheckbox" baseServices={serviceData} />
                         </FormikStep>
-                        <FormikStep stepperStep={2} validationSchema={validationSchema.step3}>
+                        <FormikStep stepTitle="Select your base packages" stepperStep={2} validationSchema={validationSchema.step3}>
                             <SelectBaseProductsStep basePackages={basePackageList} baseServiceField="baseServiceCheckbox" />
                             {/* <BaseProductCheckboxStep basePackages={basePackageList} /> */}
                         </FormikStep>
-                        <FormikStep stepperStep={2}>
+                        <FormikStep stepTitle="Select your package upgrades" stepperStep={2}>
                             <UpgradeCheckboxStep upgrades={upgradeList} products={basePackageList} />
                         </FormikStep>
-                        <FormikStep stepperStep={2} validationSchema={validationSchema.step5}>
+                        <FormikStep stepTitle="Confirm your selections" stepperStep={2} validationSchema={validationSchema.step5}>
                             <ConfirmSelectionStep upgrades={upgradeList} products={basePackageList} upgradeField='upgradeCheckbox' basePackageField="basePackageCheckbox" />
                         </FormikStep>
-                        <FormikStep stepperStep={3} validationSchema={validationSchema.step6}>
+                        <FormikStep stepTitle="Tell us about you" stepperStep={3} validationSchema={validationSchema.step6}>
                             <FormControl>
-                                <Field name="profile.customerName" label="Name" component={TextField} />
+                                <Field name="Give some property info" label="Name" component={TextField} />
                             </FormControl>
                             <FormControl>
                                 <Field name="profile.brokerage" label="Name of Brokerage (optional)" component={TextField} />
@@ -360,7 +368,7 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
                                 <Field name="profile.phone" label="Phone Number" component={TextField} />
                             </FormControl>
                         </FormikStep>
-                        <FormikStep stepperStep={3} validationSchema={validationSchema.step7}>
+                        <FormikStep stepTitle="Give us session info" stepperStep={3} validationSchema={validationSchema.step7}>
                             <FormControl>
                                 <Field name="property.propertyStreetAddress" label="Street Address" component={TextField} />
                             </FormControl>
@@ -397,7 +405,7 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
                                 <Field name="property.propertySpecialRequests" label="Special Requests (e.g.)" component={TextField} />
                             </FormControl>
                         </FormikStep>
-                        <FormikStep stepperStep={3} validationSchema={validationSchema.step8}>
+                        <FormikStep stepTitle="Tell us about your property" stepperStep={3} validationSchema={validationSchema.step8}>
                             <FormControl>
                                 <DateOrTimePicker component="DatePicker" name="session.sessionPreferredDate" label="Preferred Date" />
 
@@ -420,7 +428,7 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
                                 <Field name="session.sessionSpecialRequests" label="Special Requests (e.g.)" component={TextField} />
                             </FormControl>
                         </FormikStep>
-                        <FormikStep stepperStep={3}>
+                        <FormikStep stepTitle="Order Confirmation" stepperStep={3}>
                             <ConfirmOrder
                                 upgrades={upgradeList}
                                 products={basePackageList}
@@ -492,6 +500,7 @@ export async function getServerSideProps() {
 export interface FormikStepProps
     extends Pick<FormikConfig<FormikValues>, 'children' | 'validationSchema'> {
     stepperStep: number;
+    stepTitle: string;
 }
 
 export function FormikStep({ children, ...props }: FormikStepProps) {
@@ -559,7 +568,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
     //>try to make children have props
     const childrenWithProps = React.Children.map(children, child => {
         if (React.isValidElement(child)) {
-            // console.log('i am child in React.isValidElement', React.cloneElement(child, { setStepNumber: setStep }))
+            // console.log('i am child in React.isValidElement', React.cloneElement(child, {setStepNumber: setStep }))
             return React.cloneElement(child, { setStepNumber: 'test' })
         }
         return child
@@ -573,7 +582,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
     // const childrenArray = React.Children.toArray(childrenWithProps) as React.ReactElement<FormikStepProps>[];
 
 
-    //onsole.log('i am `childrenArray`:', childrenArray);
+    // console.log('i am `childrenArray`:', childrenArray);
     const currentChild = childrenArray[step];
     //console.log('i am `currentChild`:', currentChild)
     //testing setStep
@@ -630,6 +639,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                         type: 'STEP_NEXT',
                         payload: {
                             step: step,
+                            stepTitle: childrenArray[step + 1].props.stepTitle
                         },
                     });
                 }
@@ -695,6 +705,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                                 type: 'STEP_BACK',
                                 payload: {
                                     step: step,
+                                    stepTitle: childrenArray[step - 1].props.stepTitle
                                 },
                             })
                         }}>Back</Button> : null}

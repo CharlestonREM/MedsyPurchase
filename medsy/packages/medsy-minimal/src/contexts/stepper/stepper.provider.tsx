@@ -13,7 +13,8 @@ export const StepperContext = createContext<{
 
 //define stepper initial state object configuration
 const INITIAL_STATE = {
-    step: 0
+    step: 0,
+    stepTitle: 'Tell us about your property'
 }
 
 //define types of actions that will occur post-broadcast of the dispatch for stepper context
@@ -21,7 +22,8 @@ type ActionType =
     | { type: 'GO_TO_BASE_SERVICE_SELECTION'; payload: any }
     | { type: 'STEP_NEXT'; payload: any }
     | { type: 'STEP_BACK'; payload: any }
-    | { type: 'GO_TO_SPECIFIC_STEP'; payload: any };
+    | { type: 'GO_TO_SPECIFIC_STEP'; payload: any }
+    | { type: 'SET_STEP_TITLE'; payload: any };
 
 type StateType = typeof INITIAL_STATE;
 
@@ -35,18 +37,25 @@ function reducer(state: StateType, action: ActionType) {
         case 'STEP_NEXT':
             return {
                 ...state,
-                step: parseInt(action.payload.step + 1)
+                step: parseInt(action.payload.step + 1),
+                stepTitle: action.payload.stepTitle
             };
         case 'STEP_BACK':
             return {
                 ...state,
-                step: parseInt(action.payload.step) - 1
+                step: parseInt(action.payload.step) - 1,
+                stepTitle: action.payload.stepTitle
             };
         case 'GO_TO_SPECIFIC_STEP':
             return {
                 ...state,
                 step: parseInt(action.payload.step)
             };
+        case 'SET_STEP_TITLE':
+            return {
+                ...state,
+                stepTitle: action.payload.stepTitle
+            }
         default:
             return state;
     }
