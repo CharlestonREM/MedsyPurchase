@@ -6,6 +6,8 @@ import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
 import VideocamOutlinedIcon from '@material-ui/icons/VideocamOutlined';
 import EventSeatOutlinedIcon from '@material-ui/icons/EventSeatOutlined';
 import HomeWorkOutlinedIcon from '@material-ui/icons/HomeWorkOutlined';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 //imp layout components
 import TopNav from 'containers/layout/top-nav'
@@ -69,6 +71,10 @@ import SelectBaseProductStep from 'components/select-base-products-step';
 //setup styles for grid
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        max: {
+            maxWidth: '450px',
+            margin: 'auto'
+        },
         root: {
             flexGrow: 1,
         },
@@ -297,7 +303,7 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
 
     return (
         <div className={classes.root}>
-            <Grid container spacing={3}>
+            <Grid container spacing={3} className={classes.max}>
                 <Grid item xs={12}>
                     <TopNav title={stepperContext.state.stepTitle} />
                 </Grid>
@@ -667,7 +673,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                                             stepTitle: childrenArray[step - 1].props.stepTitle
                                         },
                                     })
-                                }} >Back</Button> : <Button disabled>Back</Button>}
+                                }} ><ChevronLeftIcon /> Back</Button> : <Button disabled>Back</Button>}
                             </Grid>
                             <Grid item xs={8}>
                                 {/* //info Material UI `Stepper` Component */}
@@ -682,7 +688,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                                 </Stepper>
                             </Grid>
                             <Grid item xs={2}>
-                                <Button type="submit">{isLastStep() ? 'Submit' : 'Next'}</Button>
+                                <Button type="submit">{isLastStep() ? 'Submit' : 'Next'} {!isLastStep() ? <ChevronRightIcon /> : null}</Button>
                             </Grid>
                         </Grid>
 

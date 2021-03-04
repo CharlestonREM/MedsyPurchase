@@ -2,17 +2,8 @@ import {
     Box,
     Card,
     CardContent,
-    Typography,
-    Button,
-    LinearProgress,
-    FormControl,
-    FormHelperText,
-    FormGroup,
-    MenuItem,
-    Stepper,
-    Step,
-    StepLabel,
-    StepIcon,
+    Grid,
+    Typography
 } from "@material-ui/core";
 //imp FORMIK
 import {
@@ -71,10 +62,10 @@ const SelectBaseProductsStep: React.FC<SelectBaseProductsStepProps> = (props) =>
                 });
 
                 return (
-                    <div key={index}>
-                        <div style={{ display: 'flex' }}><Typography variant="body2" style={{ flexDirection: 'column' }}><span>{getServiceIcon(service)}</span>{getServiceData(service).name}</Typography> <Typography variant="body2" style={{ flexDirection: 'column' }}>Base Packages</Typography></div>
-                        <AddBasePackageToggleButtonGroup name="basePackageCheckbox" service={service} serviceProducts={specificBasePackageProducts} />
-                    </div>
+                    <Grid container key={index}>
+                        <Grid item xs={12}><Typography style={{ flexDirection: 'column', fontWeight: 700, fontSize: '1.15rem', margin: '2rem auto' }}><span>{getServiceIcon(service)}</span><span>{getServiceData(service).name}</span><span>/Base Packages</span></Typography></Grid>
+                        <Grid item xs={12}><AddBasePackageToggleButtonGroup name="basePackageCheckbox" service={service} serviceProducts={specificBasePackageProducts} /></Grid>
+                    </Grid>
                 );
             })}
             <FieldDataDisplay fieldName='basePackageCheckbox' color="violet" />

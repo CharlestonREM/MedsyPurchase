@@ -67,7 +67,8 @@ const BaseServiceToggleButtonGroup: React.FC<BaseServiceToggleButtonGroupProps> 
     return (
         <Grid container spacing={4}>
             <Typography>Toggle button</Typography>
-            <Field component={ToggleButtonGroup} name={props.name} type="checkbox" onChange={(e: any) => {
+            {/* add orientation=vertical to togglebutton group */}
+            <Field component={ToggleButtonGroup} name={props.name} orientation="vertical" type="checkbox" onChange={(e: any) => {
                 const buttonServiceId = e.target['offsetParent']['value'];
 
                 const buttonService = props.baseServices[buttonServiceId];
