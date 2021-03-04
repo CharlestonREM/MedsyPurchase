@@ -449,7 +449,7 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
 
 
 
-
+                    <Calculator />
                     <SimpleModal />
                 </Grid>
             </Grid>
