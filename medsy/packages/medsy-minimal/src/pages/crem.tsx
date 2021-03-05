@@ -314,11 +314,11 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
         router.replace(router.asPath)
     }
 
-    //  React.useEffect(() => {
-    //     if (licenseOptions) {
-    //         initializeCalculatorVariables(licenseOptions)
-    //     }
-    // }, [licenseOptions])
+    React.useEffect(() => {
+        if (licenseOptions) {
+            initializeCalculatorVariables(licenseOptions)
+        }
+    }, [licenseOptions])
 
 
 
