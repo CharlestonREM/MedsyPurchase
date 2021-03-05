@@ -28,6 +28,7 @@ import Head from 'next/head';
 import { theme } from 'theme';
 import { StepperProvider } from 'contexts/stepper/stepper.provider';
 import { CalculatorProvider } from 'contexts/calculator/calculator.provider'
+import { AvailableProductsProvider } from 'contexts/available-products/available-products.provider';
 
 
 //! added `AppProps` type --> bruno
@@ -52,13 +53,15 @@ export default function CustomApp({ Component, pageProps }: AppProps) {
           <StickyProvider>
             <DrawerProvider>
               <StepperProvider>
-                <CalculatorProvider>
-                  <ModalProvider>
-                    <CartProvider>
-                      <Component {...pageProps} />
-                    </CartProvider>
-                  </ModalProvider>
-                </CalculatorProvider>
+                <AvailableProductsProvider>
+                  <CalculatorProvider>
+                    <ModalProvider>
+                      <CartProvider>
+                        <Component {...pageProps} />
+                      </CartProvider>
+                    </ModalProvider>
+                  </CalculatorProvider>
+                </AvailableProductsProvider>
               </StepperProvider>
             </DrawerProvider>
           </StickyProvider>

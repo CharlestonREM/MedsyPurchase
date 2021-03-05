@@ -5,18 +5,11 @@ import { CURRENCY } from 'helpers/constants';
 
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 export interface CalculatorProps {
-    licenseOptions: any[];
-    useIsMounted: Function;
 }
 
 const Calculator: React.FC<CalculatorProps> = (props) => {
-    const { clearCalculator, calculatePrice, resetPropertySize, resetPropertyType, initializeCalculatorVariables } = useCalculator();
-    console.log('i am isMounted', props.useIsMounted)
-    const isMounted = props.useIsMounted();
-    const licenseOptions = React.useMemo(() => (
-        isMounted ? initializeCalculatorVariables(props.licenseOptions) : undefined
-    ),
-        [isMounted, props.licenseOptions]);
+    const { clearCalculator, calculatePrice, resetPropertySize, resetPropertyType } = useCalculator();
+
 
     return (
         <>

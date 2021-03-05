@@ -1,5 +1,7 @@
 //imp IMPORT REACT
 import * as React from 'react';
+import _ from 'lodash';
+
 //imp MATERIAL UI
 import { Box, Card, CardContent, Grid, Typography, Button, LinearProgress, FormControl, FormHelperText, FormGroup, MenuItem, Paper, Stepper, Step, StepLabel, StepIcon } from '@material-ui/core';
 import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
@@ -70,6 +72,7 @@ import FieldDataDisplay from 'components/data-displays/field-data-display';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import SelectBaseProductStep from 'components/select-base-products-step';
+import { useAvailableProducts } from 'contexts/available-products/available-products.provider';
 //setup styles for grid
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -104,7 +107,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 //component
 //---> you have to pass in `products` as a parameter of the component, i.e. as arbitrary arguments, i.e. as props!
-export default function Crem({ products, basePackageList, upgradeList, squareFootage, licenseOptions }) {
+export default function Crem({ products, basePackageList, upgradeList, squareFootage, licenseOptions, allProducts }) {
 
     const classes = useStyles();
 
@@ -293,6 +296,7 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
     const stepperContext = React.useContext(StepperContext);
 
     const { initializeCalculatorVariables } = useCalculator();
+    const { initializeAvailableProductsState, products: avProducts } = useAvailableProducts();
 
     // setup license data
     //https://stackoverflow.com/a/55421770/14657615
@@ -302,8 +306,17 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
     //     if (licenseOptions) initializeCalculatorVariables(licenseOptions)
     // }, [licenseOptions])
 
+    const isMounted = useIsMounted()
+    console.log('i am isMounted', isMounted)
+    const lOptions = React.useMemo(() => (
+        isMounted ? initializeCalculatorVariables(licenseOptions) : undefined
+    ),
+        [isMounted, licenseOptions])
 
 
+    const availableProducts = React.useMemo(() => {
+        isMounted ? initializeAvailableProductsState(allProducts) : undefined
+    }, [isMounted, allProducts])
 
 
     // React.useEffect(() => {
@@ -464,7 +477,13 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
 
 
 
-                    <Calculator licenseOptions={licenseOptions} useIsMounted={useIsMounted} />
+                    <Calculator />
+
+                    <Box bgcolor="#e0e0e0">
+                        <Typography>availableproducts</Typography>
+                        <pre>{JSON.stringify(avProducts, null, 2)}</pre>
+                        {/* <pre>{JSON.stringify(props, null, 2)}</pre> */}
+                    </Box>
                     <SimpleModal />
                 </Grid>
             </Grid>
@@ -488,6 +507,7 @@ export async function getServerSideProps() {
     const upgradeList = await getUpgradeList();
     const squareFootage = await getSquareFootage();
     const licenseOptions = await getLicense();
+    const allProducts = _.concat(basePackageList, upgradeList);
 
 
     return {
@@ -496,7 +516,8 @@ export async function getServerSideProps() {
             basePackageList,
             upgradeList,
             squareFootage,
-            licenseOptions
+            licenseOptions,
+            allProducts
         },
     };
 }
