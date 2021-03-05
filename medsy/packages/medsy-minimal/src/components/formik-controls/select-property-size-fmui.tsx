@@ -6,8 +6,7 @@ import { GET_SQUARE_FOOTAGE_LEVELS } from 'constants/actions'
 import { propertyOf } from 'lodash';
 export interface SelectPropertySizeFmuiProps {
     ranges: any[],
-    squareFootageLevels: any[],
-    refreshData: Function;
+    squareFootageLevels: any[]
 }
 
 const SelectPropertySizeFmui: React.FC<SelectPropertySizeFmuiProps> = (props) => {
@@ -31,7 +30,6 @@ const SelectPropertySizeFmui: React.FC<SelectPropertySizeFmuiProps> = (props) =>
                 updatePropertySize(e.target.value)
                 //update the state.squarefootagelevels
                 getSquareFootageLevels(props.squareFootageLevels)
-                props.refreshData()
             }}
 
         >

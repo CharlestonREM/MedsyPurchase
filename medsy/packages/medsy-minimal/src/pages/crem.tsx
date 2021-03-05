@@ -302,23 +302,15 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
     //     if (licenseOptions) initializeCalculatorVariables(licenseOptions)
     // }, [licenseOptions])
 
-    // const isMounted = useIsMounted()
-    // console.log('i am isMounted', isMounted)
-    // const text = React.useMemo(() => (
-    //     isMounted ? initializeCalculatorVariables(licenseOptions) : undefined
-    // ),
-    //     [isMounted, licenseOptions])
-    const router = useRouter();
-    const refreshData = () => {
-        console.log('i am refreshdata running', router)
-        router.replace(router.asPath)
-    }
 
-    React.useEffect(() => {
-        if (licenseOptions) {
-            initializeCalculatorVariables(licenseOptions)
-        }
-    }, [licenseOptions])
+
+
+
+    // React.useEffect(() => {
+    //     if (licenseOptions) {
+    //         initializeCalculatorVariables(licenseOptions)
+    //     }
+    // }, [licenseOptions])
 
 
 
@@ -348,7 +340,7 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
                         <FormikStep stepTitle="Tell us about your property" validationSchema={validationSchema.step1} stepperStep={1} fieldDataDisplay={'propertyType'}>
 
                             <RadioButtonsFmui />
-                            <SelectPropertySizeFmui ranges={ranges} squareFootageLevels={squareFootage} refreshData={refreshData} />
+                            <SelectPropertySizeFmui ranges={ranges} squareFootageLevels={squareFootage} />
 
                         </FormikStep>
 
@@ -472,7 +464,7 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
 
 
 
-                    <Calculator />
+                    <Calculator licenseOptions={licenseOptions} useIsMounted={useIsMounted} />
                     <SimpleModal />
                 </Grid>
             </Grid>
@@ -481,13 +473,13 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
     );
 }
 
-// const useIsMounted = () => {
-//     const [isMounted, setIsMounted] = useState(false)
-//     React.useEffect(() => {
-//         setIsMounted(true)
-//     }, [])
-//     return isMounted
-// }
+const useIsMounted = () => {
+    const [isMounted, setIsMounted] = useState(false)
+    React.useEffect(() => {
+        setIsMounted(true)
+    }, [])
+    return isMounted
+}
 
 export async function getServerSideProps() {
 
