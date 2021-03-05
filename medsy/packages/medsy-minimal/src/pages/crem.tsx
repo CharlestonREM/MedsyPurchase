@@ -1,5 +1,4 @@
 //imp IMPORT REACT
-
 import * as React from 'react';
 //imp MATERIAL UI
 import { Box, Card, CardContent, Grid, Typography, Button, LinearProgress, FormControl, FormHelperText, FormGroup, MenuItem, Paper, Stepper, Step, StepLabel, StepIcon } from '@material-ui/core';
@@ -297,9 +296,16 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
     //https://stackoverflow.com/a/55421770/14657615
     //seems to have to watch licenseooptions changing based on this in react docs:
     //https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects
-    React.useEffect(() => {
-        initializeCalculatorVariables(licenseOptions)
-    }, [licenseOptions])
+    // React.useEffect(() => {
+    //     initializeCalculatorVariables(licenseOptions)
+    // }, [licenseOptions])
+
+    const isMounted = useIsMounted()
+    const text = React.useMemo(() => (
+        isMounted ? initializeCalculatorVariables(licenseOptions) : undefined
+    ),
+        [isMounted, licenseOptions])
+
 
 
 
@@ -459,12 +465,22 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
     );
 }
 
+const useIsMounted = () => {
+    const [isMounted, setIsMounted] = useState(false)
+    React.useEffect(() => {
+        setIsMounted(true)
+    }, [])
+    return isMounted
+}
+
 export async function getServerSideProps() {
+
     const products = await getProducts();
     const basePackageList = await getBasePackageList();
     const upgradeList = await getUpgradeList();
     const squareFootage = await getSquareFootage();
     const licenseOptions = await getLicense();
+
 
     return {
         props: {
