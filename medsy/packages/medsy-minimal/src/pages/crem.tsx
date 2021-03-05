@@ -642,50 +642,50 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
             {({ values, errors, isSubmitting, getFieldProps }) => (
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <Form>
-                        <>
-                            <Grid container spacing={2} className={classes.stepperContainer}>
-                                <Grid item xs={2}>
-                                    {step > 0 ? <Button onClick={() => {
-                                        //setStep(s => s - 1)
-                                        dispatch({
-                                            type: 'STEP_BACK',
-                                            payload: {
-                                                step: step,
-                                                stepTitle: childrenArray[step - 1].props.stepTitle
-                                            },
-                                        })
-                                    }} ><ChevronLeftIcon /> Back</Button> : <Button disabled>Back</Button>}
-                                </Grid>
-                                <Grid item xs={8}>
-                                    {/* //info Material UI `Stepper` Component */}
-                                    <Stepper activeStep={currentChild.props.stepperStep - 1}>
-                                        {/* // > implement multistep fix from codesandbox */}
-                                        {totalSteps.map((step, index) => (
-                                            <Step key={step}>
-                                                <StepLabel>
-                                                </StepLabel>
-                                            </Step>
-                                        ))}
-                                    </Stepper>
-                                </Grid>
-                                <Grid item xs={2}>
-                                    <Button type="submit">{isLastStep() ? 'Submit' : 'Next'} {!isLastStep() ? <ChevronRightIcon /> : null}</Button>
-                                </Grid>
+
+                        <Grid container spacing={2} className={classes.stepperContainer}>
+                            <Grid item xs={2}>
+                                {step > 0 ? <Button onClick={() => {
+                                    //setStep(s => s - 1)
+                                    dispatch({
+                                        type: 'STEP_BACK',
+                                        payload: {
+                                            step: step,
+                                            stepTitle: childrenArray[step - 1].props.stepTitle
+                                        },
+                                    })
+                                }} ><ChevronLeftIcon /> Back</Button> : <Button disabled>Back</Button>}
                             </Grid>
+                            <Grid item xs={8}>
+                                {/* //info Material UI `Stepper` Component */}
+                                <Stepper activeStep={currentChild.props.stepperStep - 1}>
+                                    {/* // > implement multistep fix from codesandbox */}
+                                    {totalSteps.map((step, index) => (
+                                        <Step key={step}>
+                                            <StepLabel>
+                                            </StepLabel>
+                                        </Step>
+                                    ))}
+                                </Stepper>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <Button type="submit">{isLastStep() ? 'Submit' : 'Next'} {!isLastStep() ? <ChevronRightIcon /> : null}</Button>
+                            </Grid>
+                        </Grid>
 
 
-                            {/* //> render only the dom/React.element contained within the `currentChild` const variable */}
+                        {/* //> render only the dom/React.element contained within the `currentChild` const variable */}
 
 
-                            {currentChild}
-                            {/* {React.cloneElement(currentChild, { setStepNumber: setStep })} */}
-
-
-
+                        {currentChild}
+                        {/* {React.cloneElement(currentChild, { setStepNumber: setStep })} */}
 
 
 
-                            {/* 
+
+
+
+                        {/* 
                     //> when this button is clicked it executes an anonymous function 
                     //> the execution block of this function calls the useState setState method we created called `setStep`
                     //> `setStep` is used to update the state; it accepts a new state value and enqueues a re-render of the component 
@@ -693,15 +693,15 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                     //>     * the `setStep` function receives the previous value of the index of the `childrenArray` that holds our steps and then subtracts the state by 1
                     //>
                  */}
-                            {/* //info - CONDITIONAL VALIDATION - don't show anything if step is less than 0 */}
-                            {/* //> if step value is greater than 0 show Button component, show no dom via null, i.e. hide Button component from view */}
+                        {/* //info - CONDITIONAL VALIDATION - don't show anything if step is less than 0 */}
+                        {/* //> if step value is greater than 0 show Button component, show no dom via null, i.e. hide Button component from view */}
 
-                        </>
-                        <Calculator />
+
+                        {/* <Calculator />
                         {currentChild.props.fieldDataDisplay !== undefined ? <FieldDataDisplay fieldName={currentChild.props.fieldDataDisplay} color="violet" /> : null}
 
                         <CalculatorContextDataDisplay color='greenyellow' />
-                        <FormDataDisplay values={values} errors={errors} isSubmitting={isSubmitting} />
+                        <FormDataDisplay values={values} errors={errors} isSubmitting={isSubmitting} /> */}
                     </Form>
 
                 </MuiPickersUtilsProvider>
