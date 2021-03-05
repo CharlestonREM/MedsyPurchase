@@ -47,7 +47,9 @@ import SimpleModal from 'containers/modal/modal'
 
 //use state
 import { useState } from 'react';
-import { Event } from '@material-ui/icons';
+import { Event, RefreshSharp, Router } from '@material-ui/icons';
+
+import { useRouter } from 'next/router';
 
 import BaseServiceToggleButtonGroup from "components/formik-controls/base-service-toggle-button-group";
 import BaseProductCheckboxStep from 'components/baseProductCheckboxStep'
@@ -296,9 +298,9 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
     //https://stackoverflow.com/a/55421770/14657615
     //seems to have to watch licenseooptions changing based on this in react docs:
     //https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects
-    React.useEffect(() => {
-        if (licenseOptions) initializeCalculatorVariables(licenseOptions)
-    }, [licenseOptions])
+    // React.useEffect(() => {
+    //     if (licenseOptions) initializeCalculatorVariables(licenseOptions)
+    // }, [licenseOptions])
 
     // const isMounted = useIsMounted()
     // console.log('i am isMounted', isMounted)
@@ -306,6 +308,19 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
     //     isMounted ? initializeCalculatorVariables(licenseOptions) : undefined
     // ),
     //     [isMounted, licenseOptions])
+    const router = useRouter();
+    const refreshData = () => {
+        console.log('i am refreshdata running', router)
+        router.replace(router.asPath)
+    }
+
+    //  React.useEffect(() => {
+    //     if (licenseOptions) {
+    //         initializeCalculatorVariables(licenseOptions)
+    //     }
+    // }, [licenseOptions])
+
+
 
 
 
@@ -333,7 +348,7 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
                         <FormikStep stepTitle="Tell us about your property" validationSchema={validationSchema.step1} stepperStep={1} fieldDataDisplay={'propertyType'}>
 
                             <RadioButtonsFmui />
-                            <SelectPropertySizeFmui ranges={ranges} squareFootageLevels={squareFootage} />
+                            <SelectPropertySizeFmui ranges={ranges} squareFootageLevels={squareFootage} refreshData={refreshData} />
 
                         </FormikStep>
 

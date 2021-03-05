@@ -3,9 +3,11 @@ import { Formik, Field, useFormikContext, useField } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { useCalculator } from 'contexts/calculator/calculator.provider'
 import { GET_SQUARE_FOOTAGE_LEVELS } from 'constants/actions'
+import { propertyOf } from 'lodash';
 export interface SelectPropertySizeFmuiProps {
     ranges: any[],
-    squareFootageLevels: any[]
+    squareFootageLevels: any[],
+    refreshData: Function;
 }
 
 const SelectPropertySizeFmui: React.FC<SelectPropertySizeFmuiProps> = (props) => {
@@ -25,12 +27,11 @@ const SelectPropertySizeFmui: React.FC<SelectPropertySizeFmuiProps> = (props) =>
                 shrink: true,
             }}
             onChange={(e) => {
-                console.log('i changed size', e.target.value)
                 propertySizeHelpers.setValue(e.target.value)
                 updatePropertySize(e.target.value)
                 //update the state.squarefootagelevels
                 getSquareFootageLevels(props.squareFootageLevels)
-
+                props.refreshData()
             }}
 
         >
