@@ -296,15 +296,16 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
     //https://stackoverflow.com/a/55421770/14657615
     //seems to have to watch licenseooptions changing based on this in react docs:
     //https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects
-    // React.useEffect(() => {
-    //     initializeCalculatorVariables(licenseOptions)
-    // }, [licenseOptions])
+    React.useEffect(() => {
+        if (licenseOptions) initializeCalculatorVariables(licenseOptions)
+    }, [licenseOptions])
 
-    const isMounted = useIsMounted()
-    const text = React.useMemo(() => (
-        isMounted ? initializeCalculatorVariables(licenseOptions) : undefined
-    ),
-        [isMounted, licenseOptions])
+    // const isMounted = useIsMounted()
+    // console.log('i am isMounted', isMounted)
+    // const text = React.useMemo(() => (
+    //     isMounted ? initializeCalculatorVariables(licenseOptions) : undefined
+    // ),
+    //     [isMounted, licenseOptions])
 
 
 
@@ -465,13 +466,13 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
     );
 }
 
-const useIsMounted = () => {
-    const [isMounted, setIsMounted] = useState(false)
-    React.useEffect(() => {
-        setIsMounted(true)
-    }, [])
-    return isMounted
-}
+// const useIsMounted = () => {
+//     const [isMounted, setIsMounted] = useState(false)
+//     React.useEffect(() => {
+//         setIsMounted(true)
+//     }, [])
+//     return isMounted
+// }
 
 export async function getServerSideProps() {
 
