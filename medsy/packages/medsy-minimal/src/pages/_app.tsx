@@ -30,8 +30,11 @@ import { StepperProvider } from 'contexts/stepper/stepper.provider';
 import { CalculatorProvider } from 'contexts/calculator/calculator.provider'
 import { AvailableProductsProvider } from 'contexts/available-products/available-products.provider';
 
+//> react global state
+import { GlobalStateProvider } from '@dr.pogodin/react-global-state';
 
-//! added `AppProps` type --> bruno
+
+
 export default function CustomApp({ Component, pageProps }: AppProps) {
   //! added `React.useEffect` hook to remove the server-side injected css based on bruno
   React.useEffect(() => {
@@ -41,9 +44,50 @@ export default function CustomApp({ Component, pageProps }: AppProps) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
   }, []);
+
+  // //>set up renderServierside constants
+  // let render;
+  // const ssrContext = { state: {} };
+  // //>set up globalstate for loop
+  // for (let round = 0; round < 3; round += 1) {
+  //   render = (
+  //     <GlobalStateProvider
+  //       initialState={ssrContext.state}
+  //       ssrContext={ssrContext}
+  //     >
+
+  //     <ThemeProvider theme={theme}>
+  //       <CssBaseline />
+  //       <SearchProvider>
+  //         <StickyProvider>
+  //           <DrawerProvider>
+  //             <StepperProvider>
+  //               <AvailableProductsProvider>
+  //                 <CalculatorProvider>
+  //                   <ModalProvider>
+  //                     <CartProvider>
+  //                       <Component {...pageProps} />
+  //                     </CartProvider>
+  //                   </ModalProvider>
+  //                 </CalculatorProvider>
+  //               </AvailableProductsProvider>
+  //             </StepperProvider>
+  //           </DrawerProvider>
+  //         </StickyProvider>
+  //       </SearchProvider>
+  //     </ThemeProvider>
+  //     </GlobalStateProvider>
+  //   );
+  //   if (ssrContext.dirty) {
+  //     await Promise.allSettled(ssrContext.pending);
+  //   } else break;
+  // }
+  // return { render, state: ssrContext.state };
+
+
   return (
     //!add `React.Fragment` component wrapper --- bruno */
-    <React.Fragment>
+    <GlobalStateProvider>
       {/* //! add `ThemeProvider` component that uses theme prop --- bruno */}
       <ThemeProvider theme={theme}>
         {/* //! add CssBaseline component --- bruno */}
@@ -67,6 +111,8 @@ export default function CustomApp({ Component, pageProps }: AppProps) {
           </StickyProvider>
         </SearchProvider>
       </ThemeProvider>
-    </React.Fragment>
+    </GlobalStateProvider>
   );
-}
+
+
+}//end of CustomApp Functional Component execution block
