@@ -296,7 +296,7 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
     const stepperContext = React.useContext(StepperContext);
 
     const { initializeCalculatorVariables } = useCalculator();
-    const { initializeAvailableProductsState, products: avProducts } = useAvailableProducts();
+    const { initializeAvailableProductsState, products: avilableProducts } = useAvailableProducts();
 
     // setup license data
     //https://stackoverflow.com/a/55421770/14657615
@@ -478,12 +478,6 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
 
 
                     <Calculator />
-
-                    <Box bgcolor="#e0e0e0">
-                        <Typography>availableproducts</Typography>
-                        <pre>{JSON.stringify(avProducts, null, 2)}</pre>
-                        {/* <pre>{JSON.stringify(props, null, 2)}</pre> */}
-                    </Box>
                     <SimpleModal />
                 </Grid>
             </Grid>
