@@ -29,7 +29,7 @@ async function sampleDataLoader() {
 }
 
 function SampleAsyncComponent() {
-    const { data, loading } = useAsyncData('sample.asyc-component', sampleDataLoader);
+    const { data, loading } = useAsyncData('sample.async-component', sampleDataLoader);
     return data;
 }
 

@@ -87,31 +87,33 @@ export default function CustomApp({ Component, pageProps }: AppProps) {
 
   return (
     //!add `React.Fragment` component wrapper --- bruno */
-    <GlobalStateProvider>
-      {/* //! add `ThemeProvider` component that uses theme prop --- bruno */}
-      <ThemeProvider theme={theme}>
-        {/* //! add CssBaseline component --- bruno */}
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <SearchProvider>
-          <StickyProvider>
-            <DrawerProvider>
-              <StepperProvider>
-                <AvailableProductsProvider>
-                  <CalculatorProvider>
-                    <ModalProvider>
-                      <CartProvider>
-                        <Component {...pageProps} />
-                      </CartProvider>
-                    </ModalProvider>
-                  </CalculatorProvider>
-                </AvailableProductsProvider>
-              </StepperProvider>
-            </DrawerProvider>
-          </StickyProvider>
-        </SearchProvider>
-      </ThemeProvider>
-    </GlobalStateProvider>
+    <React.Fragment>
+      <GlobalStateProvider>
+        {/* //! add `ThemeProvider` component that uses theme prop --- bruno */}
+        <ThemeProvider theme={theme}>
+          {/* //! add CssBaseline component --- bruno */}
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+          <SearchProvider>
+            <StickyProvider>
+              <DrawerProvider>
+                <StepperProvider>
+                  <AvailableProductsProvider>
+                    <CalculatorProvider>
+                      <ModalProvider>
+                        <CartProvider>
+                          <Component {...pageProps} />
+                        </CartProvider>
+                      </ModalProvider>
+                    </CalculatorProvider>
+                  </AvailableProductsProvider>
+                </StepperProvider>
+              </DrawerProvider>
+            </StickyProvider>
+          </SearchProvider>
+        </ThemeProvider>
+      </GlobalStateProvider>
+    </React.Fragment>
   );
 
 
