@@ -1,0 +1,1 @@
+declare module '@dr.pogodin/react-global-state'

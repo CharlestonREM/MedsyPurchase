@@ -30,6 +30,7 @@ import { StepperProvider } from 'contexts/stepper/stepper.provider';
 import { CalculatorProvider } from 'contexts/calculator/calculator.provider'
 import { AvailableProductsProvider } from 'contexts/available-products/available-products.provider';
 
+
 import { GlobalStateProvider } from '@dr.pogodin/react-global-state';
 
 
