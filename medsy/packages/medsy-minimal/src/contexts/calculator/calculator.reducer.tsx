@@ -34,15 +34,6 @@ const getAdjustment = (level, squareFootageLevels, product) => {
     } else {
         return 0;
     }
-    // console.log('i am adjustment before servide check', adjustmentIndex)
-    // let adjustment;
-    // if (service === 'p') {
-    //     adjustment = squareFootageLevels[adjustmentIndex].adjustmentPhotography;
-    // } else if (service === 'd') {
-    //     adjustment = squareFootageLevels[adjustmentIndex].adjustment3d;
-    // } else {
-
-    // }
 
 }
 const getMultiplier = (license, licenseOptions) => {
@@ -64,6 +55,7 @@ const calculatedProduct = (multiplier, adjustment, price) => {
 }
 
 
+
 //! THIS IS THE MAIN CALCULATION FUNCTION WITH DISCOUNT CONDITION TABULATED
 //> keep in mind that my product type definition is different from medsybp so my reduce function will have different properties accessed
 //TODO - change product property keys that are currently targeted below
@@ -73,16 +65,25 @@ export const calculatorProductsTotalPrice = (state) => {
     const { propertyType, propertySize, products, discountCondition, squareFootageLevels, license, licenseOptions } = state;
     console.log('calculatorProductsTotalPrice function is firing:--->', propertyType, propertySize, products, licenseOptions)
 
+    //check for initialization first
+    const licenseOptionsInitialized = licenseOptions.length !== 0;
+    const squareFootageInitialized = squareFootageLevels.length !== 0;
+
+
     let total = products.reduce((price, product) => {
-        // console.log('i am the ACCUMULATOR parameter (`price`) in the products array reduce function', price);
-        // console.log('i am the ELEMENT parameter `product` in the products array (representing an individual product) reduce function', product);
+        console.log('i am the ACCUMULATOR parameter (`price`) in the products array reduce function', price);
+        console.log('i am the ELEMENT parameter `product` in the products array (representing an individual product) reduce function', product);
 
+        let prodTotal;
+        if (licenseOptionsInitialized && squareFootageInitialized) {
+            prodTotal = calculatedProduct(getMultiplier(license, licenseOptions), getAdjustment(propertySize, squareFootageLevels, product), product.basePrice)
+        } else {
+            prodTotal = 0;
+        }
 
-
-        let prodTotal = calculatedProduct(getMultiplier(license, licenseOptions), getAdjustment(propertySize, squareFootageLevels, product), product.basePrice)
         //push the calculated indiviual prices of each product into this array...
         //const priceOfProduct = [];
-        // console.log('i am prodTotal', prodTotal)
+        console.log('i am prodTotal', prodTotal)
 
         //? so, if the product object possesses the `salePrice` property run this condition block
         if (product.salePrice) {

@@ -296,7 +296,8 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
     const stepperContext = React.useContext(StepperContext);
 
     const { initializeCalculatorVariables } = useCalculator();
-    const { initializeAvailableProductsState, products: avilableProducts } = useAvailableProducts();
+    // const { initializeAvailableProductsState } = useAvailableProducts();
+    // let {availableProducts} = useAvailableProducts();
 
     // setup license data
     //https://stackoverflow.com/a/55421770/14657615
@@ -314,9 +315,9 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
         [isMounted, licenseOptions])
 
 
-    const availableProducts = React.useMemo(() => {
-        isMounted ? initializeAvailableProductsState(allProducts) : undefined
-    }, [isMounted, allProducts])
+    // availableProducts = React.useMemo(() => {
+    //     isMounted ? initializeAvailableProductsState(allProducts) : undefined
+    // }, [isMounted, allProducts])
 
 
     // React.useEffect(() => {

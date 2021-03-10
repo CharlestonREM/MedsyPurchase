@@ -15,7 +15,7 @@ export const AvailableProductsContext = createContext({} as any);
 
 //define stepper initial state object configuration
 const INITIAL_STATE = {
-    products: []
+    availableProducts: []
 }
 
 //! DEFINE DISPATCH HANDLER ACTIONS FROM REDUCER FUNCTION BELOW
