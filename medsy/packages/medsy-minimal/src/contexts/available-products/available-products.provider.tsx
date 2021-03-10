@@ -53,6 +53,10 @@ const useAvailableProductsActions = (initialAvailableProducts = INITIAL_STATE) =
         dispatch({ type: RETURN_NO_LAND_PRODUCTS })
     }
 
+    //todo - if twilight base package selected, remove twilight as upgrade option
+    //todo - if standard, exterior, or mini selected, disable the other two buttons
+    //todo - if zillow3dtour, zillow3dtour+wtv, or matterport selected disable the other options
+
 
     return {
         state,

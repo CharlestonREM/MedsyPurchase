@@ -299,7 +299,7 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
     const stepperContext = React.useContext(StepperContext);
 
     const { initializeCalculatorVariables } = useCalculator();
-    const { initializeAvailableProductsState } = useAvailableProducts();
+    const { initializeAvailableProductsState, availableBasePackages, availableUpgrades } = useAvailableProducts();
     // let {availableBasePackages, availableUpgrades} = useAvailableProducts();
 
     // setup license data
@@ -330,7 +330,6 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
     //         initializeCalculatorVariables(licenseOptions)
     //     }
     // }, [licenseOptions])
-
 
 
 
@@ -371,14 +370,14 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
                             <BaseServiceToggleButtonGroup name="baseServiceCheckbox" baseServices={serviceData} />
                         </FormikStep>
                         <FormikStep stepTitle="Select your base packages" stepperStep={2} validationSchema={validationSchema.step3} fieldDataDisplay={'basePackageCheckbox'}>
-                            <SelectBaseProductsStep basePackages={basePackageList} baseServiceField="baseServiceCheckbox" />
-                            {/* <BaseProductCheckboxStep basePackages={basePackageList} /> */}
+                            <SelectBaseProductsStep basePackages={availableBasePackages} baseServiceField="baseServiceCheckbox" />
+                            {/* <BaseProductCheckboxStep basePackages={availableBasePackages} /> */}
                         </FormikStep>
                         <FormikStep stepTitle="Select your package upgrades" stepperStep={2}>
-                            <UpgradeCheckboxStep upgrades={upgradeList} products={basePackageList} />
+                            <UpgradeCheckboxStep upgrades={upgradeList} products={availableBasePackages} />
                         </FormikStep>
                         <FormikStep stepTitle="Confirm your selections" stepperStep={2} validationSchema={validationSchema.step5}>
-                            <ConfirmSelectionStep upgrades={upgradeList} products={basePackageList} upgradeField='upgradeCheckbox' basePackageField="basePackageCheckbox" />
+                            <ConfirmSelectionStep upgrades={upgradeList} products={availableBasePackages} upgradeField='upgradeCheckbox' basePackageField="basePackageCheckbox" />
                         </FormikStep>
                         <FormikStep stepTitle="Tell us about you" stepperStep={3} validationSchema={validationSchema.step6}>
                             <FormControl>
@@ -457,7 +456,7 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
                         <FormikStep stepTitle="Order Confirmation" stepperStep={3}>
                             <ConfirmOrder
                                 upgrades={upgradeList}
-                                products={basePackageList}
+                                products={availableBasePackages}
                                 upgradeField='upgradeCheckbox'
                                 basePackageField="basePackageCheckbox"
                             />
