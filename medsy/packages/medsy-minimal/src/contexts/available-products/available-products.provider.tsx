@@ -15,7 +15,8 @@ export const AvailableProductsContext = createContext({} as any);
 
 //define stepper initial state object configuration
 const INITIAL_STATE = {
-    availableProducts: []
+    availableBasePackages: [],
+    availableUpgrades: []
 }
 
 //! DEFINE DISPATCH HANDLER ACTIONS FROM REDUCER FUNCTION BELOW
@@ -27,9 +28,14 @@ const useAvailableProductsActions = (initialAvailableProducts = INITIAL_STATE) =
         dispatch({ type: 'REHYDRATE', payload });
     };
 
-    const initializeAvailableProductsStateHandler = (variables) => {
-        console.log('i am initializeAVAILABLEPRODUCTSSTATEhandler', variables)
-        dispatch({ type: INITIALIZE_AVAILABLE_PRODUCTS_STATE, payload: variables })
+    const initializeAvailableProductsStateHandler = (basePackageList, upgradeList) => {
+        console.log('i am initializeAVAILABLEPRODUCTSSTATEhandler', basePackageList, upgradeList)
+        dispatch({
+            type: INITIALIZE_AVAILABLE_PRODUCTS_STATE, payload: {
+                basePackageList: basePackageList,
+                upgradeList: upgradeList
+            }
+        })
     }
     return {
         state,
@@ -52,7 +58,8 @@ export const AvailableProductsProvider = ({ children }) => {
     return (
         <AvailableProductsContext.Provider
             value={{
-                products: state.products,
+                availableBasePackages: state.availableBasePackages,
+                availableUpgrades: state.availableUpgrades,
                 initializeAvailableProductsState: initializeAvailableProductsStateHandler
             }}
         >

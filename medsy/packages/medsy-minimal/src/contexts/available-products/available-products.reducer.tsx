@@ -8,7 +8,11 @@ export const reducer = (state, action) => {
             return { ...state, ...action.payload };
         case INITIALIZE_AVAILABLE_PRODUCTS_STATE:
             console.log('i am the payload from INITIALIZEAVAILABLEPRODUCTS', action.payload)
-            return { ...state, products: action.payload }
+            return {
+                ...state,
+                availableBasePackages: action.payload.basePackageList,
+                availableUpgrades: action.payload.upgradeList
+            }
         default:
             throw new Error(`Unknown action: ${action.type}`);
     }

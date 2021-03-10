@@ -70,10 +70,12 @@ import SelectPropertySizeFmui from 'components/formik-controls/select-property-s
 import FormDataDisplay from 'components/data-displays/form-data-display';
 import CalculatorContextDataDisplay from 'components/data-displays/calculator-context-data-display';
 import FieldDataDisplay from 'components/data-displays/field-data-display';
+import AvailableProductsContextDataDisplay from 'components/data-displays/available-products-context-data-display'
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import SelectBaseProductStep from 'components/select-base-products-step';
 import { useAvailableProducts } from 'contexts/available-products/available-products.provider';
+
 //setup styles for grid
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -108,7 +110,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 //component
 //---> you have to pass in `products` as a parameter of the component, i.e. as arbitrary arguments, i.e. as props!
-export default function Crem({ products, basePackageList, upgradeList, squareFootage, licenseOptions, allProducts }) {
+export default function Crem({ basePackageList, upgradeList, squareFootage, licenseOptions }) {
 
     const classes = useStyles();
 
@@ -297,8 +299,8 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
     const stepperContext = React.useContext(StepperContext);
 
     const { initializeCalculatorVariables } = useCalculator();
-    // const { initializeAvailableProductsState } = useAvailableProducts();
-    // let {availableProducts} = useAvailableProducts();
+    const { initializeAvailableProductsState } = useAvailableProducts();
+    // let {availableBasePackages, availableUpgrades} = useAvailableProducts();
 
     // setup license data
     //https://stackoverflow.com/a/55421770/14657615
@@ -310,15 +312,17 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
 
     const isMounted = useIsMounted()
     console.log('i am isMounted', isMounted)
+
+
     const lOptions = React.useMemo(() => (
         isMounted ? initializeCalculatorVariables(licenseOptions) : undefined
     ),
         [isMounted, licenseOptions])
 
 
-    // availableProducts = React.useMemo(() => {
-    //     isMounted ? initializeAvailableProductsState(allProducts) : undefined
-    // }, [isMounted, allProducts])
+    let avP = React.useMemo(() => {
+        isMounted ? initializeAvailableProductsState(basePackageList, upgradeList) : undefined
+    }, [isMounted, basePackageList, upgradeList])
 
 
     // React.useEffect(() => {
@@ -506,7 +510,7 @@ export async function getServerSideProps() {
     const upgradeList = await getUpgradeList();
     const squareFootage = await getSquareFootage();
     const licenseOptions = await getLicense();
-    const allProducts = _.concat(basePackageList, upgradeList);
+    // const allProducts = _.concat(basePackageList, upgradeList);
 
 
     return {
@@ -516,7 +520,7 @@ export async function getServerSideProps() {
             upgradeList,
             squareFootage,
             licenseOptions,
-            allProducts
+            // allProducts
         },
     };
 }
@@ -744,9 +748,10 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
 
                         <Calculator />
                         {currentChild.props.fieldDataDisplay !== undefined ? <FieldDataDisplay fieldName={currentChild.props.fieldDataDisplay} color="violet" /> : null}
-
+                        <AvailableProductsContextDataDisplay color='dodgerblue' />
                         <CalculatorContextDataDisplay color='greenyellow' />
                         <FormDataDisplay values={values} errors={errors} isSubmitting={isSubmitting} />
+
                     </Form>
 
                 </MuiPickersUtilsProvider>
