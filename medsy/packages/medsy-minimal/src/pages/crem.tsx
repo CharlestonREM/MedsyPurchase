@@ -66,6 +66,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import RadioButtonsFmui from 'components/formik-controls/radio-buttons-fmui'
 import SelectPropertySizeFmui from 'components/formik-controls/select-property-size-fmui'
 
+//data displays
 import FormDataDisplay from 'components/data-displays/form-data-display';
 import CalculatorContextDataDisplay from 'components/data-displays/calculator-context-data-display';
 import FieldDataDisplay from 'components/data-displays/field-data-display';
@@ -478,7 +479,10 @@ export default function Crem({ products, basePackageList, upgradeList, squareFoo
 
 
 
-                    <Calculator />
+                    {/* <Calculator /> */}
+                    {/* <FieldDataDisplay/>
+                    <CalculatorContextDataDisplay/>
+                    <FormDataDisplay/> */}
                     <SimpleModal />
                 </Grid>
             </Grid>
@@ -738,11 +742,11 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                         {/* //> if step value is greater than 0 show Button component, show no dom via null, i.e. hide Button component from view */}
 
 
-                        {/* <Calculator />
+                        <Calculator />
                         {currentChild.props.fieldDataDisplay !== undefined ? <FieldDataDisplay fieldName={currentChild.props.fieldDataDisplay} color="violet" /> : null}
 
                         <CalculatorContextDataDisplay color='greenyellow' />
-                        <FormDataDisplay values={values} errors={errors} isSubmitting={isSubmitting} /> */}
+                        <FormDataDisplay values={values} errors={errors} isSubmitting={isSubmitting} />
                     </Form>
 
                 </MuiPickersUtilsProvider>
