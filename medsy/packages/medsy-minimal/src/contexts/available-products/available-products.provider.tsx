@@ -1,4 +1,4 @@
-import { INITIALIZE_AVAILABLE_PRODUCTS_STATE } from 'constants/available-products-actions';
+import { INITIALIZE_AVAILABLE_PRODUCTS_STATE, REMOVE_NO_LAND_BASE_PACKAGES, REMOVE_NO_LAND_UPGRADES, RETURN_NO_LAND_PRODUCTS } from 'constants/available-products-actions';
 
 //>CREATE STEPPER CONTEXT FOR PROVIDING AVAILABLE PRODUCT DATA AND FUNCTIONS
 import React, { createContext, useReducer, useContext } from 'react';
@@ -16,7 +16,9 @@ export const AvailableProductsContext = createContext({} as any);
 //define stepper initial state object configuration
 const INITIAL_STATE = {
     availableBasePackages: [],
-    availableUpgrades: []
+    availableUpgrades: [],
+    allBasePackages: [],
+    allUpgrades: []
 }
 
 //! DEFINE DISPATCH HANDLER ACTIONS FROM REDUCER FUNCTION BELOW
@@ -36,11 +38,28 @@ const useAvailableProductsActions = (initialAvailableProducts = INITIAL_STATE) =
                 upgradeList: upgradeList
             }
         })
+    };
+
+    const removeNoLandProductsHandler = (payload) => {
+        dispatch({
+            type: REMOVE_NO_LAND_BASE_PACKAGES, payload: payload.basePackageList
+        })
+        dispatch({
+            type: REMOVE_NO_LAND_UPGRADES, payload: payload.upgradeList
+        })
     }
+
+    const returnNoLandProductsHandler = () => {
+        dispatch({ type: RETURN_NO_LAND_PRODUCTS })
+    }
+
+
     return {
         state,
         rehydrateLocalState,
-        initializeAvailableProductsStateHandler
+        initializeAvailableProductsStateHandler,
+        removeNoLandProductsHandler,
+        returnNoLandProductsHandler
     };
 };
 
@@ -51,7 +70,9 @@ export const AvailableProductsProvider = ({ children }) => {
     const {
         state,
         rehydrateLocalState,
-        initializeAvailableProductsStateHandler
+        initializeAvailableProductsStateHandler,
+        removeNoLandProductsHandler,
+        returnNoLandProductsHandler
     } = useAvailableProductsActions();
     const { rehydrated, error } = useStorage(state, rehydrateLocalState);
 
@@ -60,7 +81,11 @@ export const AvailableProductsProvider = ({ children }) => {
             value={{
                 availableBasePackages: state.availableBasePackages,
                 availableUpgrades: state.availableUpgrades,
-                initializeAvailableProductsState: initializeAvailableProductsStateHandler
+                allBasePackages: state.allBasePackages,
+                allUpgrades: state.allUpgrades,
+                initializeAvailableProductsState: initializeAvailableProductsStateHandler,
+                removeNoLandProducts: removeNoLandProductsHandler,
+                returnNoLandProducts: returnNoLandProductsHandler
             }}
         >
             {children}

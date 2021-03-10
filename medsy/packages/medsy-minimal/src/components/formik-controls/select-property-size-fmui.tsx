@@ -4,6 +4,8 @@ import { TextField } from 'formik-material-ui';
 import { useCalculator } from 'contexts/calculator/calculator.provider'
 import { GET_SQUARE_FOOTAGE_LEVELS } from 'constants/actions'
 import { propertyOf } from 'lodash';
+import { getBasePackageList } from 'helpers/product-list/get-base-package-list';
+
 export interface SelectPropertySizeFmuiProps {
     ranges: any[],
     squareFootageLevels: any[]
@@ -12,6 +14,7 @@ export interface SelectPropertySizeFmuiProps {
 const SelectPropertySizeFmui: React.FC<SelectPropertySizeFmuiProps> = (props) => {
     const [propertySizeField, propertySizeMeta, propertySizeHelpers] = useField('propertySize');
     const { updatePropertySize, getSquareFootageLevels } = useCalculator();
+
     return (
         <Field
             component={TextField}

@@ -63,7 +63,7 @@ const calculatedProduct = (multiplier, adjustment, price) => {
 //> instead, we appwide discount conditions to be checked for at all times
 export const calculatorProductsTotalPrice = (state) => {
     const { propertyType, propertySize, products, discountCondition, squareFootageLevels, license, licenseOptions } = state;
-    console.log('calculatorProductsTotalPrice function is firing:--->', propertyType, propertySize, products, licenseOptions)
+    // console.log('calculatorProductsTotalPrice function is firing:--->', propertyType, propertySize, products, licenseOptions)
 
     //check for initialization first
     const licenseOptionsInitialized = licenseOptions.length !== 0;
@@ -71,8 +71,8 @@ export const calculatorProductsTotalPrice = (state) => {
 
 
     let total = products.reduce((price, product) => {
-        console.log('i am the ACCUMULATOR parameter (`price`) in the products array reduce function', price);
-        console.log('i am the ELEMENT parameter `product` in the products array (representing an individual product) reduce function', product);
+        // console.log('i am the ACCUMULATOR parameter (`price`) in the products array reduce function', price);
+        // console.log('i am the ELEMENT parameter `product` in the products array (representing an individual product) reduce function', product);
 
         let prodTotal;
         if (licenseOptionsInitialized && squareFootageInitialized) {
@@ -83,7 +83,7 @@ export const calculatorProductsTotalPrice = (state) => {
 
         //push the calculated indiviual prices of each product into this array...
         //const priceOfProduct = [];
-        console.log('i am prodTotal', prodTotal)
+        // console.log('i am prodTotal', prodTotal)
 
         //? so, if the product object possesses the `salePrice` property run this condition block
         if (product.salePrice) {

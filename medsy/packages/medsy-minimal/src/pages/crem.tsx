@@ -311,7 +311,7 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
     // }, [licenseOptions])
 
     const isMounted = useIsMounted()
-    console.log('i am isMounted', isMounted)
+    // console.log('i am isMounted', isMounted)
 
 
     const lOptions = React.useMemo(() => (
