@@ -31,7 +31,7 @@ import { CalculatorProvider } from 'contexts/calculator/calculator.provider'
 import { AvailableProductsProvider } from 'contexts/available-products/available-products.provider';
 
 
-import { GlobalStateProvider } from '@dr.pogodin/react-global-state';
+// import { GlobalStateProvider } from '@dr.pogodin/react-global-state';
 
 
 //! added `AppProps` type --> bruno
@@ -46,7 +46,7 @@ export default function CustomApp({ Component, pageProps }: AppProps) {
   }, []);
   return (
     //!add `React.Fragment` component wrapper --- bruno */
-    <GlobalStateProvider>
+    <React.Fragment>
       {/* //! add `ThemeProvider` component that uses theme prop --- bruno */}
       <ThemeProvider theme={theme}>
         {/* //! add CssBaseline component --- bruno */}
@@ -70,6 +70,6 @@ export default function CustomApp({ Component, pageProps }: AppProps) {
           </StickyProvider>
         </SearchProvider>
       </ThemeProvider>
-    </GlobalStateProvider>
+    </React.Fragment>
   );
 }
