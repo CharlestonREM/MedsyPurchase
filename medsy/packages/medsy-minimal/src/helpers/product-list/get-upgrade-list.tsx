@@ -35,6 +35,7 @@ export async function getUpgradeList() {
       basePrice,
       discountPrice,
       primaryProduct,
+      description
     }) => ({
       index,
       id,
@@ -45,6 +46,7 @@ export async function getUpgradeList() {
       basePrice,
       discountPrice,
       primaryProduct,
+      description
     })
   );
   let typedArray = [];
@@ -59,7 +61,8 @@ export async function getUpgradeList() {
       squareFootBased: stringToBoolean(product.squareFootBased),
       basePrice: parseInt(product.basePrice),
       discountPrice: parseInt(product.discountPrice),
-      primaryProduct: stringToBoolean(product.primaryProduct)
+      primaryProduct: stringToBoolean(product.primaryProduct),
+      description: product.description
     }
     typedArray.push(typedProduct);
   })

@@ -35,6 +35,7 @@ export async function getBasePackageList() {
       basePrice,
       discountPrice,
       primaryProduct,
+      description
     }) => ({
       index,
       id,
@@ -45,6 +46,7 @@ export async function getBasePackageList() {
       basePrice,
       discountPrice,
       primaryProduct,
+      description
     })
   );
 
@@ -60,7 +62,8 @@ export async function getBasePackageList() {
       squareFootBased: stringToBoolean(product.squareFootBased),
       basePrice: parseInt(product.basePrice),
       discountPrice: parseInt(product.discountPrice),
-      primaryProduct: stringToBoolean(product.primaryProduct)
+      primaryProduct: stringToBoolean(product.primaryProduct),
+      description: product.description
     }
     typedArray.push(typedProduct);
   })

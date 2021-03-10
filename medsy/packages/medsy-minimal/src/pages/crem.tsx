@@ -76,6 +76,8 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import SelectBaseProductStep from 'components/select-base-products-step';
 import { useAvailableProducts } from 'contexts/available-products/available-products.provider';
 
+import SelectUpgradesStep from 'components/select-upgrades-step';
+
 //setup styles for grid
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -373,8 +375,9 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
                             <SelectBaseProductsStep basePackages={availableBasePackages} baseServiceField="baseServiceCheckbox" />
                             {/* <BaseProductCheckboxStep basePackages={availableBasePackages} /> */}
                         </FormikStep>
-                        <FormikStep stepTitle="Select your package upgrades" stepperStep={2}>
-                            <UpgradeCheckboxStep upgrades={upgradeList} products={availableBasePackages} />
+                        <FormikStep stepTitle="Select your package upgrades" stepperStep={2} fieldDataDisplay={'upgradeCheckbox'}>
+                            <SelectUpgradesStep upgrades={availableUpgrades} basePackages={availableBasePackages} basePackageField="basePackageCheckbox" />
+                            {/* <UpgradeCheckboxStep upgrades={upgradeList} products={availableBasePackages} /> */}
                         </FormikStep>
                         <FormikStep stepTitle="Confirm your selections" stepperStep={2} validationSchema={validationSchema.step5}>
                             <ConfirmSelectionStep upgrades={upgradeList} products={availableBasePackages} upgradeField='upgradeCheckbox' basePackageField="basePackageCheckbox" />

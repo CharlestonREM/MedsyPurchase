@@ -8,6 +8,7 @@ export interface product {
     productService: string;
     propertyType: string;
     squareFootBased: boolean;
+    description: string;
 }
 export interface upgrade {
     basePrice: number;
@@ -19,4 +20,5 @@ export interface upgrade {
     productService: string;
     propertyType: string;
     squareFootBased: boolean;
+    description: string;
 }
