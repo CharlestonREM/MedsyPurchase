@@ -41,7 +41,17 @@ const SelectUpgradesStep: React.FC<SelectUpgradesStepProps> = (props) => {
     // console.log()
 
     let services = _.uniq(_.map(selectedBasePackages, 'productService'));
-    console.log(services)
+    // console.log('services', services)
+
+    //check if services available have upgrades
+    const upgradesAvailableForService = (service) => {
+        let upgradesAvailable = _.find(upgrades, { 'productService': service })
+        if (upgradesAvailable !== undefined) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     return (
         <>
@@ -49,17 +59,21 @@ const SelectUpgradesStep: React.FC<SelectUpgradesStepProps> = (props) => {
             {
                 services.map((service, index) => {
                     // todo - if check is needed for whether service has special upgrades or not
-                    return (
-                        <Grid container key={index}>
-                            <Grid container direction="row" alignItems="center" >
-                                <Typography style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', fontWeight: 700, fontSize: '1.15rem', margin: '2rem auto', color: '#999999' }}><span>{getServiceIcon(service)}</span><span>{getServiceData(service).name}</span><span style={{ color: 'black' }}>/Upgrades</span></Typography>
+                    if (upgradesAvailableForService(service)) {
+                        return (
+                            <Grid container key={index}>
+                                {/* <h1>upgradesAvailableForService: {upgradesAvailableForService(service).toString()}</h1> */}
+                                <Grid container direction="row" alignItems="center" >
+                                    <Typography style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', fontWeight: 700, fontSize: '1.15rem', margin: '2rem auto', color: '#999999' }}><span>{getServiceIcon(service)}</span><span>{getServiceData(service).name}</span><span style={{ color: 'black' }}>/Upgrades</span></Typography>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <UpgradeAccordionCheckboxGroup upgrades={upgrades} service={service} fieldName="upgradeCheckbox" label="i am label" />
+                                </Grid>
+                                {/* <Grid item xs={12}><AddBasePackageToggleButtonGroup name="basePackageCheckbox" service={service} serviceProducts={specificBasePackageProducts} /></Grid> */}
                             </Grid>
-                            <Grid item xs={12}>
-                                <UpgradeAccordionCheckboxGroup upgrades={upgrades} service={service} fieldName="upgradeCheckbox" label="i am label" />
-                            </Grid>
-                            {/* <Grid item xs={12}><AddBasePackageToggleButtonGroup name="basePackageCheckbox" service={service} serviceProducts={specificBasePackageProducts} /></Grid> */}
-                        </Grid>
-                    )
+                        )
+                    }
+
                 })
             }
             <Grid container>

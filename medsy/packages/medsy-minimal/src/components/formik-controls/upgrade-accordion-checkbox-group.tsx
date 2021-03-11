@@ -9,11 +9,15 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Grid } from '@material-ui/core';
 
+import _ from 'lodash';
+
 //formik stuff
 import { Field, ErrorMessage } from "formik";
 
 import { product as productInterface } from 'interfaces/google-spreadsheet-data';
 import SwipeableTextMobileStepper from 'components/swipable-text-mobile-stepper';
+
+import { useCalculator } from 'contexts/calculator/calculator.provider'
 
 const useStyles = makeStyles({
     root: {
@@ -34,18 +38,31 @@ export interface UpgradeAccordionCheckboxGroupProps {
 const UpgradeAccordionCheckboxGroup: React.FC<UpgradeAccordionCheckboxGroupProps> = (props) => {
     const classes = useStyles();
     const { upgrades, service, label, fieldName, ...rest } = props;
-    console.log(upgrades)
+    const { addProduct, getProduct, removeProduct } = useCalculator();
+    //console.log(upgrades)
+
+    const updateCalculatorUpgrades = (event) => {
+        //console.log('i am event', event.target.checked)
+        const product = _.find(upgrades, { 'id': event.target['value'] });
+        //console.log('i am product', product);
+        if (event.target.checked) {
+            addProduct(product)
+        } else {
+            removeProduct(product)
+        }
+    }
 
     return (
         <div className={classes.root}>
             <Field
                 name={fieldName}
-                onChange={() => {
-                    console.log("change handled");
+                onChange={(e) => {
+                    console.log("change handled!"), e;
                 }}
                 {...rest}
             >
-                {({ field }) => {
+                {({ field, handleChange }) => {
+                    // console.log('i am field', field)
 
                     return upgrades.map((upgrade, index) => {
                         if (upgrade.productService === service) {
@@ -70,6 +87,13 @@ const UpgradeAccordionCheckboxGroup: React.FC<UpgradeAccordionCheckboxGroupProps
                                                     color="primary"
                                                     onClick={(event) => event.stopPropagation()}
                                                     onFocus={(event) => event.stopPropagation()}
+                                                    onChange={(e) => {
+                                                        //todo - create on change function that ends in resetting the value of the input
+                                                        //use built in onchange handler and just pass the event!
+                                                        field.onChange(e);
+                                                        //update calculator context
+                                                        updateCalculatorUpgrades(e)
+                                                    }}
                                                 />
                                                 {/* <FormControlLabel
                                                 aria-label="Acknowledge"
