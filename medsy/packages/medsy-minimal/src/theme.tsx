@@ -72,6 +72,43 @@ theme.overrides = {
         text: {
             fill: transWhite
         }
+    },
+    MuiAccordion: {
+        root: {
+
+        },
+        expanded: {
+            backgroundColor: theme.palette.primary.main,
+            '& [class*="MuiTypography-root"]': {
+                color: 'white',
+            },
+            '& [class*="MuiTypography-body2"]': {
+                display: 'none'
+            },
+            '& ul': {
+                color: 'white',
+                paddingLeft: '1.25em'
+            },
+            '& [class*="MuiGrid-root"]': {
+                color: 'white',
+                textAlign: 'left',
+                paddingLeft: '0',
+                backgroundColor: theme.palette.primary.main
+            },
+            '& [class*="MuiCheckbox-root"]': {
+                color: 'white'
+            },
+            '& .MuiCheckbox-colorPrimary.Mui-checked ': {
+                color: 'white'
+            },
+            '& [class*="MuiAccordionSummary-expandIcon"]': {
+                color: 'white'
+            },
+            '& [class*="MuiPaper-root"]': {
+                backgroundColor: theme.palette.primary.main
+            }
+
+        }
     }
 
 

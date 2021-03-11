@@ -13,6 +13,7 @@ import { Grid } from '@material-ui/core';
 import { Field, ErrorMessage } from "formik";
 
 import { product as productInterface } from 'interfaces/google-spreadsheet-data';
+import SwipeableTextMobileStepper from 'components/swipable-text-mobile-stepper';
 
 const useStyles = makeStyles({
     root: {
@@ -27,6 +28,8 @@ export interface UpgradeAccordionCheckboxGroupProps {
     label: string;
     fieldName: string;
 }
+
+//todo- potential bottleneck performance concerns for accordion: https://material-ui.com/components/accordion/#performance
 
 const UpgradeAccordionCheckboxGroup: React.FC<UpgradeAccordionCheckboxGroupProps> = (props) => {
     const classes = useStyles();
@@ -56,8 +59,8 @@ const UpgradeAccordionCheckboxGroup: React.FC<UpgradeAccordionCheckboxGroupProps
                                     >
                                         <Grid container>
                                             <Grid item xs={9}>
-                                                <Typography variant='h6' color='primary'>{upgrade.productName}</Typography>
-                                                <Typography variant='body2' >{upgrade.description}</Typography>
+                                                <Typography variant='h6' color='primary' align="left">{upgrade.productName}</Typography>
+                                                <Typography variant='body2' align="left">{upgrade.description}</Typography>
                                             </Grid>
                                             <Grid item xs={3}>
                                                 <Checkbox
@@ -82,10 +85,42 @@ const UpgradeAccordionCheckboxGroup: React.FC<UpgradeAccordionCheckboxGroupProps
 
                                     </AccordionSummary>
                                     <AccordionDetails>
-                                        <Typography color="textSecondary">
-                                            The click event of the nested action will propagate up and expand the accordion unless
-                                            you explicitly stop it.
-                  </Typography>
+                                        <Grid container>
+                                            <Grid item xs={12}>
+                                                <Typography color="textSecondary" align="left">
+                                                    This is an expanded product description for the selected upgrade service. It includes details about the service and basic pricing info.
+                                    </Typography>
+
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <ul>
+                                                    <li>
+                                                        <Typography color="textSecondary" align="left">
+                                                            Some important fact
+                                                        </Typography>
+                                                    </li>
+                                                    <li>
+                                                        <Typography color="textSecondary" align="left">
+                                                            Another important detail
+                                                        </Typography>
+                                                    </li>
+                                                    <li>
+                                                        <Typography color="textSecondary" align="left">
+                                                            The key selling point
+                                                        </Typography>
+                                                    </li>
+                                                </ul>
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                More Details Online
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                icons go here
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <SwipeableTextMobileStepper />
+                                            </Grid>
+                                        </Grid>
                                     </AccordionDetails>
                                 </Accordion>
                             )
