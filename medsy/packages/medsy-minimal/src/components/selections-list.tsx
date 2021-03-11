@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react'
 import { ModalContext } from 'contexts/modal/modal.provider';
 
 
-import { Box, Button, FormControlLabel, Typography } from '@material-ui/core'
+import { Box, Button, FormControlLabel, Grid, Typography } from '@material-ui/core'
 import { useFormikContext, useField } from "formik";
 import _ from 'lodash';
 //custom helpers for services
@@ -16,6 +16,105 @@ import { upgrade as upgradeInterface, product as productInterface } from "interf
 import { formikSelectionList } from "interfaces/form-values";
 import { StepperContext } from 'contexts/stepper/stepper.provider';
 
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+
+
+//setup styles for grid
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        max: {
+            maxWidth: '450px',
+            margin: 'auto'
+        },
+        root: {
+            flexGrow: 1,
+        },
+        paper: {
+            padding: theme.spacing(2),
+            textAlign: 'center',
+            color: theme.palette.text.secondary,
+        },
+        stepperAction: {
+            backgroundColor: theme.palette.secondary.main
+        },
+        stepperContainer: {
+            backgroundColor: theme.palette.secondary.main,
+            marginBottom: 0
+        },
+        basePackageSelection: {
+            paddingLeft: '0',
+
+            '& ul': {
+                paddingLeft: 0,
+                // borderBottom: 'solid 1px #E0E0E0',
+                '& li': {
+                    borderTop: 'solid 1px #E0E0E0',
+                    listStyleType: 'none',
+                    paddingLeft: '2em'
+                }
+            },
+            '& li': {
+                borderTop: 'solid 1px #E0E0E0',
+                padding: '1em 0',
+                '& button': {
+                    padding: '.5em 0',
+                    justifyContent: 'flex-end',
+                    '& p': {
+                        fontSize: '.75em',
+                        textTransform: 'capitalize',
+                        textDecoration: 'underline'
+
+                    }
+                }
+
+            }
+        },
+        additionalUpgrades: {
+            paddingLeft: '0',
+            '& li': {
+                borderTop: 'solid 1px #E0E0E0',
+                padding: '1em 0',
+                paddingLeft: '2em',
+                '& button': {
+                    padding: '.5em 0',
+                    justifyContent: 'flex-end',
+                    '& p': {
+                        fontSize: '.75em',
+                        textTransform: 'capitalize',
+                        textDecoration: 'underline'
+
+                    }
+                }
+
+            }
+        },
+        basePackageName: {
+            fontSize: '1.25em',
+            fontWeight: 900,
+            textTransform: 'capitalize'
+        },
+        selectionType: {
+            fontSize: '.75em'
+        },
+        price: {
+            color: 'black',
+            fontSize: '1em'
+        },
+        upgradeName: {
+            fontSize: '1.25em',
+            fontWeight: 400,
+            textTransform: 'capitalize'
+        },
+        selectionIcon: {
+            '& [class*="MuiSvgIcon-root"]': {
+                fontSize: '2rem',
+                color: 'black'
+            },
+        }
+    }),
+);
+
+
 export interface SelectionsListProps {
     upgrades: upgradeInterface[]
     products: productInterface[],
@@ -24,6 +123,8 @@ export interface SelectionsListProps {
 }
 
 const SelectionsList: React.FC<SelectionsListProps> = (props) => {
+
+    const classes = useStyles();
 
     //>MODAL
     //modal helpers
@@ -265,76 +366,129 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
             {
                 selectedServices.map((service, index) => {
                     if (service !== 'u') {
-                        return <section key={index}>
+                        return <Grid component="section" key={index} container>
                             {
                                 Object.keys(selectedProducts).map((key, i) => {
                                     if (key.toString() === service.toString()) {
                                         //additional return statement needed and a wrapping element needed
                                         //note: https://stackoverflow.com/a/47402440/14657615
-                                        return <article key={i}>
-                                            <Typography variant="h6">{getServiceData(service).name} {getServiceIcon(service)}</Typography>
-                                            <ul key={i}>
+                                        return <Grid container component="article" key={i}>
+                                            <Grid container>
+                                                <Grid xs={12}>
+                                                    <Typography variant="h3" className={classes.selectionIcon}>{/* {getServiceData(service).name} */} {getServiceIcon(service)}</Typography>
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid item xs={12} component="ul" key={i} className={classes.basePackageSelection}>
                                                 {
                                                     selectedProducts[key].map((product, pIndex) => {
-                                                        return <li key={pIndex + product.id}><Typography style={{ backgroundColor: theme.palette.secondary.main }} variant="h5" color="primary">{product.productName}</Typography> <div>
-                                                            <div>${product.basePrice}</div>
-                                                            <Button
+                                                        return <Grid component="li" key={pIndex + product.id} container>
+                                                            <Grid item xs={8}>
+                                                                <Typography className={classes.basePackageName} align="left" variant="h5" color="primary">{product.productName}</Typography>
+                                                                <Typography align="left" className={classes.selectionType}>
+                                                                    BASE PACKAGE
+                                                                </Typography>
+                                                            </Grid>
+                                                            <Grid item xs={4}>
+                                                                <Typography align="right" className={classes.price}>${product.basePrice}.00</Typography>
+                                                                <Grid container justify="flex-end">
+                                                                    <Button
 
-                                                                onClick={() => removeItem('basePackageCheckbox', product.id, 'product', service, selectedProducts)}
-                                                            >
-                                                                Remove
-                                                                            </Button>
-                                                        </div><hr /></li>
+                                                                        onClick={() => removeItem('basePackageCheckbox', product.id, 'product', service, selectedProducts)}
+                                                                    >
+                                                                        <Typography align="right">
+                                                                            Remove
+                                                                        </Typography>
+                                                                    </Button>
+                                                                </Grid>
+                                                            </Grid>
+
+                                                        </Grid>
                                                     })
                                                 }
                                                 {
                                                     Object.keys(selectedUpgrades).map((upKey, upI) => {
                                                         if (upKey === service) {
-                                                            return <ul key={upI}>
+                                                            return <Grid container component="ul" key={upI}>
                                                                 {
                                                                     selectedUpgrades[upKey].map((upgrade) => {
-                                                                        return <li key={upI + upgrade.id}>{upgrade.productName} <div>
-                                                                            <div>${upgrade.basePrice}</div>
-                                                                            <Button
+                                                                        return <Grid container component="li" key={upI + upgrade.id}>
+                                                                            <Grid item xs={8}>
+                                                                                <Typography align="left" color="primary" className={classes.upgradeName}>
+                                                                                    {upgrade.productName}
+                                                                                </Typography>
+                                                                                <Typography align="left" className={classes.selectionType}>
+                                                                                    UPGRADE
+                                                                                </Typography>
+                                                                            </Grid>
 
-                                                                                onClick={() => removeItem('upgradeCheckbox', upgrade.id, 'upgrade', service, selectedUpgrades)}
-                                                                            >
-                                                                                Remove
-                                                                            </Button>
-                                                                        </div><hr /></li>
+
+                                                                            <Grid item xs={4}>
+                                                                                <Typography align="right" className={classes.price}>${upgrade.basePrice}.00</Typography>
+                                                                                <Grid container justify="flex-end">
+                                                                                    <Button
+
+                                                                                        onClick={() => removeItem('upgradeCheckbox', upgrade.id, 'upgrade', service, selectedUpgrades)}
+                                                                                    >
+                                                                                        <Typography align="right">
+                                                                                            Remove
+                                                                                    </Typography>
+                                                                                    </Button>
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
                                                                     })
                                                                 }
-                                                            </ul>
+                                                            </Grid>
                                                         }
                                                     })
                                                 }
-                                            </ul>
-                                        </article>
+                                            </Grid>
+                                        </Grid>
                                     }
                                 })
                             }
-                        </section>
+                        </Grid>
                     } else {
                         return <article key={index}>
-                            <Typography variant="h6">{getServiceData(service).name} {getServiceIcon(service)}</Typography>
+                            <Grid container>
+                                <Grid xs={12}>
+                                    <Typography variant="h3" className={classes.selectionIcon}>{/* {getServiceData(service).name} */} {getServiceIcon(service)}</Typography>
+                                </Grid>
+                            </Grid>
                             {
                                 Object.keys(selectedUpgrades).map((upKey, upI) => {
                                     if (upKey === service) {
-                                        return <ul key={upI}>
+                                        return <Grid className={classes.additionalUpgrades} container component="ul" key={upI}>
                                             {
                                                 selectedUpgrades[upKey].map((upgrade) => {
-                                                    return <li key={upI + upgrade.id}>{upgrade.productName} <div>
-                                                        <div>${upgrade.basePrice}</div>
-                                                        <Button
+                                                    return <Grid container component="li" key={upI + upgrade.id}>
+                                                        <Grid item xs={8}>
+                                                            <Typography align="left" color="primary" className={classes.upgradeName}>
+                                                                {upgrade.productName}
+                                                            </Typography>
+                                                            <Typography align="left" className={classes.selectionType}>
+                                                                UPGRADE
+                                                                                </Typography>
+                                                        </Grid>
 
-                                                            onClick={() => removeItem('upgradeCheckbox', upgrade.id, 'upgrade', service, selectedUpgrades)}
-                                                        >
-                                                            Remove
-                                                        </Button>
-                                                    </div><hr /></li>
+
+                                                        <Grid item xs={4}>
+                                                            <Typography align="right" className={classes.price}>${upgrade.basePrice}.00</Typography>
+                                                            <Grid container justify="flex-end">
+                                                                <Button
+                                                                    onClick={() => removeItem('upgradeCheckbox', upgrade.id, 'upgrade', service, selectedUpgrades)}
+                                                                >
+                                                                    <Typography align="right">
+                                                                        Remove
+                                                                                    </Typography>
+                                                                </Button>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
                                                 })
                                             }
-                                        </ul>
+                                        </Grid>
                                     }
                                 })
                             }
