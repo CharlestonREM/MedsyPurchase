@@ -1,35 +1,21 @@
 import {
-    Box,
-    Card,
-    CardContent,
     Grid,
     Typography
 } from "@material-ui/core";
 //imp FORMIK
 import {
-    Field,
-    Form,
-    Formik,
     useFormikContext,
-    ErrorMessage,
-    FormikConfig,
-    FormikValues,
-    useFormik,
     useField
 } from "formik";
-import { CheckboxWithLabel, TextField } from "formik-material-ui";
 
 import { product as productInterface } from 'interfaces/google-spreadsheet-data';
 import { formikSelectionList } from "interfaces/form-values";
 
-import CheckboxGroup from "components/formik-controls/checkbox-group";
 import AddBasePackageToggleButtonGroup from 'components/formik-controls/add-base-package-toggle-button-group'
 
-import FieldDataDisplay from 'components/data-displays/field-data-display'
 
 import { getServiceIcon } from "helpers/get-service-icon";
 import { getServiceData } from "helpers/get-service-data";
-import CalculatorContextDataDisplay from "./data-displays/calculator-context-data-display";
 
 
 export interface SelectBaseProductsStepProps {
