@@ -66,6 +66,9 @@ const SelectUpgradesStep: React.FC<SelectUpgradesStepProps> = (props) => {
                 <Grid container direction="row" alignItems="center" >
                     <Typography style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', fontWeight: 700, fontSize: '1.15rem', margin: '2rem auto', color: '#999999' }}><span>{getServiceIcon('u')}</span><span>{getServiceData('u').name}</span><span style={{ color: 'black' }}>/Upgrades</span></Typography>
                 </Grid>
+                <Grid item xs={12}>
+                    <UpgradeAccordionCheckboxGroup upgrades={upgrades} service="u" fieldName="upgradeCheckbox" label="i am label" />
+                </Grid>
                 {/* <Grid item xs={12}><AddBasePackageToggleButtonGroup name="basePackageCheckbox" service={service} serviceProducts={specificBasePackageProducts} /></Grid> */}
             </Grid>
         </>
