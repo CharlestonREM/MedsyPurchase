@@ -26,6 +26,9 @@ theme.overrides = {
             height: '100%',
             borderRight: 'solid 1px white',
             borderRightColor: theme.palette.secondary.main
+        },
+        label: {
+            fontSize: '1.5em'
         }
     },
     MuiToggleButtonGroup: {
@@ -108,6 +111,13 @@ theme.overrides = {
                 backgroundColor: theme.palette.primary.main
             }
 
+        }
+    },
+    MuiGrid: {
+        root: {
+            '& .calculator-container': {
+                padding: '1.5em'
+            }
         }
     }
 
