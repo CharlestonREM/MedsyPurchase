@@ -84,6 +84,7 @@ const UpgradeAccordionCheckboxGroup: React.FC<UpgradeAccordionCheckboxGroupProps
                                                     id={upgrade.id}
                                                     {...field}
                                                     value={upgrade.id}
+                                                    checked={field.value.includes(upgrade.id)}
                                                     color="primary"
                                                     onClick={(event) => event.stopPropagation()}
                                                     onFocus={(event) => event.stopPropagation()}
