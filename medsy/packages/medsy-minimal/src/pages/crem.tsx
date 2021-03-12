@@ -83,10 +83,11 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         max: {
             maxWidth: '450px',
-            margin: 'auto'
+            margin: 'auto',
+            // backgroundColor: '#E5E5E5'
         },
         root: {
-            flexGrow: 1,
+            // flexGrow: 1,
         },
         paper: {
             padding: theme.spacing(2),
@@ -185,7 +186,7 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
         baseServiceCheckbox: [],
         basePackageCheckbox: [],
         upgradeCheckbox: [],
-        confirmSelectionCheckbox: false,
+        // confirmSelectionCheckbox: false,
         profile: {
             customerName: 'test name',
             brokerage: 'test brokerage',
@@ -260,7 +261,7 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
 
         },
         step5: Yup.object({
-            confirmSelectionCheckbox: Yup.bool().oneOf([true], 'Please let us know that your order is right!').required('Please let us know that your order is right!')
+            // confirmSelectionCheckbox: Yup.bool().oneOf([true], 'Please let us know that your order is right!').required('Please let us know that your order is right!')
         }),
         step6: Yup.object({
             profile: Yup.object({
@@ -338,134 +339,129 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
 
 
     return (
-        <div className={classes.root}>
-            <Grid container spacing={3} className={classes.max}>
-                <Grid item xs={12}>
-                    <TopNav title={stepperContext.state.stepTitle} />
-                </Grid>
-                <Grid item xs={12}>
+
+        <Grid container className={classes.max}>
+            <Grid item xs={12}>
+                <TopNav title={stepperContext.state.stepTitle} />
+            </Grid>
+            <Grid item xs={12}>
 
 
 
-                    {/* <Box bgcolor="red">
-                        <Typography variant="h6">Field: Data Display</Typography>
-                        <pre>{JSON.stringify(squareFootage, null, 2)}</pre>
-                    </Box> */}
+
+                <FormikStepper initialValues={initialValues} onSubmit={onSubmit} >
 
 
-                    <FormikStepper initialValues={initialValues} onSubmit={onSubmit} >
+                    {/* //TODO- through object deconstruction i pass initial values as example; i now need to dynamicaly add state as prop to `FormikStepper` component and add to `FormikStep` manually */}
+                    <FormikStep stepTitle="Tell us about your property" validationSchema={validationSchema.step1} stepperStep={1} fieldDataDisplay={'propertyType'}>
+
+                        <RadioButtonsFmui />
+                        <SelectPropertySizeFmui ranges={ranges} squareFootageLevels={squareFootage} />
+
+                    </FormikStep>
+
+                    <FormikStep stepTitle="Select your base services" stepperStep={2} validationSchema={validationSchema.step2}>
 
 
-                        {/* //TODO- through object deconstruction i pass initial values as example; i now need to dynamicaly add state as prop to `FormikStepper` component and add to `FormikStep` manually */}
-                        <FormikStep stepTitle="Tell us about your property" validationSchema={validationSchema.step1} stepperStep={1} fieldDataDisplay={'propertyType'}>
 
-                            <RadioButtonsFmui />
-                            <SelectPropertySizeFmui ranges={ranges} squareFootageLevels={squareFootage} />
+                        <BaseServiceToggleButtonGroup name="baseServiceCheckbox" baseServices={serviceData} />
 
-                        </FormikStep>
-
-                        <FormikStep stepTitle="Select your base services" stepperStep={2} validationSchema={validationSchema.step2}>
-                            {/* <CheckboxGroup label="Select a base service"
-        name="baseServiceCheckbox"
-        options={checkboxOptions} /> */}
-
-                            <BaseServiceToggleButtonGroup name="baseServiceCheckbox" baseServices={serviceData} />
-                        </FormikStep>
-                        <FormikStep stepTitle="Select your base packages" stepperStep={2} validationSchema={validationSchema.step3} fieldDataDisplay={'basePackageCheckbox'}>
-                            <SelectBaseProductsStep basePackages={availableBasePackages} baseServiceField="baseServiceCheckbox" />
-                            {/* <BaseProductCheckboxStep basePackages={availableBasePackages} /> */}
-                        </FormikStep>
-                        <FormikStep stepTitle="Select your package upgrades" stepperStep={2} fieldDataDisplay={'upgradeCheckbox'}>
-                            <SelectUpgradesStep upgrades={availableUpgrades} basePackages={availableBasePackages} basePackageField="basePackageCheckbox" />
-                            {/* <UpgradeCheckboxStep upgrades={upgradeList} products={availableBasePackages} /> */}
-                        </FormikStep>
-                        <FormikStep stepTitle="Confirm your selections" stepperStep={2} validationSchema={validationSchema.step5}>
-                            <ConfirmSelectionStep upgrades={upgradeList} products={availableBasePackages} upgradeField='upgradeCheckbox' basePackageField="basePackageCheckbox" />
-                        </FormikStep>
-                        <FormikStep stepTitle="Tell us about you" stepperStep={3} validationSchema={validationSchema.step6}>
-                            <FormControl>
-                                <Field name="Give some property info" label="Name" component={TextField} />
-                            </FormControl>
-                            <FormControl>
-                                <Field name="profile.brokerage" label="Name of Brokerage (optional)" component={TextField} />
-                            </FormControl>
-                            <FormControl>
-                                <Field name="profile.email" label="Email address" component={TextField} />
-                            </FormControl>
-                            <FormControl>
-                                <Field name="profile.phone" label="Phone Number" component={TextField} />
-                            </FormControl>
-                        </FormikStep>
-                        <FormikStep stepTitle="Give us session info" stepperStep={3} validationSchema={validationSchema.step7}>
-                            <FormControl>
-                                <Field name="property.propertyStreetAddress" label="Street Address" component={TextField} />
-                            </FormControl>
-                            <FormControl>
-                                <Field name="property.propertyCity" label="City" component={TextField} />
-                            </FormControl>
-                            <FormControl>
-                                <Field name="property.propertyState" label="State" component={TextField} />
-                            </FormControl>
-                            <FormControl>
-                                <Field name="property.propertyZip" label="Zip Code" component={TextField} />
-                            </FormControl>
-                            <FormControl>
-                                //todo - use custom antswitcy yes or no based on this: - https://codesandbox.io/s/x8bz8
+                    </FormikStep>
+                    <FormikStep stepTitle="Select your base packages" stepperStep={2} validationSchema={validationSchema.step3} fieldDataDisplay={'basePackageCheckbox'}>
+                        <SelectBaseProductsStep basePackages={availableBasePackages} baseServiceField="baseServiceCheckbox" />
+                        {/* <BaseProductCheckboxStep basePackages={availableBasePackages} /> */}
+                    </FormikStep>
+                    <FormikStep stepTitle="Select your package upgrades" stepperStep={2} fieldDataDisplay={'upgradeCheckbox'}>
+                        <SelectUpgradesStep upgrades={availableUpgrades} basePackages={availableBasePackages} basePackageField="basePackageCheckbox" />
+                        {/* <UpgradeCheckboxStep upgrades={upgradeList} products={availableBasePackages} /> */}
+                    </FormikStep>
+                    <FormikStep stepTitle="Confirm your selections" stepperStep={2} validationSchema={validationSchema.step5}>
+                        <ConfirmSelectionStep upgrades={upgradeList} products={availableBasePackages} upgradeField='upgradeCheckbox' basePackageField="basePackageCheckbox" />
+                    </FormikStep>
+                    <FormikStep stepTitle="Tell us about you" stepperStep={3} validationSchema={validationSchema.step6}>
+                        <FormControl>
+                            <Field name="Give some property info" label="Name" component={TextField} />
+                        </FormControl>
+                        <FormControl>
+                            <Field name="profile.brokerage" label="Name of Brokerage (optional)" component={TextField} />
+                        </FormControl>
+                        <FormControl>
+                            <Field name="profile.email" label="Email address" component={TextField} />
+                        </FormControl>
+                        <FormControl>
+                            <Field name="profile.phone" label="Phone Number" component={TextField} />
+                        </FormControl>
+                    </FormikStep>
+                    <FormikStep stepTitle="Give us session info" stepperStep={3} validationSchema={validationSchema.step7}>
+                        <FormControl>
+                            <Field name="property.propertyStreetAddress" label="Street Address" component={TextField} />
+                        </FormControl>
+                        <FormControl>
+                            <Field name="property.propertyCity" label="City" component={TextField} />
+                        </FormControl>
+                        <FormControl>
+                            <Field name="property.propertyState" label="State" component={TextField} />
+                        </FormControl>
+                        <FormControl>
+                            <Field name="property.propertyZip" label="Zip Code" component={TextField} />
+                        </FormControl>
+                        <FormControl>
+                            //todo - use custom antswitcy yes or no based on this: - https://codesandbox.io/s/x8bz8
         <Box margin={1}>
-                                    <FormControlLabel
-                                        control={
-                                            <Field component={Switch} type="checkbox" name="property.propertyOccupancy" />
-                                        }
-                                        label="the property is occupied"
-                                    />
-                                </Box>
-                            </FormControl>
-                            <FormControl>
-                                <Field name="property.propertyGateCode" label="Gate Code (if applicable)" component={TextField} />
-                            </FormControl>
-                            <FormControl>
-                                <Field name="property.propertyPets" label="Do you have pets?" component={TextField} />
-                            </FormControl>
-                            <FormControl>
-                                <Field name="property.propertyLockCode" label="Lock Code (if applicable)" component={TextField} />
-                            </FormControl>
-                            <FormControl>
-                                <Field name="property.propertySpecialRequests" label="Special Requests (e.g.)" component={TextField} />
-                            </FormControl>
-                        </FormikStep>
-                        <FormikStep stepTitle="Tell us about your property" stepperStep={3} validationSchema={validationSchema.step8}>
-                            <FormControl>
-                                <DateOrTimePicker component="DatePicker" name="session.sessionPreferredDate" label="Preferred Date" />
+                                <FormControlLabel
+                                    control={
+                                        <Field component={Switch} type="checkbox" name="property.propertyOccupancy" />
+                                    }
+                                    label="the property is occupied"
+                                />
+                            </Box>
+                        </FormControl>
+                        <FormControl>
+                            <Field name="property.propertyGateCode" label="Gate Code (if applicable)" component={TextField} />
+                        </FormControl>
+                        <FormControl>
+                            <Field name="property.propertyPets" label="Do you have pets?" component={TextField} />
+                        </FormControl>
+                        <FormControl>
+                            <Field name="property.propertyLockCode" label="Lock Code (if applicable)" component={TextField} />
+                        </FormControl>
+                        <FormControl>
+                            <Field name="property.propertySpecialRequests" label="Special Requests (e.g.)" component={TextField} />
+                        </FormControl>
+                    </FormikStep>
+                    <FormikStep stepTitle="Tell us about your property" stepperStep={3} validationSchema={validationSchema.step8}>
+                        <FormControl>
+                            <DateOrTimePicker component="DatePicker" name="session.sessionPreferredDate" label="Preferred Date" />
 
-                            </FormControl>
-                            <FormControl>
-                                <DateOrTimePicker component="TimePicker" name="session.sessionPreferredTime" label="Preferred Time" />
+                        </FormControl>
+                        <FormControl>
+                            <DateOrTimePicker component="TimePicker" name="session.sessionPreferredTime" label="Preferred Time" />
 
-                            </FormControl>
-                            <FormControl>
-                                <DateOrTimePicker component="DatePicker" name="session.sessionAlternateDate" label="Alternate Date" />
-                            </FormControl>
-                            <FormControl>
-                                <DateOrTimePicker component="TimePicker" name="session.sessionAlternateTime" label="Alternate Time" />
+                        </FormControl>
+                        <FormControl>
+                            <DateOrTimePicker component="DatePicker" name="session.sessionAlternateDate" label="Alternate Date" />
+                        </FormControl>
+                        <FormControl>
+                            <DateOrTimePicker component="TimePicker" name="session.sessionAlternateTime" label="Alternate Time" />
 
-                            </FormControl>
-                            <FormControl>
-                                <Field name="session.licenseType" label="Select your license type" component={TextField} />
-                            </FormControl>
-                            <FormControl>
-                                <Field name="session.sessionSpecialRequests" label="Special Requests (e.g.)" component={TextField} />
-                            </FormControl>
-                        </FormikStep>
-                        <FormikStep stepTitle="Order Confirmation" stepperStep={3}>
-                            <ConfirmOrder
-                                upgrades={upgradeList}
-                                products={availableBasePackages}
-                                upgradeField='upgradeCheckbox'
-                                basePackageField="basePackageCheckbox"
-                            />
+                        </FormControl>
+                        <FormControl>
+                            <Field name="session.licenseType" label="Select your license type" component={TextField} />
+                        </FormControl>
+                        <FormControl>
+                            <Field name="session.sessionSpecialRequests" label="Special Requests (e.g.)" component={TextField} />
+                        </FormControl>
+                    </FormikStep>
+                    <FormikStep stepTitle="Order Confirmation" stepperStep={3}>
+                        <ConfirmOrder
+                            upgrades={upgradeList}
+                            products={availableBasePackages}
+                            upgradeField='upgradeCheckbox'
+                            basePackageField="basePackageCheckbox"
+                        />
 
 
-                            {/* {isSubmitting && <LinearProgress />}
+                        {/* {isSubmitting && <LinearProgress />}
     <Button
         variant="contained"
         color="primary"
@@ -476,8 +472,8 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
         </Button> */}
 
 
-                        </FormikStep>
-                    </FormikStepper>
+                    </FormikStep>
+                </FormikStepper>
 
 
 
@@ -485,14 +481,14 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
 
 
 
-                    {/* <Calculator /> */}
-                    {/* <FieldDataDisplay/>
+                {/* <Calculator /> */}
+                {/* <FieldDataDisplay/>
                     <CalculatorContextDataDisplay/>
                     <FormDataDisplay/> */}
-                    <SimpleModal />
-                </Grid>
+                <SimpleModal />
             </Grid>
-        </div>
+        </Grid>
+
 
     );
 }
@@ -551,7 +547,7 @@ export function FormikStep({ children, ...props }: FormikStepProps) {
     const classes = useStyles();
 
 
-    return <Paper className={classes.paper} >
+    return <Grid container >
 
 
         {children}
@@ -560,7 +556,7 @@ export function FormikStep({ children, ...props }: FormikStepProps) {
             <Typography>formik step props</Typography>
             <pre>{JSON.stringify(props, null, 2)}</pre>
         </Box> */}
-    </Paper>;
+    </Grid>;
 }
 
 
@@ -694,7 +690,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <Form>
 
-                        <Grid container spacing={2} className={classes.stepperContainer}>
+                        <Grid container className={classes.stepperContainer}>
                             <Grid item xs={2}>
                                 {step > 0 ? <Button onClick={() => {
                                     //setStep(s => s - 1)

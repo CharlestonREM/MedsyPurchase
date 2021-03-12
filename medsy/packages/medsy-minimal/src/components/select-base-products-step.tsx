@@ -49,9 +49,12 @@ const SelectBaseProductsStep: React.FC<SelectBaseProductsStepProps> = (props) =>
 
                 return (
                     <Grid container key={index}>
-                        <Grid container direction="row" alignItems="center" >
-                            <Typography style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', fontWeight: 700, fontSize: '1.15rem', margin: '2rem auto', color: '#999999' }}><span>{getServiceIcon(service)}</span><span>{getServiceData(service).name}</span><span style={{ color: 'black' }}>/Base Packages</span></Typography></Grid>
-                        <Grid item xs={12}><AddBasePackageToggleButtonGroup name="basePackageCheckbox" service={service} serviceProducts={specificBasePackageProducts} /></Grid>
+                        <Grid container justify="center" >
+                            <Typography style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', fontWeight: 700, fontSize: '1.15rem', margin: '2rem auto', color: '#999999' }}><span>{getServiceIcon(service)}</span><span>{getServiceData(service).name}</span><span style={{ color: 'black' }}>/Base Packages</span></Typography>
+                        </Grid>
+                        <Grid container>
+                            <AddBasePackageToggleButtonGroup name="basePackageCheckbox" service={service} serviceProducts={specificBasePackageProducts} />
+                        </Grid>
                     </Grid>
                 );
             })}

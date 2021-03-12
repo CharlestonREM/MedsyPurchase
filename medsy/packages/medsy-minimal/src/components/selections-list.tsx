@@ -56,6 +56,12 @@ const useStyles = makeStyles((theme: Theme) =>
             '& li': {
                 borderTop: 'solid 1px #E0E0E0',
                 padding: '1em 0',
+                '& .MuiGrid-justify-xs-flex-end': {
+                    paddingRight: '2em',
+                },
+                '& .MuiGrid-grid-xs-8': {
+                    paddingLeft: '2em'
+                },
                 '& button': {
                     padding: '.5em 0',
                     justifyContent: 'flex-end',
@@ -98,7 +104,8 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         price: {
             color: 'black',
-            fontSize: '1em'
+            fontSize: '1em',
+            paddingRight: '2em'
         },
         upgradeName: {
             fontSize: '1.25em',
@@ -106,6 +113,7 @@ const useStyles = makeStyles((theme: Theme) =>
             textTransform: 'capitalize'
         },
         selectionIcon: {
+            textAlign: 'center',
             '& [class*="MuiSvgIcon-root"]': {
                 fontSize: '2rem',
                 color: 'black'
@@ -374,7 +382,7 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
                                         //note: https://stackoverflow.com/a/47402440/14657615
                                         return <Grid container component="article" key={i}>
                                             <Grid container>
-                                                <Grid xs={12}>
+                                                <Grid item xs={12}>
                                                     <Typography variant="h3" className={classes.selectionIcon}>{/* {getServiceData(service).name} */} {getServiceIcon(service)}</Typography>
                                                 </Grid>
                                             </Grid>

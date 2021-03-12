@@ -53,7 +53,7 @@ const AddBasePackageToggleButtonGroup: React.FC<AddBasePackageToggleButtonGroupP
 
 
     return (
-        <Grid container spacing={4}>
+        <Grid container>
 
             {/* //todo make orientation vertical of togglebuttongroup */}
             {/* //todo figure out onChange functionality for Field ToggleButtonGroup */}

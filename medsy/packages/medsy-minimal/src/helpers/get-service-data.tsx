@@ -3,31 +3,52 @@ export const serviceData = {
         name: 'Photography',
         description: 'i am photography',
         baseService: true,
-        value: 'p'
+        value: 'p',
+        serviceLink: {
+            imgUrl: "https://rb.gy/gshmgt",
+            imgAlt: "camera maps desk"
+        }
     },
     'v': {
         name: 'Videography',
         description: 'i am videography',
         baseService: true,
-        value: 'v'
+        value: 'v',
+        serviceLink: {
+            imgUrl: "https://rb.gy/bbhfps",
+            imgAlt: "camera maps desk"
+        }
+
     },
     'a': {
         name: 'Aerial Services',
         description: 'i am aerial services',
         baseService: true,
-        value: 'a'
+        value: 'a',
+        serviceLink: {
+            imgUrl: "https://www.beecreekphoto.com/images/300/San-Antonio-Skyline-BW-Pano-DR209321.jpg",
+            imgAlt: "camera maps desk"
+        }
     },
     'd': {
         name: '3D Services',
         description: 'i am 3D services',
         baseService: true,
-        value: 'd'
+        value: 'd',
+        serviceLink: {
+            imgUrl: "https://rb.gy/8j9hgi",
+            imgAlt: "camera maps desk"
+        }
     },
     'u': {
         name: 'Additional Upgrades',
         description: 'i am special',
         baseService: false,
-        value: 'u'
+        value: 'u',
+        serviceLink: {
+            imgUrl: "https://rb.gy/gshmgt",
+            imgAlt: "camera maps desk"
+        }
     }
 }
 export const getServiceData = (service) => {
