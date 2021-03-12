@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'block',
             width: '100%',
             height: '100%',
-            background: 'rgb(6,0,113)',
+            // background: 'rgb(6,0,113)',
             background: 'linear-gradient(180deg, rgba(6,0,113,0) 0%, rgba(19,55,96,.65) 100%)',
             position: 'absolute',
             zIndex: 10000,
