@@ -348,7 +348,7 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
             </Grid>
             <Grid item xs={12}>
 
-                import MoneyOffIcon from '@material-ui/icons/MoneyOff';
+
                 {/* <div>
                     <h1>testing dynamic iconss:</h1>
                     <DynamicIcon name="MoneyOff" fill="gray" />

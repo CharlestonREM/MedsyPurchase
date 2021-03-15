@@ -18,6 +18,8 @@ import UpgradeAccordionCheckboxGroup from 'components/formik-controls/upgrade-ac
 import { getServiceIcon } from "helpers/get-service-icon";
 import { getServiceData } from "helpers/get-service-data";
 
+import ServiceLinkList from 'components/service-link-list';
+
 export interface SelectUpgradesStepProps {
     upgrades: productInterface[],
     basePackages: productInterface[],
@@ -85,6 +87,8 @@ const SelectUpgradesStep: React.FC<SelectUpgradesStepProps> = (props) => {
                 </Grid>
                 {/* <Grid item xs={12}><AddBasePackageToggleButtonGroup name="basePackageCheckbox" service={service} serviceProducts={specificBasePackageProducts} /></Grid> */}
             </Grid>
+
+            <ServiceLinkList />
         </>
     );
 }
