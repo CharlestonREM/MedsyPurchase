@@ -78,6 +78,8 @@ import { useAvailableProducts } from 'contexts/available-products/available-prod
 
 import SelectUpgradesStep from 'components/select-upgrades-step';
 
+import DynamicIcon from 'components/dynamic-icon';
+
 //setup styles for grid
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -346,8 +348,12 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
             </Grid>
             <Grid item xs={12}>
 
+                import MoneyOffIcon from '@material-ui/icons/MoneyOff';
+                {/* <div>
+                    <h1>testing dynamic iconss:</h1>
+                    <DynamicIcon name="MoneyOff" fill="gray" />
 
-
+                </div> */}
 
                 <FormikStepper initialValues={initialValues} onSubmit={onSubmit} >
 
