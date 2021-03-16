@@ -1,3 +1,4 @@
+import _ from 'lodash';
 export const serviceData = {
     'p': {
         name: 'Photography',
@@ -72,3 +73,23 @@ export const getServiceData = (service) => {
             console.log("did not recognize service");
     }
 };
+
+export const getAllServices = () => {
+    let allServices = [];
+    _.mapKeys(serviceData, function (value, key) {
+        allServices.push(key);
+    });
+    console.log('i am getunselected', allServices);
+    return allServices;
+}
+
+export const getAllBaseServices = () => {
+    let allServices = getAllServices();
+    let allBaseServices = [];
+    _.mapKeys(serviceData, function (value, key) {
+        if (value.baseService) {
+            allBaseServices.push(key)
+        }
+    })
+    return allBaseServices;
+}

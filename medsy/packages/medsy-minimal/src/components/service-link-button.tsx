@@ -62,7 +62,7 @@ export interface ServiceLinkButtonProps {
     action: string;
     imgUrl: string;
     imgAlt: string;
-    payload?: object;
+    payload?: string;
     disabled?: boolean;
 }
 
@@ -76,10 +76,10 @@ const ServiceLinkButton: React.FC<ServiceLinkButtonProps> = (props) => {
         <Grid item xs={12}>
             <Button className={classes.serviceLinkButton} onClick={() => {
                 if (payload === undefined) {
-                    payload = {}
+                    payload = ''
                 }
                 dispatchStepper({ type: action, payload: payload })
-                console.log('i am navstepbutton props:', action, payload);
+                console.log('i am servicelinkbutton props:', action, payload);
             }} {...rest} disabled={disabled}>
                 <Grid container component="figure" className={classes.bkg} style={{ backgroundImage: 'url("' + imgUrl + '")' }}>
                     <Grid item xs={12} component="figcaption">

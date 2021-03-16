@@ -6,6 +6,10 @@ import { number } from 'yup/lib/locale';
 //     setStep?: Function;
 // }>({});
 
+
+export const GO_TO_SERVICE_SPECIFIC_BASE_PACKAGE = 'GO_TO_SERVICE_SPECIFIC_BASE_PACKAGE';
+
+
 export const StepperContext = createContext<{
     state?: any;
     dispatch?: React.Dispatch<any>;
@@ -14,7 +18,8 @@ export const StepperContext = createContext<{
 //define stepper initial state object configuration
 const INITIAL_STATE = {
     step: 0,
-    stepTitle: 'Tell us about your property'
+    stepTitle: 'Tell us about your property',
+    serviceSpecificBasePackage: null
 }
 
 //define types of actions that will occur post-broadcast of the dispatch for stepper context
@@ -23,6 +28,7 @@ type ActionType =
     | { type: 'STEP_NEXT'; payload: any }
     | { type: 'STEP_BACK'; payload: any }
     | { type: 'GO_TO_SPECIFIC_STEP'; payload: any }
+    | { type: 'GO_TO_SERVICE_SPECIFIC_BASE_PACKAGE'; payload: any }
     | { type: 'SET_STEP_TITLE'; payload: any };
 
 type StateType = typeof INITIAL_STATE;
@@ -38,13 +44,15 @@ function reducer(state: StateType, action: ActionType) {
             return {
                 ...state,
                 step: parseInt(action.payload.step + 1),
-                stepTitle: action.payload.stepTitle
+                stepTitle: action.payload.stepTitle,
+                serviceSpecificBasePackage: action.payload.serviceSpecificBasePackage
             };
         case 'STEP_BACK':
             return {
                 ...state,
                 step: parseInt(action.payload.step) - 1,
-                stepTitle: action.payload.stepTitle
+                stepTitle: action.payload.stepTitle,
+                serviceSpecificBasePackage: action.payload.serviceSpecificBasePackage
             };
         case 'GO_TO_SPECIFIC_STEP':
             return {
@@ -55,6 +63,12 @@ function reducer(state: StateType, action: ActionType) {
             return {
                 ...state,
                 stepTitle: action.payload.stepTitle
+            };
+        case GO_TO_SERVICE_SPECIFIC_BASE_PACKAGE:
+            return {
+                ...state,
+                step: 2,
+                serviceSpecificBasePackage: action.payload
             }
         default:
             return state;

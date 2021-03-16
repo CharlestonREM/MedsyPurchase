@@ -10,6 +10,7 @@ import { getServiceData } from "helpers/get-service-data";
 import { useField } from 'formik'
 
 import { useCalculator } from 'contexts/calculator/calculator.provider'
+import _ from "lodash";
 
 export interface AddBasePackageToggleButtonGroupProps {
     name: string;
@@ -21,6 +22,11 @@ export interface AddBasePackageToggleButtonGroupProps {
 
 const AddBasePackageToggleButtonGroup: React.FC<AddBasePackageToggleButtonGroupProps> = (props) => {
     const [basePackageField, basePackageMeta, basePackageHelpers] = useField(props.name);
+
+    //used to add service to an array based on a product added from service selection link
+    const [baseServiceField, baseServiceMeta, baseServiceHelpers] = useField('baseServiceCheckbox');
+
+
     const { setValue } = basePackageHelpers;
     const { addProduct, getProduct, removeProduct } = useCalculator();
 
@@ -34,7 +40,10 @@ const AddBasePackageToggleButtonGroup: React.FC<AddBasePackageToggleButtonGroupP
 
     const setFieldValue = (currentValue, buttonProductId) => {
         let newValue = [...currentValue];
+        let newBaseServiceValue = [...baseServiceField.value];
         const buttonProduct = props.serviceProducts?.find((product) => product.id === buttonProductId);
+        //> add the service as well
+        const service = buttonProduct.productService;
         //info - on `includes` https://www.w3schools.com/jsref/jsref_includes_array.asp
         if (newValue.includes(buttonProductId)) {
             //remove the item cuz it is already there
@@ -49,7 +58,25 @@ const AddBasePackageToggleButtonGroup: React.FC<AddBasePackageToggleButtonGroupP
             //now add the item to the calculator
             addProduct(buttonProduct)
         }
+
+        //do conditional check on baseServiceCheckbox
+        // const serviceIsAlreadyInArray = (_.filter(newBaseServiceValue, function (string) { return string === service })).length === 0;
+        const serviceIsAlreadyInArray = _.includes(newBaseServiceValue, service);
+
+        console.log('i am serviceIsAlreadyInArray', serviceIsAlreadyInArray)
+        console.log(baseServiceField);
+        if (!serviceIsAlreadyInArray) {
+            newBaseServiceValue.push(service);
+            baseServiceHelpers.setValue(newBaseServiceValue)
+        } else {
+            //it is in the array so remove it
+            console.log('in the else statement', newBaseServiceValue);
+            // baseServiceHelpers.setValue(_.reject(newBaseServiceValue, function (string) { return string === service }))
+        }
+
     }
+
+
 
 
     return (

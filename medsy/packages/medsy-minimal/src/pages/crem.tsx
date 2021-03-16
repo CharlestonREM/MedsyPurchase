@@ -374,7 +374,7 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
 
                     </FormikStep>
                     <FormikStep stepTitle="Select your base packages" stepperStep={2} validationSchema={validationSchema.step3} fieldDataDisplay={'basePackageCheckbox'}>
-                        <SelectBaseProductsStep basePackages={availableBasePackages} baseServiceField="baseServiceCheckbox" />
+                        <SelectBaseProductsStep basePackages={availableBasePackages} baseServiceField="baseServiceCheckbox" basePackageField="basePackageCheckbox" />
                         {/* <BaseProductCheckboxStep basePackages={availableBasePackages} /> */}
                     </FormikStep>
                     <FormikStep stepTitle="Select your package upgrades" stepperStep={2} fieldDataDisplay={'upgradeCheckbox'}>
@@ -687,7 +687,8 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                         type: 'STEP_NEXT',
                         payload: {
                             step: step,
-                            stepTitle: childrenArray[step + 1].props.stepTitle
+                            stepTitle: childrenArray[step + 1].props.stepTitle,
+                            serviceSpecificBasePackage: null
                         },
                     });
                 }
@@ -704,7 +705,8 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                                         type: 'STEP_BACK',
                                         payload: {
                                             step: step,
-                                            stepTitle: childrenArray[step - 1].props.stepTitle
+                                            stepTitle: childrenArray[step - 1].props.stepTitle,
+                                            serviceSpecificBasePackage: null
                                         },
                                     })
                                 }} ><ChevronLeftIcon /> Back</Button> : <Button disabled>Back</Button>}
