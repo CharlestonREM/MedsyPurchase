@@ -31,7 +31,7 @@ const useAvailableProductsActions = (initialAvailableProducts = INITIAL_STATE) =
     };
 
     const initializeAvailableProductsStateHandler = (basePackageList, upgradeList) => {
-        console.log('i am initializeAVAILABLEPRODUCTSSTATEhandler', basePackageList, upgradeList)
+        // console.log('i am initializeAVAILABLEPRODUCTSSTATEhandler', basePackageList, upgradeList)
         dispatch({
             type: INITIALIZE_AVAILABLE_PRODUCTS_STATE, payload: {
                 basePackageList: basePackageList,

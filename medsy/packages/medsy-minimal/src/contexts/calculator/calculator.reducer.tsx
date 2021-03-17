@@ -111,7 +111,7 @@ export const calculatorProductsTotalPrice = (state) => {
 //functions for reducer go here
 // calculatorProducts, calculatorProductToAdd
 const addProductToCalculator = (state, action) => {
-    console.log('addProductToCalculator just got fired in calculator.reducer', state, action, action.payload)
+    // console.log('addProductToCalculator just got fired in calculator.reducer', state, action, action.payload)
     const existingCalculatorProductIndex = state.products.findIndex(
         (product) => product.id === action.payload.id
     );
@@ -204,7 +204,7 @@ export const reducer = (state, action) => {
         case GET_SQUARE_FOOTAGE_LEVELS:
             return { ...state, squareFootageLevels: action.payload }
         case INITIALIZE_CALCULATOR_VARIABLES:
-            console.log('i am the payload from INITIALIZECALCULATORVARIABLES', action.payload)
+            // console.log('i am the payload from INITIALIZECALCULATORVARIABLES', action.payload)
             return { ...state, licenseOptions: action.payload }
         default:
             throw new Error(`Unknown action: ${action.type}`);

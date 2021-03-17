@@ -19,6 +19,7 @@ import { StepperContext } from 'contexts/stepper/stepper.provider'
 
 import { getServiceIcon } from "helpers/get-service-icon";
 import { getServiceData } from "helpers/get-service-data";
+import BasePackageAccordionCheckboxGroup from './formik-controls/base-package-accordion-checkbox-group';
 
 
 export interface SelectBaseProductsStepProps {
@@ -93,8 +94,11 @@ const SelectBaseProductsStep: React.FC<SelectBaseProductsStepProps> = (props) =>
                                                             <Grid container justify="center" >
                                                                 <Typography style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', fontWeight: 700, fontSize: '1.15rem', margin: '2rem auto', color: '#999999' }}><span>{getServiceIcon(service)}</span><span>{getServiceData(service).name}</span><span style={{ color: 'black' }}>/Base Packages</span></Typography>
                                                             </Grid>
-                                                            <Grid container>
+                                                            {/* <Grid container>
                                                                 <AddBasePackageToggleButtonGroup name="basePackageCheckbox" service={service} serviceProducts={specificBasePackageProducts} />
+                                                            </Grid> */}
+                                                            <Grid container>
+                                                                <BasePackageAccordionCheckboxGroup fieldName="basePackageCheckbox" label="i am bp accordion label" service={service} basePackages={specificBasePackageProducts} />
                                                             </Grid>
                                                         </Grid>
                                                     );

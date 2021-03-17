@@ -68,7 +68,8 @@ function reducer(state: StateType, action: ActionType) {
             return {
                 ...state,
                 step: 2,
-                serviceSpecificBasePackage: action.payload
+                serviceSpecificBasePackage: action.payload,
+                stepTitle: 'Select your base packages'
             }
         default:
             return state;

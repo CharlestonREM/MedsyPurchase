@@ -34,7 +34,7 @@ const BaseServiceToggleButtonGroup: React.FC<BaseServiceToggleButtonGroupProps> 
     const setFieldValue = (currentValue, buttonServiceId) => {
         let newValue = [...currentValue];
         const buttonService = props.baseServices[buttonServiceId];
-        console.log(buttonServiceId, buttonService, newValue);
+        // console.log(buttonServiceId, buttonService, newValue);
         //do this if the array is empty
         // if (newValue.length === 0) {
         //     clearCalculator();

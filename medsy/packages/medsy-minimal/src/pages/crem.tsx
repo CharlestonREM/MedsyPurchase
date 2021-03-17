@@ -657,6 +657,9 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
     function isLastStep() {
         return step === childrenArray.length - 1;
     }
+    function isBasePackageStep() {
+        return step === 2;
+    }
     //setup some styles
     const classes = useStyles();
 
@@ -691,6 +694,17 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                             serviceSpecificBasePackage: null
                         },
                     });
+                    //if i'm on the basepackage step
+                    if (isBasePackageStep()) {
+                        console.log('you are performed when NEXT is clicked when you are CURRENTLY-ON/ARLEADY-ON base package step');
+                        //todo-reset the baseServiceCheckbox array value based on the current value of basePackageCheckbox array products that are present
+                        //check bpack, filter and map and return an array with all services present in bpack
+                        const bpackServices = _.uniq(_.map(values.basePackageCheckbox, (string) => {
+                            return string.replace(/[0-9]/g, '');
+                        }))
+                        //reset bserv value to make bserv MATCH bpack
+                        helpers.setFieldValue('baseServiceCheckbox', bpackServices)
+                    }
                 }
             }}>
             {({ values, errors, isSubmitting, getFieldProps }) => (

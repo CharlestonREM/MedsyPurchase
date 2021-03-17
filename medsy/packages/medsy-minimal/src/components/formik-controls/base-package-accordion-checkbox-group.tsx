@@ -9,7 +9,7 @@ import _ from 'lodash';
 import { Field, ErrorMessage } from "formik";
 
 import { product as productInterface } from 'interfaces/google-spreadsheet-data';
-import SwipeableTextMobileStepper from 'components/swipable-text-mobile-stepper';
+
 
 import { useCalculator } from 'contexts/calculator/calculator.provider'
 
@@ -19,25 +19,21 @@ const useStyles = makeStyles({
     },
 });
 
-
-export interface UpgradeAccordionCheckboxGroupProps {
-    upgrades: productInterface[];
+export interface BasePackageAccordionCheckboxGroupProps {
+    basePackages: productInterface[];
     service: string;
     label: string;
     fieldName: string;
 }
 
-//todo- potential bottleneck performance concerns for accordion: https://material-ui.com/components/accordion/#performance
-
-const UpgradeAccordionCheckboxGroup: React.FC<UpgradeAccordionCheckboxGroupProps> = (props) => {
+const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGroupProps> = (props) => {
     const classes = useStyles();
-    const { upgrades, service, label, fieldName, ...rest } = props;
+    const { basePackages, service, label, fieldName, ...rest } = props;
     const { addProduct, getProduct, removeProduct } = useCalculator();
-    //console.log(upgrades)
 
-    const updateCalculatorUpgrades = (event) => {
+    const updateCalculatorBasePackages = (event) => {
         //console.log('i am event', event.target.checked)
-        const product = _.find(upgrades, { 'id': event.target['value'] });
+        const product = _.find(basePackages, { 'id': event.target['value'] });
         //console.log('i am product', product);
         if (event.target.checked) {
             addProduct(product)
@@ -45,7 +41,6 @@ const UpgradeAccordionCheckboxGroup: React.FC<UpgradeAccordionCheckboxGroupProps
             removeProduct(product)
         }
     }
-
     return (
         <div className={classes.root}>
             <Field
@@ -58,8 +53,8 @@ const UpgradeAccordionCheckboxGroup: React.FC<UpgradeAccordionCheckboxGroupProps
                 {({ field, handleChange }) => {
                     // console.log('i am field', field)
 
-                    return upgrades.map((upgrade, index) => {
-                        if (upgrade.productService === service) {
+                    return basePackages.map((basePackage, index) => {
+                        if (basePackage.productService === service) {
                             return (
                                 <Accordion key={index}>
                                     <AccordionSummary
@@ -70,15 +65,15 @@ const UpgradeAccordionCheckboxGroup: React.FC<UpgradeAccordionCheckboxGroupProps
                                     >
                                         <Grid container>
                                             <Grid item xs={9}>
-                                                <Typography variant='h6' color='primary' align="left">{upgrade.productName}</Typography>
-                                                <Typography variant='body2' align="left">{upgrade.description}</Typography>
+                                                <Typography variant='h6' color='primary' align="left">{basePackage.productName}</Typography>
+                                                <Typography variant='body2' align="left">{basePackage.description}</Typography>
                                             </Grid>
                                             <Grid item xs={3}>
                                                 <Checkbox
-                                                    id={upgrade.id}
+                                                    id={basePackage.id}
                                                     {...field}
-                                                    value={upgrade.id}
-                                                    checked={field.value.includes(upgrade.id)}
+                                                    value={basePackage.id}
+                                                    checked={field.value.includes(basePackage.id)}
                                                     color="primary"
                                                     onClick={(event) => event.stopPropagation()}
                                                     onFocus={(event) => event.stopPropagation()}
@@ -87,7 +82,7 @@ const UpgradeAccordionCheckboxGroup: React.FC<UpgradeAccordionCheckboxGroupProps
                                                         //use built in onchange handler and just pass the event!
                                                         field.onChange(e);
                                                         //update calculator context
-                                                        updateCalculatorUpgrades(e)
+                                                        updateCalculatorBasePackages(e)
                                                     }}
                                                 />
                                                 {/* <FormControlLabel
@@ -107,7 +102,7 @@ const UpgradeAccordionCheckboxGroup: React.FC<UpgradeAccordionCheckboxGroupProps
                                         <Grid container>
                                             <Grid item xs={12}>
                                                 <Typography color="textSecondary" align="left">
-                                                    This is an expanded product description for the selected upgrade service. It includes details about the service and basic pricing info.
+                                                    This is an expanded product description for the selected basePackage service. It includes details about the service and basic pricing info.
                                     </Typography>
 
                                             </Grid>
@@ -137,7 +132,7 @@ const UpgradeAccordionCheckboxGroup: React.FC<UpgradeAccordionCheckboxGroupProps
                                                 icons go here
                                             </Grid>
                                             <Grid item xs={12}>
-                                                <SwipeableTextMobileStepper />
+                                                <h2>i was a mobile stepper</h2>
                                             </Grid>
                                         </Grid>
                                     </AccordionDetails>
@@ -153,4 +148,4 @@ const UpgradeAccordionCheckboxGroup: React.FC<UpgradeAccordionCheckboxGroupProps
     );
 }
 
-export default UpgradeAccordionCheckboxGroup;
+export default BasePackageAccordionCheckboxGroup;

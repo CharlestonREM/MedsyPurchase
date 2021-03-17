@@ -34,7 +34,7 @@ const AddBasePackageToggleButtonGroup: React.FC<AddBasePackageToggleButtonGroupP
         addProduct(product);
     }
     const handleChange = (product) => {
-        console.log('i am the product in handlechange', product)
+        //console.log('i am the product in handlechange', product)
         addToCalculator(product)
     }
 
@@ -63,14 +63,14 @@ const AddBasePackageToggleButtonGroup: React.FC<AddBasePackageToggleButtonGroupP
         // const serviceIsAlreadyInArray = (_.filter(newBaseServiceValue, function (string) { return string === service })).length === 0;
         const serviceIsAlreadyInArray = _.includes(newBaseServiceValue, service);
 
-        console.log('i am serviceIsAlreadyInArray', serviceIsAlreadyInArray)
-        console.log(baseServiceField);
+        // console.log('i am serviceIsAlreadyInArray', serviceIsAlreadyInArray)
+        // console.log(baseServiceField);
         if (!serviceIsAlreadyInArray) {
             newBaseServiceValue.push(service);
             baseServiceHelpers.setValue(newBaseServiceValue)
         } else {
             //it is in the array so remove it
-            console.log('in the else statement', newBaseServiceValue);
+            // console.log('in the else statement', newBaseServiceValue);
             // baseServiceHelpers.setValue(_.reject(newBaseServiceValue, function (string) { return string === service }))
         }
 
