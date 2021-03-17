@@ -84,7 +84,7 @@ import DynamicIcon from 'components/dynamic-icon';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         max: {
-            maxWidth: '450px',
+            // maxWidth: '450px',
             margin: 'auto',
             // backgroundColor: '#E5E5E5'
         },

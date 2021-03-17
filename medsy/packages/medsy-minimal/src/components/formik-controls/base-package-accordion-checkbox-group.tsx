@@ -1,5 +1,7 @@
 import React from 'react';
+// import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
+import { Theme } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Accordion, AccordionSummary, AccordionDetails, Checkbox, Grid, Typography } from '@material-ui/core';
 
@@ -12,12 +14,74 @@ import { product as productInterface } from 'interfaces/google-spreadsheet-data'
 
 
 import { useCalculator } from 'contexts/calculator/calculator.provider'
+import { AddCircle, CheckCircle, Minimize } from '@material-ui/icons';
+import MoreInfoAccordionButton from 'components/more-info-accordion-button';
 
-const useStyles = makeStyles({
+// const useStyles = makeStyles((theme: Theme) =>
+//     createStyles({
+//         root: {
+//             width: '100%',
+//             '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
+//                 // display: 'contents',
+//                 // alignItems: 'flex-end',
+//                 // justifyContent: 'flex-end'
+//                 // marginTop: '1em'
+//                 '& .MuiIconButton-label': {
+//                     flexDirection: 'column',
+//                     '&::before': {
+//                         //content string trick: https://stackoverflow.com/a/43361653/14657615
+//                         // content: '"test"',
+//                         content: props => props.basePackages,
+//                         // display: 'block',
+//                         // position: 'absolute',
+//                     }
+//                 }
+
+//             }
+//         },
+//         summaryContainer: {
+//             position: 'relative'
+//         },
+//         productNameWrap: {
+//             position: 'absolute',
+
+//         },
+//         productName: {
+//             fontWeight: 500
+//         }
+//     }),
+// );
+
+export interface StyleProps {
+    label: string;
+}
+const useStyles = makeStyles<Theme, StyleProps>(theme => ({
     root: {
         width: '100%',
+        '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
+            // display: 'contents',
+            // alignItems: 'flex-end',
+            // justifyContent: 'flex-end'
+            // marginTop: '1em'
+            '& .MuiIconButton-label': {
+
+            }
+
+        }
     },
-});
+    summaryContainer: {
+        // position: 'relative'
+    },
+    productNameWrap: {
+        // position: 'absolute',
+
+    },
+    productName: {
+        fontWeight: 500
+    }
+}));
+
+
 
 export interface BasePackageAccordionCheckboxGroupProps {
     basePackages: productInterface[];
@@ -27,7 +91,8 @@ export interface BasePackageAccordionCheckboxGroupProps {
 }
 
 const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGroupProps> = (props) => {
-    const classes = useStyles();
+
+    const classes = useStyles(props);
     const { basePackages, service, label, fieldName, ...rest } = props;
     const { addProduct, getProduct, removeProduct } = useCalculator();
 
@@ -41,6 +106,26 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
             removeProduct(product)
         }
     }
+
+
+    const [expanded, setExpanded] = React.useState<string | false>(false);
+
+    // const handleAccordionChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
+    //     console.log('i am panel', panel);
+    //     console.log('i am event', event);
+    //     //event.stopPropagation();
+    //     console.log('isExpanded before set', isExpanded)
+    //     setExpanded(isExpanded ? panel : false);
+    //     console.log('isExpanded AFTER set', isExpanded)
+    // };
+
+    const handleAccordionChange = panel => (e) => {
+        console.log('i am e', e)
+        console.log('i am expanded', expanded)
+        setExpanded(
+            expanded !== panel ? panel : ""
+        );
+    };
     return (
         <div className={classes.root}>
             <Field
@@ -54,48 +139,68 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
                     // console.log('i am field', field)
 
                     return basePackages.map((basePackage, index) => {
+                        const accIndex = ('panel' + index);
+                        const css = `
+                            .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd .MuiIconButton-label {
+                                flex-direction:column;
+                                align-items:flex-end;
+                            }
+                            .MuiPaper-root.MuiAccordion-root.MuiAccordion-rounded.MuiPaper-elevation1.MuiPaper-rounded:nth-child(${index + 1})  .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd .MuiIconButton-label::before  {
+                                content: '${basePackage.productName}';
+                                text-transform: capitalize;
+                                font-size: .7em;
+                                font-weight: 500;
+                                color: black;
+                                width: 75%;
+                                text-align: right;
+                            }
+                        `
                         if (basePackage.productService === service) {
                             return (
-                                <Accordion key={index}>
+                                <Accordion expanded={expanded === accIndex} /* onChange={handleAccordionChange(accIndex)} */ key={index} >
                                     <AccordionSummary
-                                        expandIcon={<ExpandMoreIcon />}
+                                        // conditional expand icon: https://stackoverflow.com/a/63691313/14657615
+                                        // based on controlled accordion example in mui docs: https://material-ui.com/components/accordion/#controlled-accordion
+                                        expandIcon={expanded === accIndex ? <ExpandMoreIcon onClick={handleAccordionChange(accIndex)} /> : <MoreInfoAccordionButton onClick={handleAccordionChange(accIndex)} productName={basePackage.productName} />}
                                         aria-label="Expand"
-                                        aria-controls="additional-actions1-content"
-                                        id="additional-actions1-header"
+                                        aria-controls={"additional-actions" + index + "-content"}
+                                        id={"additional-actions" + index + "-header"}
+                                        onClick={(e) => {
+                                            // console.log('i am the accordionsummary onClick event', e);
+                                            e.stopPropagation();
+                                        }}
                                     >
-                                        <Grid container>
-                                            <Grid item xs={9}>
-                                                <Typography variant='h6' color='primary' align="left">{basePackage.productName}</Typography>
-                                                <Typography variant='body2' align="left">{basePackage.description}</Typography>
-                                            </Grid>
-                                            <Grid item xs={3}>
-                                                <Checkbox
-                                                    id={basePackage.id}
-                                                    {...field}
-                                                    value={basePackage.id}
-                                                    checked={field.value.includes(basePackage.id)}
-                                                    color="primary"
-                                                    onClick={(event) => event.stopPropagation()}
-                                                    onFocus={(event) => event.stopPropagation()}
-                                                    onChange={(e) => {
-                                                        //todo - create on change function that ends in resetting the value of the input
-                                                        //use built in onchange handler and just pass the event!
-                                                        field.onChange(e);
-                                                        //update calculator context
-                                                        updateCalculatorBasePackages(e)
-                                                    }}
-                                                />
-                                                {/* <FormControlLabel
-                                                aria-label="Acknowledge"
-                                                onClick={(event) => event.stopPropagation()}
-                                                onFocus={(event) => event.stopPropagation()}
-                                                control={<Checkbox />}
-                                                label="I acknowledge that I should stop the click event propagation"
-                                            /> */}
+                                        <style>
+                                            {css}
+                                        </style>
+                                        <Grid container className={classes.summaryContainer}>
+
+                                            <Grid item xs={3} className={classes.productNameWrap}>
+                                                <Typography className={classes.productName}>{basePackage.productName}</Typography>
+                                                {/* <Typography variant='body2' align="left">{basePackage.description}</Typography> */}
                                             </Grid>
                                         </Grid>
+                                        <Grid item xs={3}>
+                                            <Checkbox
+                                                id={basePackage.id}
+                                                {...field}
+                                                icon={<AddCircle />} checkedIcon={<CheckCircle />}
+                                                value={basePackage.id}
+                                                checked={field.value.includes(basePackage.id)}
+                                                color="primary"
+                                                onClick={(event) => event.stopPropagation()}
+                                                onFocus={(event) => event.stopPropagation()}
+                                                onChange={(e) => {
+                                                    //todo - create on change function that ends in resetting the value of the input
+                                                    //use built in onchange handler and just pass the event!
+                                                    field.onChange(e);
+                                                    //update calculator context
+                                                    updateCalculatorBasePackages(e)
+                                                }}
+                                            />
 
-                                        {/* test push to vercel */}
+                                        </Grid>
+
 
                                     </AccordionSummary>
                                     <AccordionDetails>

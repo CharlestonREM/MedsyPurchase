@@ -18,19 +18,6 @@ theme.palette.secondary.main = "rgb(217, 197, 102)";
 const black = "#333333";
 const transWhite = 'rgba(255, 255, 255, 0.5)';
 theme.overrides = {
-    MuiChip: {
-        root: {
-            // padding: '1em'
-        },
-        icon: {
-            height: '100%',
-            borderRight: 'solid 1px white',
-            borderRightColor: theme.palette.secondary.main
-        },
-        label: {
-            fontSize: '1.5em'
-        }
-    },
     MuiToggleButtonGroup: {
         root: {
             //display: 'block'
