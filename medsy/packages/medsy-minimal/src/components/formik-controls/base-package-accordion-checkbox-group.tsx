@@ -82,22 +82,50 @@ const useStyles = makeStyles<Theme, StyleProps>(theme => ({
     accordion: {
         color: 'red',
 
+
     },
     accordionSummary: {
         color: 'green',
+        // clipPath: 'url(#blob)',
+        // background: 'no-repeat url("https://i.picsum.photos/id/222/536/354.jpg?hmac=0F40OROL8Yvsv14Vjrqvhs8J3BjAdEC8IetqdiSzdlU") center center',
+        // backgroundSize: 'cover',
         display: 'grid',
         gridTemplateColumns: 'repeat(12, 1fr)',
+
         '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
             gridColumnEnd: 'span 6',
             // padding: 0
         },
         '& .MuiAccordionSummary-content': {
             gridColumnEnd: 'span 6',
-            justifyContent: 'flex-end'
+            justifyContent: 'flex-end',
+            margin: 0,
+            height: '100%'
         }
     },
     checkbox: {
-        paddingRight: 0
+        paddingRight: 0,
+        //half of fontSize property on muisvgicon-root below
+        marginRight: '-1em',
+        color: theme.palette.primary.main,
+        '&.Mui-checked': {
+            color: '#72a047'
+        },
+        '& .MuiSvgIcon-root': {
+            fontSize: '2em',
+            stroke: 'white',
+            strokeWidth: '1',
+            r: '11',
+            '&::after': {
+                content: '"test"',
+                display: 'block',
+                width: '100px',
+                height: '100px',
+                position: 'absolute',
+                left: 0,
+                top: 0
+            }
+        }
     },
     summaryContainer: {
         // position: 'relative'
@@ -206,7 +234,7 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
                                             {css}
                                         </style>
 
-                                        {/* <ThumbClipPath background={'no-repeat url("https://i.picsum.photos/id/222/536/354.jpg?hmac=0F40OROL8Yvsv14Vjrqvhs8J3BjAdEC8IetqdiSzdlU") center center'} backgroundSize="cover" /> */}
+                                        <ThumbClipPath background={'no-repeat url("https://i.picsum.photos/id/222/536/354.jpg?hmac=0F40OROL8Yvsv14Vjrqvhs8J3BjAdEC8IetqdiSzdlU") center center'} backgroundSize="cover" />
 
                                         {/* <Grid container className={classes.summaryContainer}>
 

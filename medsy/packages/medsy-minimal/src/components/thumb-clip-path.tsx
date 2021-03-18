@@ -8,12 +8,26 @@ export interface ThumbClipPathProps {
 }
 
 const useStyles = makeStyles<Theme, ThumbClipPathProps>(theme => ({
+    thumbClipWrap: {
+        color: 'blue'
+    },
     clipped: {
         clipPath: 'url(#blob)',
-        height: '100px',
-        width: '100px',
+        // clipPath: 'polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%)',
+        height: '100%',
+        width: '100%',
+        // margin: 0,
+        // width: '100px',
         background: ({ background }) => background,
         backgroundSize: ({ backgroundSize }) => backgroundSize,
+    },
+    blob: {
+        // transform: 'translate(0 270)',
+        // transform: 'scale(0.003033 0.0116279)',
+        // transformOrigin: 'top left'
+    },
+    path: {
+        transform: 'translate(-296px, 107px)'
     }
 }));
 
@@ -32,17 +46,20 @@ const useStyles = makeStyles<Theme, ThumbClipPathProps>(theme => ({
 const ThumbClipPath: React.FC<ThumbClipPathProps> = (props) => {
     const classes = useStyles(props);
     return (
-        <div>
-            <svg height="0" width="0" >
-                <clipPath id="blob">
-                    <path d="M 0 0 V -175 H 335 A 1 1 0 0 1 335 0 Z Z" transform="translate(0 270)" />
-                </clipPath>
+        <Grid container className={classes.thumbClipWrap}>
+            <svg height="0" width="0">
+                <defs>
+                    <clipPath className={classes.blob} id="blob" >
+                        <path className={classes.path} d="M 0 0 V -175 H 335 A 1 1 0 0 1 335 0 Z Z" />
+                    </clipPath>
+                </defs>
             </svg>
 
-            <div className={classes.clipped}>
-            </div>
+            <Grid item xs={12} className={classes.clipped}>
 
-        </div>
+            </Grid>
+
+        </Grid>
     );
 }
 
