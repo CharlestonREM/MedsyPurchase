@@ -9,7 +9,18 @@ export interface ThumbClipPathProps {
 
 const useStyles = makeStyles<Theme, ThumbClipPathProps>(theme => ({
     thumbClipWrap: {
-        color: 'blue'
+        '&::after': {
+            content: '""',
+            clipPath: 'url(#blob)',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            height: '100%',
+            width: '100%',
+            background: ({ background }) => background,
+            backgroundSize: ({ backgroundSize }) => backgroundSize,
+
+        },
     },
     clipped: {
         clipPath: 'url(#blob)',
@@ -27,7 +38,8 @@ const useStyles = makeStyles<Theme, ThumbClipPathProps>(theme => ({
         // transformOrigin: 'top left'
     },
     path: {
-        transform: 'translate(-296px, 107px)'
+        height: '100%',
+        transform: 'translate(0px, 108px) scale(.7,0.64)'
     }
 }));
 

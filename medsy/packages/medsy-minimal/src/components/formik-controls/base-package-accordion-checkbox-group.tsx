@@ -81,6 +81,8 @@ const useStyles = makeStyles<Theme, StyleProps>(theme => ({
     },
     accordion: {
         color: 'red',
+        position: 'relative',
+        padding: '20px 0'
 
 
     },
@@ -92,6 +94,7 @@ const useStyles = makeStyles<Theme, StyleProps>(theme => ({
         display: 'grid',
         gridTemplateColumns: 'repeat(12, 1fr)',
 
+
         '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
             gridColumnEnd: 'span 6',
             // padding: 0
@@ -100,7 +103,8 @@ const useStyles = makeStyles<Theme, StyleProps>(theme => ({
             gridColumnEnd: 'span 6',
             justifyContent: 'flex-end',
             margin: 0,
-            height: '100%'
+            height: '100%',
+
         }
     },
     checkbox: {
@@ -234,7 +238,7 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
                                             {css}
                                         </style>
 
-                                        <ThumbClipPath background={'no-repeat url("https://i.picsum.photos/id/222/536/354.jpg?hmac=0F40OROL8Yvsv14Vjrqvhs8J3BjAdEC8IetqdiSzdlU") center center'} backgroundSize="cover" />
+                                        <ThumbClipPath background={'url("https://i.picsum.photos/id/788/300/100.jpg?hmac=KWflciGhusmi2yJhbOvqFIQUb-0W2FRu5QENq2soFZM") no-repeat center center'} backgroundSize="cover" />
 
                                         {/* <Grid container className={classes.summaryContainer}>
 
