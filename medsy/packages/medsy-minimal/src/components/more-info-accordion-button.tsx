@@ -5,6 +5,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             fontWeight: 500,
+            gridColumn: '6 / span 3',
             '&::after': {
                 //content string trick: https://stackoverflow.com/a/43361653/14657615
                 // content: '""',

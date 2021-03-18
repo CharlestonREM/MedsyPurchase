@@ -16,6 +16,7 @@ import { product as productInterface } from 'interfaces/google-spreadsheet-data'
 import { useCalculator } from 'contexts/calculator/calculator.provider'
 import { AddCircle, CheckCircle, Minimize } from '@material-ui/icons';
 import MoreInfoAccordionButton from 'components/more-info-accordion-button';
+import ThumbClipPath from 'components/thumb-clip-path';
 
 // const useStyles = makeStyles((theme: Theme) =>
 //     createStyles({
@@ -64,10 +65,39 @@ const useStyles = makeStyles<Theme, StyleProps>(theme => ({
             // justifyContent: 'flex-end'
             // marginTop: '1em'
             '& .MuiIconButton-label': {
+                display: 'grid',
+                gridTemplateColumns: 'repeat(8, 1fr)',
+                flexWrap: 'wrap',
+                flexDirection: 'column',
+                flexFlow: 'column wrap',
 
+            },
+            '& .MuiIconButton-label::before': {
+                color: 'yellow',
+                gridColumn: '4 / span 5'
             }
 
         }
+    },
+    accordion: {
+        color: 'red',
+
+    },
+    accordionSummary: {
+        color: 'green',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(12, 1fr)',
+        '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
+            gridColumnEnd: 'span 6',
+            // padding: 0
+        },
+        '& .MuiAccordionSummary-content': {
+            gridColumnEnd: 'span 6',
+            justifyContent: 'flex-end'
+        }
+    },
+    checkbox: {
+        paddingRight: 0
     },
     summaryContainer: {
         // position: 'relative'
@@ -77,7 +107,7 @@ const useStyles = makeStyles<Theme, StyleProps>(theme => ({
 
     },
     productName: {
-        fontWeight: 500
+        fontWeight: 500,
     }
 }));
 
@@ -142,8 +172,8 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
                         const accIndex = ('panel' + index);
                         const css = `
                             .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd .MuiIconButton-label {
-                                flex-direction:column;
-                                align-items:flex-end;
+                               /* flex-direction:column;
+                                align-items:flex-end;*/
                             }
                             .MuiPaper-root.MuiAccordion-root.MuiAccordion-rounded.MuiPaper-elevation1.MuiPaper-rounded:nth-child(${index + 1})  .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd .MuiIconButton-label::before  {
                                 content: '${basePackage.productName}';
@@ -151,18 +181,20 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
                                 font-size: .7em;
                                 font-weight: 500;
                                 color: black;
-                                width: 75%;
+                                
                                 text-align: right;
+                                
                             }
                         `
                         if (basePackage.productService === service) {
                             return (
-                                <Accordion expanded={expanded === accIndex} /* onChange={handleAccordionChange(accIndex)} */ key={index} >
+                                <Accordion expanded={expanded === accIndex} /* onChange={handleAccordionChange(accIndex)} */ className={classes.accordion} key={index} >
                                     <AccordionSummary
                                         // conditional expand icon: https://stackoverflow.com/a/63691313/14657615
                                         // based on controlled accordion example in mui docs: https://material-ui.com/components/accordion/#controlled-accordion
                                         expandIcon={expanded === accIndex ? <ExpandMoreIcon onClick={handleAccordionChange(accIndex)} /> : <MoreInfoAccordionButton onClick={handleAccordionChange(accIndex)} productName={basePackage.productName} />}
                                         aria-label="Expand"
+                                        className={classes.accordionSummary}
                                         aria-controls={"additional-actions" + index + "-content"}
                                         id={"additional-actions" + index + "-header"}
                                         onClick={(e) => {
@@ -173,33 +205,36 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
                                         <style>
                                             {css}
                                         </style>
-                                        <Grid container className={classes.summaryContainer}>
+
+                                        {/* <ThumbClipPath background={'no-repeat url("https://i.picsum.photos/id/222/536/354.jpg?hmac=0F40OROL8Yvsv14Vjrqvhs8J3BjAdEC8IetqdiSzdlU") center center'} backgroundSize="cover" /> */}
+
+                                        {/* <Grid container className={classes.summaryContainer}>
 
                                             <Grid item xs={3} className={classes.productNameWrap}>
                                                 <Typography className={classes.productName}>{basePackage.productName}</Typography>
-                                                {/* <Typography variant='body2' align="left">{basePackage.description}</Typography> */}
                                             </Grid>
-                                        </Grid>
-                                        <Grid item xs={3}>
-                                            <Checkbox
-                                                id={basePackage.id}
-                                                {...field}
-                                                icon={<AddCircle />} checkedIcon={<CheckCircle />}
-                                                value={basePackage.id}
-                                                checked={field.value.includes(basePackage.id)}
-                                                color="primary"
-                                                onClick={(event) => event.stopPropagation()}
-                                                onFocus={(event) => event.stopPropagation()}
-                                                onChange={(e) => {
-                                                    //todo - create on change function that ends in resetting the value of the input
-                                                    //use built in onchange handler and just pass the event!
-                                                    field.onChange(e);
-                                                    //update calculator context
-                                                    updateCalculatorBasePackages(e)
-                                                }}
-                                            />
+                                        </Grid> */}
 
-                                        </Grid>
+                                        <Checkbox
+                                            id={basePackage.id}
+                                            className={classes.checkbox}
+                                            {...field}
+                                            icon={<AddCircle />} checkedIcon={<CheckCircle />}
+                                            value={basePackage.id}
+                                            checked={field.value.includes(basePackage.id)}
+                                            color="primary"
+                                            onClick={(event) => event.stopPropagation()}
+                                            onFocus={(event) => event.stopPropagation()}
+                                            onChange={(e) => {
+                                                //todo - create on change function that ends in resetting the value of the input
+                                                //use built in onchange handler and just pass the event!
+                                                field.onChange(e);
+                                                //update calculator context
+                                                updateCalculatorBasePackages(e)
+                                            }}
+                                        />
+
+
 
 
                                     </AccordionSummary>
