@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export interface MoreInfoAccordionButtonProps {
     onClick: Function;
+    productName?: string;
 }
 
 const MoreInfoAccordionButton: React.FC<MoreInfoAccordionButtonProps> = (props) => {
