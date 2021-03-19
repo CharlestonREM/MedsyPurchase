@@ -38,7 +38,6 @@ import CheckboxGroup from 'components/formik-controls/checkbox-group'
 import { serviceData } from 'helpers/get-service-data';
 
 
-import { getProducts } from 'helpers/get-products';
 //info - PRODUCT LIST
 import { getBasePackageList } from "helpers/product-list/get-base-package-list";
 import { getUpgradeList } from "helpers/product-list/get-upgrade-list";
@@ -107,9 +106,6 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }),
 );
-
-
-
 
 
 
@@ -514,22 +510,17 @@ const useIsMounted = () => {
 
 export async function getServerSideProps() {
 
-    const products = await getProducts();
     const basePackageList = await getBasePackageList();
     const upgradeList = await getUpgradeList();
     const squareFootage = await getSquareFootage();
     const licenseOptions = await getLicense();
-    // const allProducts = _.concat(basePackageList, upgradeList);
-
 
     return {
         props: {
-            products,
             basePackageList,
             upgradeList,
             squareFootage,
             licenseOptions,
-            // allProducts
         },
     };
 }
@@ -772,10 +763,10 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
 
 
                         <Calculator />
-                        {/*   {currentChild.props.fieldDataDisplay !== undefined ? <FieldDataDisplay fieldName={currentChild.props.fieldDataDisplay} color="violet" /> : null}
+                        {currentChild.props.fieldDataDisplay !== undefined ? <FieldDataDisplay fieldName={currentChild.props.fieldDataDisplay} color="violet" /> : null}
                         <AvailableProductsContextDataDisplay color='dodgerblue' />
                         <CalculatorContextDataDisplay color='greenyellow' />
-                        <FormDataDisplay values={values} errors={errors} isSubmitting={isSubmitting} /> */}
+                        <FormDataDisplay values={values} errors={errors} isSubmitting={isSubmitting} />
 
                     </Form>
 
