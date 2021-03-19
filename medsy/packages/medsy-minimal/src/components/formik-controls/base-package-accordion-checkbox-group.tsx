@@ -17,6 +17,7 @@ import { useCalculator } from 'contexts/calculator/calculator.provider'
 import { AddCircle, CheckCircle, Minimize } from '@material-ui/icons';
 import MoreInfoAccordionButton from 'components/more-info-accordion-button';
 import ThumbClipPath from 'components/thumb-clip-path';
+//todo - go through this optimization: https://medium.com/@freshmilkdev/reactjs-render-optimization-for-collapsible-material-ui-long-list-with-checkboxes-231b36892e20
 
 // const useStyles = makeStyles((theme: Theme) =>
 //     createStyles({
@@ -220,7 +221,7 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
                         `
                         if (basePackage.productService === service) {
                             return (
-                                <Accordion expanded={expanded === accIndex} /* onChange={handleAccordionChange(accIndex)} */ className={classes.accordion} key={index} >
+                                <Accordion expanded={expanded === accIndex} /* onChange={handleAccordionChange(accIndex)} */ className={classes.accordion} key={index} TransitionProps={{ unmountOnExit: true }} >
                                     <AccordionSummary
                                         // conditional expand icon: https://stackoverflow.com/a/63691313/14657615
                                         // based on controlled accordion example in mui docs: https://material-ui.com/components/accordion/#controlled-accordion
