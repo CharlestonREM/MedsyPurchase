@@ -49,6 +49,8 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
+//service-link-photo-size
+//https://picsum.photos/300/75
 
 const ServiceLinkList: React.FC<ServiceLinkListProps> = () => {
     const classes = useStyles();

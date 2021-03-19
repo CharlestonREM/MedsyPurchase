@@ -366,7 +366,7 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
 
                     </FormikStep>
 
-                    <FormikStep stepTitle="Select your base services" stepperStep={2} validationSchema={validationSchema.step2}>
+                    <FormikStep stepTitle="Select your base services" stepperStep={2} validationSchema={validationSchema.step2} fieldDataDisplay={'baseServiceCheckbox'}>
 
 
 

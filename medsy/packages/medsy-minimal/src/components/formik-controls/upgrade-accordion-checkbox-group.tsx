@@ -17,6 +17,11 @@ const useStyles = makeStyles({
     root: {
         width: '100%',
     },
+    productName: {
+        fontSize: '1.35em',
+        fontWeight: 500,
+        textTransform: 'capitalize'
+    }
 });
 
 
@@ -61,7 +66,7 @@ const UpgradeAccordionCheckboxGroup: React.FC<UpgradeAccordionCheckboxGroupProps
                     return upgrades.map((upgrade, index) => {
                         if (upgrade.productService === service) {
                             return (
-                                <Accordion key={index}>
+                                <Accordion key={index} TransitionProps={{ unmountOnExit: true }}>
                                     <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-label="Expand"
@@ -70,7 +75,7 @@ const UpgradeAccordionCheckboxGroup: React.FC<UpgradeAccordionCheckboxGroupProps
                                     >
                                         <Grid container>
                                             <Grid item xs={9}>
-                                                <Typography variant='h6' color='primary' align="left">{upgrade.productName}</Typography>
+                                                <Typography className={classes.productName} color='primary' align="left">{upgrade.productName}</Typography>
                                                 <Typography variant='body2' align="left">{upgrade.description}</Typography>
                                             </Grid>
                                             <Grid item xs={3}>

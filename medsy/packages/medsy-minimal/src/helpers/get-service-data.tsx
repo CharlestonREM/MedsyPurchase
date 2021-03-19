@@ -6,7 +6,7 @@ export const serviceData = {
         baseService: true,
         value: 'p',
         serviceLink: {
-            imgUrl: "https://rb.gy/gshmgt",
+            imgUrl: "https://i.picsum.photos/id/718/300/75.jpg?hmac=GlcH4VNKPuq4oxXG6qRjNPRDhuhsUfEgXe1j-yCXIVg",
             imgAlt: "camera maps desk"
         }
     },
@@ -16,7 +16,7 @@ export const serviceData = {
         baseService: true,
         value: 'v',
         serviceLink: {
-            imgUrl: "https://rb.gy/bbhfps",
+            imgUrl: "https://i.picsum.photos/id/255/300/75.jpg?hmac=vGHanHDxIFJz0J1JLNgqyarh8Jl7MecyhuY4YAeR4W8",
             imgAlt: "camera maps desk"
         }
 
@@ -27,7 +27,7 @@ export const serviceData = {
         baseService: true,
         value: 'a',
         serviceLink: {
-            imgUrl: "https://www.beecreekphoto.com/images/300/San-Antonio-Skyline-BW-Pano-DR209321.jpg",
+            imgUrl: "https://i.picsum.photos/id/793/300/75.jpg?hmac=rNwLIxOu2YvcpCp9qdkRmoVTlqO2yvHWHRFrzyEWZP4",
             imgAlt: "camera maps desk"
         }
     },
@@ -37,7 +37,7 @@ export const serviceData = {
         baseService: true,
         value: 'd',
         serviceLink: {
-            imgUrl: "https://rb.gy/8j9hgi",
+            imgUrl: "https://i.picsum.photos/id/230/300/75.jpg?hmac=HAlSKofNcefcVol21UWRBZWWqLRhonVHiNf3j4xYfBo",
             imgAlt: "camera maps desk"
         }
     },
