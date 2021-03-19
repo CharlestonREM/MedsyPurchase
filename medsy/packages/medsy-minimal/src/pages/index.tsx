@@ -351,11 +351,6 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
             <Grid item xs={12}>
 
 
-                {/* <div>
-                    <h1>testing dynamic iconss:</h1>
-                    <DynamicIcon name="MoneyOff" fill="gray" />
-
-                </div> */}
 
                 <FormikStepper initialValues={initialValues} onSubmit={onSubmit} >
 
@@ -769,10 +764,10 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
 
 
                         <Calculator />
-                        {currentChild.props.fieldDataDisplay !== undefined ? <FieldDataDisplay fieldName={currentChild.props.fieldDataDisplay} color="violet" /> : null}
+                        {/*   {currentChild.props.fieldDataDisplay !== undefined ? <FieldDataDisplay fieldName={currentChild.props.fieldDataDisplay} color="violet" /> : null}
                         <AvailableProductsContextDataDisplay color='dodgerblue' />
                         <CalculatorContextDataDisplay color='greenyellow' />
-                        <FormDataDisplay values={values} errors={errors} isSubmitting={isSubmitting} />
+                        <FormDataDisplay values={values} errors={errors} isSubmitting={isSubmitting} /> */}
 
                     </Form>
 
