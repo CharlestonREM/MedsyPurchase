@@ -12,6 +12,7 @@ import { product as productInterface } from 'interfaces/google-spreadsheet-data'
 import SwipeableTextMobileStepper from 'components/swipable-text-mobile-stepper';
 
 import { useCalculator } from 'contexts/calculator/calculator.provider'
+import TextMobileStepper from 'components/text-mobile-stepper';
 
 const useStyles = makeStyles({
     root: {
@@ -142,7 +143,7 @@ const UpgradeAccordionCheckboxGroup: React.FC<UpgradeAccordionCheckboxGroupProps
                                                 icons go here
                                             </Grid>
                                             <Grid item xs={12}>
-                                                <SwipeableTextMobileStepper />
+                                                <TextMobileStepper />
                                             </Grid>
                                         </Grid>
                                     </AccordionDetails>
