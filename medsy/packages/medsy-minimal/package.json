@@ -38,8 +38,6 @@
     "react-scroll": "^1.8.1",
     "react-spring": "^8.0.27",
     "react-stickynode": "^3.0.4",
-    "react-swipeable-views": "^0.13.9",
-    "react-swipeable-views-utils": "^0.14.0-alpha.0",
     "react-waypoint": "^9.0.3",
     "resize-observer-polyfill": "^1.5.1",
     "swr": "^0.3.8",
@@ -48,8 +46,6 @@
   },
   "devDependencies": {
     "@types/react": "^16.9.56",
-    "@types/react-swipeable-views": "^0.13.0",
-    "@types/react-swipeable-views-utils": "^0.13.2",
     "babel-plugin-inline-react-svg": "^1.1.2",
     "imagemin-mozjpeg": "^9.0.0",
     "imagemin-optipng": "^8.0.0",
