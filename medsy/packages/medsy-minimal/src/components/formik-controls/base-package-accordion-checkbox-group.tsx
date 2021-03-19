@@ -203,22 +203,22 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
 
                     return basePackages.map((basePackage, index) => {
                         const accIndex = ('panel' + index);
-                        const css = `
-                            .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd .MuiIconButton-label {
-                               /* flex-direction:column;
-                                align-items:flex-end;*/
-                            }
-                            .MuiPaper-root.MuiAccordion-root.MuiAccordion-rounded.MuiPaper-elevation1.MuiPaper-rounded:nth-child(${index + 1})  .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd .MuiIconButton-label::before  {
-                                content: '${basePackage.productName}';
-                                text-transform: capitalize;
-                                font-size: .7em;
-                                font-weight: 500;
-                                color: black;
-                                
-                                text-align: right;
-                                
-                            }
-                        `
+                        // const css = `
+                        //     .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd .MuiIconButton-label {
+                        //        /* flex-direction:column;
+                        //         align-items:flex-end;*/
+                        //     }
+                        //     .MuiPaper-root.MuiAccordion-root.MuiAccordion-rounded.MuiPaper-elevation1.MuiPaper-rounded:nth-child(${index + 1})  .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd .MuiIconButton-label::before  {
+                        //         content: '${basePackage.productName}';
+                        //         text-transform: capitalize;
+                        //         font-size: .7em;
+                        //         font-weight: 500;
+                        //         color: black;
+
+                        //         text-align: right;
+
+                        //     }
+                        // `
                         if (basePackage.productService === service) {
                             return (
                                 <Accordion expanded={expanded === accIndex} /* onChange={handleAccordionChange(accIndex)} */ className={classes.accordion} key={index} TransitionProps={{ unmountOnExit: true }} >
@@ -235,9 +235,9 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
                                             e.stopPropagation();
                                         }}
                                     >
-                                        <style>
+                                        {/* <style>
                                             {css}
-                                        </style>
+                                        </style> */}
 
                                         <ThumbClipPath background={'url("https://i.picsum.photos/id/788/300/100.jpg?hmac=KWflciGhusmi2yJhbOvqFIQUb-0W2FRu5QENq2soFZM") no-repeat center center'} backgroundSize="cover" />
 

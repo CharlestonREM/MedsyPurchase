@@ -345,6 +345,14 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
     return (
 
         <Grid container className={classes.max}>
+            <Head>
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1, maximum-scale=1"
+                />
+                <meta name="Description" content="Put your description here." />
+                <title>Medsy</title>
+            </Head>
             <Grid item xs={12}>
                 <TopNav title={stepperContext.state.stepTitle} />
             </Grid>
