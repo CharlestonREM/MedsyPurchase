@@ -1,6 +1,6 @@
 import React from 'react';
 // import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Theme } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Accordion, AccordionSummary, AccordionDetails, Checkbox, Grid, Typography } from '@material-ui/core';
@@ -19,130 +19,184 @@ import MoreInfoAccordionButton from 'components/more-info-accordion-button';
 import ThumbClipPath from 'components/thumb-clip-path';
 //todo - go through this optimization: https://medium.com/@freshmilkdev/reactjs-render-optimization-for-collapsible-material-ui-long-list-with-checkboxes-231b36892e20
 
-// const useStyles = makeStyles((theme: Theme) =>
-//     createStyles({
-//         root: {
-//             width: '100%',
-//             '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
-//                 // display: 'contents',
-//                 // alignItems: 'flex-end',
-//                 // justifyContent: 'flex-end'
-//                 // marginTop: '1em'
-//                 '& .MuiIconButton-label': {
-//                     flexDirection: 'column',
-//                     '&::before': {
-//                         //content string trick: https://stackoverflow.com/a/43361653/14657615
-//                         // content: '"test"',
-//                         content: props => props.basePackages,
-//                         // display: 'block',
-//                         // position: 'absolute',
-//                     }
-//                 }
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            width: '100%',
+            '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
+                // display: 'contents',
+                // alignItems: 'flex-end',
+                // justifyContent: 'flex-end'
+                // marginTop: '1em'
+                '& .MuiIconButton-label': {
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(8, 1fr)',
+                    flexWrap: 'wrap',
+                    flexDirection: 'column',
+                    flexFlow: 'column wrap',
 
-//             }
-//         },
-//         summaryContainer: {
-//             position: 'relative'
-//         },
-//         productNameWrap: {
-//             position: 'absolute',
+                },
+                '& .MuiIconButton-label::before': {
+                    color: 'yellow',
+                    gridColumn: '4 / span 5'
+                }
 
-//         },
-//         productName: {
-//             fontWeight: 500
-//         }
-//     }),
-// );
+            }
+        },
+        accordion: {
+            color: 'red',
+            position: 'relative',
+            padding: '20px 0'
+
+
+        },
+        accordionSummary: {
+            color: 'green',
+            // clipPath: 'url(#blob)',
+            // background: 'no-repeat url("https://i.picsum.photos/id/222/536/354.jpg?hmac=0F40OROL8Yvsv14Vjrqvhs8J3BjAdEC8IetqdiSzdlU") center center',
+            // backgroundSize: 'cover',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(12, 1fr)',
+
+
+            '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
+                gridColumnEnd: 'span 6',
+                // padding: 0
+            },
+            '& .MuiAccordionSummary-content': {
+                gridColumnEnd: 'span 6',
+                justifyContent: 'flex-end',
+                margin: 0,
+                height: '100%',
+
+            }
+        },
+        checkbox: {
+            paddingRight: 0,
+            //half of fontSize property on muisvgicon-root below
+            marginRight: '-1em',
+            color: theme.palette.primary.main,
+            '&.Mui-checked': {
+                color: '#72a047'
+            },
+            '& .MuiSvgIcon-root': {
+                fontSize: '2em',
+                stroke: 'white',
+                strokeWidth: '1',
+                r: '11',
+                '&::after': {
+                    content: '"test"',
+                    display: 'block',
+                    width: '100px',
+                    height: '100px',
+                    position: 'absolute',
+                    left: 0,
+                    top: 0
+                }
+            }
+        },
+        summaryContainer: {
+            // position: 'relative'
+        },
+        productNameWrap: {
+            // position: 'absolute',
+
+        },
+        productName: {
+            fontWeight: 500,
+        }
+    }),
+);
 
 export interface StyleProps {
     label: string;
 }
-const useStyles = makeStyles<Theme, StyleProps>(theme => ({
-    root: {
-        width: '100%',
-        '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
-            // display: 'contents',
-            // alignItems: 'flex-end',
-            // justifyContent: 'flex-end'
-            // marginTop: '1em'
-            '& .MuiIconButton-label': {
-                display: 'grid',
-                gridTemplateColumns: 'repeat(8, 1fr)',
-                flexWrap: 'wrap',
-                flexDirection: 'column',
-                flexFlow: 'column wrap',
+// const useStyles = makeStyles<Theme, StyleProps>(theme => ({
+//     root: {
+//         width: '100%',
+//         '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
+//             // display: 'contents',
+//             // alignItems: 'flex-end',
+//             // justifyContent: 'flex-end'
+//             // marginTop: '1em'
+//             '& .MuiIconButton-label': {
+//                 display: 'grid',
+//                 gridTemplateColumns: 'repeat(8, 1fr)',
+//                 flexWrap: 'wrap',
+//                 flexDirection: 'column',
+//                 flexFlow: 'column wrap',
 
-            },
-            '& .MuiIconButton-label::before': {
-                color: 'yellow',
-                gridColumn: '4 / span 5'
-            }
+//             },
+//             '& .MuiIconButton-label::before': {
+//                 color: 'yellow',
+//                 gridColumn: '4 / span 5'
+//             }
 
-        }
-    },
-    accordion: {
-        color: 'red',
-        position: 'relative',
-        padding: '20px 0'
-
-
-    },
-    accordionSummary: {
-        color: 'green',
-        // clipPath: 'url(#blob)',
-        // background: 'no-repeat url("https://i.picsum.photos/id/222/536/354.jpg?hmac=0F40OROL8Yvsv14Vjrqvhs8J3BjAdEC8IetqdiSzdlU") center center',
-        // backgroundSize: 'cover',
-        display: 'grid',
-        gridTemplateColumns: 'repeat(12, 1fr)',
+//         }
+//     },
+//     accordion: {
+//         color: 'red',
+//         position: 'relative',
+//         padding: '20px 0'
 
 
-        '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
-            gridColumnEnd: 'span 6',
-            // padding: 0
-        },
-        '& .MuiAccordionSummary-content': {
-            gridColumnEnd: 'span 6',
-            justifyContent: 'flex-end',
-            margin: 0,
-            height: '100%',
+//     },
+//     accordionSummary: {
+//         color: 'green',
+//         // clipPath: 'url(#blob)',
+//         // background: 'no-repeat url("https://i.picsum.photos/id/222/536/354.jpg?hmac=0F40OROL8Yvsv14Vjrqvhs8J3BjAdEC8IetqdiSzdlU") center center',
+//         // backgroundSize: 'cover',
+//         display: 'grid',
+//         gridTemplateColumns: 'repeat(12, 1fr)',
 
-        }
-    },
-    checkbox: {
-        paddingRight: 0,
-        //half of fontSize property on muisvgicon-root below
-        marginRight: '-1em',
-        color: theme.palette.primary.main,
-        '&.Mui-checked': {
-            color: '#72a047'
-        },
-        '& .MuiSvgIcon-root': {
-            fontSize: '2em',
-            stroke: 'white',
-            strokeWidth: '1',
-            r: '11',
-            '&::after': {
-                content: '"test"',
-                display: 'block',
-                width: '100px',
-                height: '100px',
-                position: 'absolute',
-                left: 0,
-                top: 0
-            }
-        }
-    },
-    summaryContainer: {
-        // position: 'relative'
-    },
-    productNameWrap: {
-        // position: 'absolute',
 
-    },
-    productName: {
-        fontWeight: 500,
-    }
-}));
+//         '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
+//             gridColumnEnd: 'span 6',
+//             // padding: 0
+//         },
+//         '& .MuiAccordionSummary-content': {
+//             gridColumnEnd: 'span 6',
+//             justifyContent: 'flex-end',
+//             margin: 0,
+//             height: '100%',
+
+//         }
+//     },
+//     checkbox: {
+//         paddingRight: 0,
+//         //half of fontSize property on muisvgicon-root below
+//         marginRight: '-1em',
+//         color: theme.palette.primary.main,
+//         '&.Mui-checked': {
+//             color: '#72a047'
+//         },
+//         '& .MuiSvgIcon-root': {
+//             fontSize: '2em',
+//             stroke: 'white',
+//             strokeWidth: '1',
+//             r: '11',
+//             '&::after': {
+//                 content: '"test"',
+//                 display: 'block',
+//                 width: '100px',
+//                 height: '100px',
+//                 position: 'absolute',
+//                 left: 0,
+//                 top: 0
+//             }
+//         }
+//     },
+//     summaryContainer: {
+//         // position: 'relative'
+//     },
+//     productNameWrap: {
+//         // position: 'absolute',
+
+//     },
+//     productName: {
+//         fontWeight: 500,
+//     }
+// }));
 
 
 
@@ -155,7 +209,7 @@ export interface BasePackageAccordionCheckboxGroupProps {
 
 const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGroupProps> = (props) => {
 
-    const classes = useStyles(props);
+    const classes = useStyles();
     const { basePackages, service, label, fieldName, ...rest } = props;
     const { addProduct, getProduct, removeProduct } = useCalculator();
 
