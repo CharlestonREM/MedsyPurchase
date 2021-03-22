@@ -70,7 +70,8 @@ export const getServiceData = (service) => {
             return serviceData['u'];
             break;
         default:
-            console.log("did not recognize service");
+            throw new Error('You provided an unknown service: ' + service);
+            break;
     }
 };
 
