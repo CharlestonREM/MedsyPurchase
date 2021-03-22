@@ -47,16 +47,6 @@ const SelectBaseProductsStep: React.FC<SelectBaseProductsStepProps> = (props) =>
         //console.log('i am servicepackages', servicePackages)
         return (
             <React.Fragment>
-                {/* <h2 style={{ color: 'red' }}>i got a package for you: <em style={{ fontSize: '3em' }}>{service}</em></h2>
-                <h3>yerp</h3>
-                <Grid container >
-                    <Grid container justify="center" >
-                        <Typography style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', fontWeight: 700, fontSize: '1.15rem', margin: '2rem auto', color: '#999999' }}><span>{getServiceIcon(service)}</span><span>{getServiceData(service).name}</span><span style={{ color: 'black' }}>/Base Packages</span></Typography>
-                    </Grid>
-                    <Grid container>
-                        <AddBasePackageToggleButtonGroup name="basePackageCheckbox" service={service} serviceProducts={servicePackages} />
-                    </Grid>
-                </Grid> */}
                 <Grid container >
                     <Grid container justify="center" >
                         <Typography style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', fontWeight: 700, fontSize: '1.15rem', margin: '2rem auto', color: '#999999' }}><span>{getServiceIcon(service)}</span><span>{getServiceData(service).name}</span><span style={{ color: 'black' }}>/Base Packages</span></Typography>
@@ -123,31 +113,6 @@ const SelectBaseProductsStep: React.FC<SelectBaseProductsStepProps> = (props) =>
                     }
                 }
             </StepperContext.Consumer>
-            {/* {baseServiceField.value.map((service, index) => {
-                let specificBasePackageProducts = [];
-                let basePackageOptions = [];
-                basePackages.map((product) => {
-                    if (service === product.productService) {
-                        specificBasePackageProducts.push(product);
-                        let option = {
-                            key: product.productName,
-                            value: product.id,
-                        };
-                        basePackageOptions.push(option);
-                    }
-                });
-
-                return (
-                    <Grid container key={index}>
-                        <Grid container justify="center" >
-                            <Typography style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', fontWeight: 700, fontSize: '1.15rem', margin: '2rem auto', color: '#999999' }}><span>{getServiceIcon(service)}</span><span>{getServiceData(service).name}</span><span style={{ color: 'black' }}>/Base Packages</span></Typography>
-                        </Grid>
-                        <Grid container>
-                            <AddBasePackageToggleButtonGroup name="basePackageCheckbox" service={service} serviceProducts={specificBasePackageProducts} />
-                        </Grid>
-                    </Grid>
-                );
-            })} */}
         </>
     );
 }

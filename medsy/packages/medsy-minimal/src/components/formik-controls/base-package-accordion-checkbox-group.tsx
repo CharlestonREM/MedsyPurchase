@@ -19,98 +19,98 @@ import MoreInfoAccordionButton from 'components/more-info-accordion-button';
 import ThumbClipPath from 'components/thumb-clip-path';
 //todo - go through this optimization: https://medium.com/@freshmilkdev/reactjs-render-optimization-for-collapsible-material-ui-long-list-with-checkboxes-231b36892e20
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            width: '100%',
-            '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
-                // display: 'contents',
-                // alignItems: 'flex-end',
-                // justifyContent: 'flex-end'
-                // marginTop: '1em'
-                '& .MuiIconButton-label': {
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(8, 1fr)',
-                    flexWrap: 'wrap',
-                    flexDirection: 'column',
-                    flexFlow: 'column wrap',
+// const useStyles = makeStyles((theme: Theme) =>
+//     createStyles({
+//         root: {
+//             width: '100%',
+//             '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
+//                 // display: 'contents',
+//                 // alignItems: 'flex-end',
+//                 // justifyContent: 'flex-end'
+//                 // marginTop: '1em'
+//                 '& .MuiIconButton-label': {
+//                     display: 'grid',
+//                     gridTemplateColumns: 'repeat(8, 1fr)',
+//                     flexWrap: 'wrap',
+//                     flexDirection: 'column',
+//                     flexFlow: 'column wrap',
 
-                },
-                '& .MuiIconButton-label::before': {
-                    color: 'yellow',
-                    gridColumn: '4 / span 5'
-                }
+//                 },
+//                 '& .MuiIconButton-label::before': {
+//                     color: 'yellow',
+//                     gridColumn: '4 / span 5'
+//                 }
 
-            }
-        },
-        accordion: {
-            color: 'red',
-            position: 'relative',
-            padding: '20px 0'
-
-
-        },
-        accordionSummary: {
-            color: 'green',
-            // clipPath: 'url(#blob)',
-            // background: 'no-repeat url("https://i.picsum.photos/id/222/536/354.jpg?hmac=0F40OROL8Yvsv14Vjrqvhs8J3BjAdEC8IetqdiSzdlU") center center',
-            // backgroundSize: 'cover',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(12, 1fr)',
+//             }
+//         },
+//         accordion: {
+//             color: 'red',
+//             position: 'relative',
+//             padding: '20px 0'
 
 
-            '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
-                gridColumnEnd: 'span 6',
-                // padding: 0
-            },
-            '& .MuiAccordionSummary-content': {
-                gridColumnEnd: 'span 6',
-                justifyContent: 'flex-end',
-                margin: 0,
-                height: '100%',
+//         },
+//         accordionSummary: {
+//             color: 'green',
+//             // clipPath: 'url(#blob)',
+//             // background: 'no-repeat url("https://i.picsum.photos/id/222/536/354.jpg?hmac=0F40OROL8Yvsv14Vjrqvhs8J3BjAdEC8IetqdiSzdlU") center center',
+//             // backgroundSize: 'cover',
+//             display: 'grid',
+//             gridTemplateColumns: 'repeat(12, 1fr)',
 
-            }
-        },
-        checkbox: {
-            paddingRight: 0,
-            //half of fontSize property on muisvgicon-root below
-            marginRight: '-1em',
-            color: theme.palette.primary.main,
-            '&.Mui-checked': {
-                color: '#72a047'
-            },
-            '& .MuiSvgIcon-root': {
-                fontSize: '2em',
-                stroke: 'white',
-                strokeWidth: '1',
-                r: '11',
-                '&::after': {
-                    content: '"test"',
-                    display: 'block',
-                    width: '100px',
-                    height: '100px',
-                    position: 'absolute',
-                    left: 0,
-                    top: 0
-                }
-            }
-        },
-        summaryContainer: {
-            // position: 'relative'
-        },
-        productNameWrap: {
-            // position: 'absolute',
 
-        },
-        productName: {
-            fontWeight: 500,
-        }
-    }),
-);
+//             '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
+//                 gridColumnEnd: 'span 6',
+//                 // padding: 0
+//             },
+//             '& .MuiAccordionSummary-content': {
+//                 gridColumnEnd: 'span 6',
+//                 justifyContent: 'flex-end',
+//                 margin: 0,
+//                 height: '100%',
 
-export interface StyleProps {
-    label: string;
-}
+//             }
+//         },
+//         checkbox: {
+//             paddingRight: 0,
+//             //half of fontSize property on muisvgicon-root below
+//             marginRight: '-1em',
+//             color: theme.palette.primary.main,
+//             '&.Mui-checked': {
+//                 color: '#72a047'
+//             },
+//             '& .MuiSvgIcon-root': {
+//                 fontSize: '2em',
+//                 stroke: 'white',
+//                 strokeWidth: '1',
+//                 r: '11',
+//                 '&::after': {
+//                     content: '"test"',
+//                     display: 'block',
+//                     width: '100px',
+//                     height: '100px',
+//                     position: 'absolute',
+//                     left: 0,
+//                     top: 0
+//                 }
+//             }
+//         },
+//         summaryContainer: {
+//             // position: 'relative'
+//         },
+//         productNameWrap: {
+//             // position: 'absolute',
+
+//         },
+//         productName: {
+//             fontWeight: 500,
+//         }
+//     }),
+// );
+
+// export interface StyleProps {
+//     label: string;
+// }
 // const useStyles = makeStyles<Theme, StyleProps>(theme => ({
 //     root: {
 //         width: '100%',
@@ -209,7 +209,7 @@ export interface BasePackageAccordionCheckboxGroupProps {
 
 const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGroupProps> = (props) => {
 
-    const classes = useStyles();
+    // const classes = useStyles();
     const { basePackages, service, label, fieldName, ...rest } = props;
     const { addProduct, getProduct, removeProduct } = useCalculator();
 
@@ -244,7 +244,7 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
         );
     };
     return (
-        <div className={classes.root}>
+        <div /* className={classes.root} */>
             <Field
                 name={fieldName}
                 onChange={(e) => {
@@ -275,13 +275,13 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
                         `
                         if (basePackage.productService === service) {
                             return (
-                                <Accordion expanded={expanded === accIndex} /* onChange={handleAccordionChange(accIndex)} */ className={classes.accordion} key={index} TransitionProps={{ unmountOnExit: true }} >
+                                <Accordion expanded={expanded === accIndex} /* onChange={handleAccordionChange(accIndex)} */ /* className={classes.accordion} */ key={index} TransitionProps={{ unmountOnExit: true }} >
                                     <AccordionSummary
                                         // conditional expand icon: https://stackoverflow.com/a/63691313/14657615
                                         // based on controlled accordion example in mui docs: https://material-ui.com/components/accordion/#controlled-accordion
                                         expandIcon={expanded === accIndex ? <ExpandMoreIcon onClick={handleAccordionChange(accIndex)} /> : <MoreInfoAccordionButton onClick={handleAccordionChange(accIndex)} productName={basePackage.productName} />}
                                         aria-label="Expand"
-                                        className={classes.accordionSummary}
+                                        /* className={classes.accordionSummary} */
                                         aria-controls={"additional-actions" + index + "-content"}
                                         id={"additional-actions" + index + "-header"}
                                         onClick={(e) => {
@@ -304,7 +304,7 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
 
                                         <Checkbox
                                             id={basePackage.id}
-                                            className={classes.checkbox}
+                                            /* className={classes.checkbox} */
                                             {...field}
                                             icon={<AddCircle />} checkedIcon={<CheckCircle />}
                                             value={basePackage.id}
