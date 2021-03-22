@@ -79,7 +79,6 @@ export const getAllServices = () => {
     _.mapKeys(serviceData, function (value, key) {
         allServices.push(key);
     });
-    console.log('i am getunselected', allServices);
     return allServices;
 }
 

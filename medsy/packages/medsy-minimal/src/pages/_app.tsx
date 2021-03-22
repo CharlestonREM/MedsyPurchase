@@ -18,9 +18,7 @@ import { AvailableProductsProvider } from 'contexts/available-products/available
 // import { GlobalStateProvider } from '@dr.pogodin/react-global-state';
 
 
-//! added `AppProps` type --> bruno
 export default function CustomApp({ Component, pageProps }: AppProps) {
-  //! added `React.useEffect` hook to remove the server-side injected css based on bruno
   React.useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
@@ -29,11 +27,8 @@ export default function CustomApp({ Component, pageProps }: AppProps) {
     }
   }, []);
   return (
-    //!add `React.Fragment` component wrapper --- bruno */
     <React.Fragment>
-      {/* //! add `ThemeProvider` component that uses theme prop --- bruno */}
       <ThemeProvider theme={theme}>
-        {/* //! add CssBaseline component --- bruno */}
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <StepperProvider>
