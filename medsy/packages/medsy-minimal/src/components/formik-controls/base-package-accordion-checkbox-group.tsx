@@ -275,7 +275,7 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
                         // `
                         if (basePackage.productService === service) {
                             return (
-                                <Accordion expanded={expanded === accIndex} /* onChange={handleAccordionChange(accIndex)} */ /* className={classes.accordion} */ key={index} TransitionProps={{ unmountOnExit: true }} >
+                                <Accordion /* expanded={expanded === accIndex} */ /* onChange={handleAccordionChange(accIndex)} */ /* className={classes.accordion} */ key={index} TransitionProps={{ unmountOnExit: true }} >
                                     <AccordionSummary
                                         // conditional expand icon: https://stackoverflow.com/a/63691313/14657615
                                         // based on controlled accordion example in mui docs: https://material-ui.com/components/accordion/#controlled-accordion
