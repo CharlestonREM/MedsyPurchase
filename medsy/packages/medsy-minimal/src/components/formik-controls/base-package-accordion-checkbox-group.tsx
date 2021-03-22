@@ -285,10 +285,10 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
                                         /* className={classes.accordionSummary} */
                                         aria-controls={"additional-actions" + index + "-content"}
                                         id={"additional-actions" + index + "-header"}
-                                        onClick={(e) => {
-                                            // console.log('i am the accordionsummary onClick event', e);
-                                            //e.stopPropagation();
-                                        }}
+                                    /*  onClick={(e) => {
+                                         // console.log('i am the accordionsummary onClick event', e);
+                                         //e.stopPropagation();
+                                     }} */
                                     >
                                         {/*   <style>
                                             {css}
