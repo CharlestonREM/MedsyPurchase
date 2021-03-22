@@ -287,7 +287,7 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
                                         id={"additional-actions" + index + "-header"}
                                         onClick={(e) => {
                                             // console.log('i am the accordionsummary onClick event', e);
-                                            e.stopPropagation();
+                                            //e.stopPropagation();
                                         }}
                                     >
                                         <style>
