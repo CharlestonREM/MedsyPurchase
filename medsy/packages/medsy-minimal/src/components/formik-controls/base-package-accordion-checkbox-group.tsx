@@ -236,13 +236,13 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
     //     console.log('isExpanded AFTER set', isExpanded)
     // };
 
-    const handleAccordionChange = panel => (e) => {
-        // console.log('i am e', e)
-        // console.log('i am expanded', expanded)
-        // setExpanded(
-        //     expanded !== panel ? panel : ""
-        // );
-    };
+    // const handleAccordionChange = panel => (e) => {
+    //     // console.log('i am e', e)
+    //     // console.log('i am expanded', expanded)
+    //     // setExpanded(
+    //     //     expanded !== panel ? panel : ""
+    //     // );
+    // };
     return (
         <div /* className={classes.root} */>
             <Field
@@ -256,7 +256,7 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
                     // console.log('i am field', field)
 
                     return basePackages.map((basePackage, index) => {
-                        const accIndex = ('panel' + index);
+                        // const accIndex = ('panel' + index);
                         // const css = `
                         //     .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd .MuiIconButton-label {
                         //        /* flex-direction:column;
