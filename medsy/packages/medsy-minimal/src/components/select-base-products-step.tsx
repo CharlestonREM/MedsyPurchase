@@ -44,7 +44,6 @@ const SelectBaseProductsStep: React.FC<SelectBaseProductsStepProps> = (props) =>
         const servicePackages = _.filter(basePackages, function (product) {
             return product.productService.includes(service)
         })
-        //console.log('i am servicepackages', servicePackages)
         return (
             <React.Fragment>
                 <Grid container >
@@ -52,7 +51,7 @@ const SelectBaseProductsStep: React.FC<SelectBaseProductsStepProps> = (props) =>
                         <Typography style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', fontWeight: 700, fontSize: '1.15rem', margin: '2rem auto', color: '#999999' }}><span>{getServiceIcon(service)}</span><span>{getServiceData(service).name}</span><span style={{ color: 'black' }}>/Base Packages</span></Typography>
                     </Grid>
                     <Grid container>
-                        <BasePackageAccordionCheckboxGroup fieldName="basePackageCheckbox" label="i am bp accordion label" service={service} basePackages={servicePackages} />
+                        {/* <BasePackageAccordionCheckboxGroup fieldName="basePackageCheckbox" label="i am bp accordion label" service={service} basePackages={servicePackages} /> */}
                     </Grid>
                 </Grid>
             </React.Fragment>
@@ -64,7 +63,6 @@ const SelectBaseProductsStep: React.FC<SelectBaseProductsStepProps> = (props) =>
             <StepperContext.Consumer>
                 {
                     (stepper) => {
-                        // console.log('i am stepper', stepper)
                         const serviceSpecificBasePackage = stepper.state.serviceSpecificBasePackage;
                         return (
                             <React.Fragment>
@@ -93,7 +91,7 @@ const SelectBaseProductsStep: React.FC<SelectBaseProductsStepProps> = (props) =>
                                                                 <Typography style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', fontWeight: 700, fontSize: '1.15rem', margin: '2rem auto', color: '#999999' }}><span>{getServiceIcon(service)}</span><span>{getServiceData(service).name}</span><span style={{ color: 'black' }}>/Base Packages</span></Typography>
                                                             </Grid>
                                                             <Grid container>
-                                                                <BasePackageAccordionCheckboxGroup fieldName="basePackageCheckbox" label="i am bp accordion label" service={service} basePackages={specificBasePackageProducts} />
+                                                                {/* <BasePackageAccordionCheckboxGroup fieldName="basePackageCheckbox" label="i am bp accordion label" service={service} basePackages={specificBasePackageProducts} /> */}
                                                             </Grid>
                                                         </Grid>
                                                     );
