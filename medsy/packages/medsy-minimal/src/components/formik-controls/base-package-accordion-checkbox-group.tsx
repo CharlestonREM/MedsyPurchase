@@ -225,7 +225,7 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
     }
 
 
-    const [expanded, setExpanded] = React.useState<string | false>(false);
+    // const [expanded, setExpanded] = React.useState<string | false>(false);
 
     // const handleAccordionChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
     //     console.log('i am panel', panel);
