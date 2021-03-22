@@ -294,7 +294,7 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
                                             {css}
                                         </style>
 
-                                        <ThumbClipPath background={'url("https://i.picsum.photos/id/788/300/100.jpg?hmac=KWflciGhusmi2yJhbOvqFIQUb-0W2FRu5QENq2soFZM") no-repeat center center'} backgroundSize="cover" />
+                                        {/* <ThumbClipPath background={'url("https://i.picsum.photos/id/788/300/100.jpg?hmac=KWflciGhusmi2yJhbOvqFIQUb-0W2FRu5QENq2soFZM") no-repeat center center'} backgroundSize="cover" /> */}
 
                                         {/* <Grid container className={classes.summaryContainer}>
 
