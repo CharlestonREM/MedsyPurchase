@@ -239,9 +239,9 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
     const handleAccordionChange = panel => (e) => {
         // console.log('i am e', e)
         // console.log('i am expanded', expanded)
-        setExpanded(
-            expanded !== panel ? panel : ""
-        );
+        // setExpanded(
+        //     expanded !== panel ? panel : ""
+        // );
     };
     return (
         <div /* className={classes.root} */>
