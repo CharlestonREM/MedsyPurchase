@@ -247,9 +247,9 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
         <div /* className={classes.root} */>
             <Field
                 name={fieldName}
-                onChange={(e) => {
-                    console.log("change handled!"), e;
-                }}
+                /*  onChange={(e) => {
+                     console.log("change handled!"), e;
+                 }} */
                 {...rest}
             >
                 {({ field, handleChange }) => {
