@@ -25,6 +25,7 @@ export async function getBasePackageList() {
   // read rows
   const rows = await sheet.getRows(); // can pass in { limit, offset }
   let basePackageList = rows?.map(
+    //object destructuring the map parameters
     ({
       index,
       id,

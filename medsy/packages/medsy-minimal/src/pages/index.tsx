@@ -43,6 +43,8 @@ import { getBasePackageList } from "helpers/product-list/get-base-package-list";
 import { getUpgradeList } from "helpers/product-list/get-upgrade-list";
 import { getSquareFootage } from 'helpers/product-list/get-square-footage-data'
 import { getLicense } from 'helpers/product-list/get-license'
+import { getGoogleData } from 'helpers/product-list/get-google-data';
+
 //info - FORMIK STEPS FOR FORM STEPS
 import * as formikStepsConfig from 'helpers/formik-steps/formik-steps-config.json'
 import { StepperContext } from 'contexts/stepper/stepper.provider'
@@ -496,10 +498,12 @@ const useIsMounted = () => {
 
 export async function getServerSideProps() {
 
-    const basePackageList = await getBasePackageList();
-    const upgradeList = await getUpgradeList();
-    const squareFootage = await getSquareFootage();
-    const licenseOptions = await getLicense();
+    const googleData = await getGoogleData();
+    const basePackageList = googleData.basePackageList;
+    const upgradeList = googleData.upgradeList;
+    const licenseOptions = googleData.license;
+    const squareFootage = googleData.squareFootage;
+
 
     return {
         props: {
