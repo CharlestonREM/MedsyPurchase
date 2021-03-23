@@ -1,6 +1,6 @@
 import React from 'react';
 // import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Theme } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Accordion, AccordionSummary, AccordionDetails, Checkbox, Grid, Typography } from '@material-ui/core';
@@ -29,174 +29,120 @@ import ThumbClipPath from 'components/thumb-clip-path';
 //                 // justifyContent: 'flex-end'
 //                 // marginTop: '1em'
 //                 '& .MuiIconButton-label': {
-//                     display: 'grid',
-//                     gridTemplateColumns: 'repeat(8, 1fr)',
-//                     flexWrap: 'wrap',
 //                     flexDirection: 'column',
-//                     flexFlow: 'column wrap',
-
-//                 },
-//                 '& .MuiIconButton-label::before': {
-//                     color: 'yellow',
-//                     gridColumn: '4 / span 5'
+//                     '&::before': {
+//                         //content string trick: https://stackoverflow.com/a/43361653/14657615
+//                         // content: '"test"',
+//                         content: props => props.basePackages,
+//                         // display: 'block',
+//                         // position: 'absolute',
+//                     }
 //                 }
 
-//             }
-//         },
-//         accordion: {
-//             color: 'red',
-//             position: 'relative',
-//             padding: '20px 0'
-
-
-//         },
-//         accordionSummary: {
-//             color: 'green',
-//             // clipPath: 'url(#blob)',
-//             // background: 'no-repeat url("https://i.picsum.photos/id/222/536/354.jpg?hmac=0F40OROL8Yvsv14Vjrqvhs8J3BjAdEC8IetqdiSzdlU") center center',
-//             // backgroundSize: 'cover',
-//             display: 'grid',
-//             gridTemplateColumns: 'repeat(12, 1fr)',
-
-
-//             '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
-//                 gridColumnEnd: 'span 6',
-//                 // padding: 0
-//             },
-//             '& .MuiAccordionSummary-content': {
-//                 gridColumnEnd: 'span 6',
-//                 justifyContent: 'flex-end',
-//                 margin: 0,
-//                 height: '100%',
-
-//             }
-//         },
-//         checkbox: {
-//             paddingRight: 0,
-//             //half of fontSize property on muisvgicon-root below
-//             marginRight: '-1em',
-//             color: theme.palette.primary.main,
-//             '&.Mui-checked': {
-//                 color: '#72a047'
-//             },
-//             '& .MuiSvgIcon-root': {
-//                 fontSize: '2em',
-//                 stroke: 'white',
-//                 strokeWidth: '1',
-//                 r: '11',
-//                 '&::after': {
-//                     content: '"test"',
-//                     display: 'block',
-//                     width: '100px',
-//                     height: '100px',
-//                     position: 'absolute',
-//                     left: 0,
-//                     top: 0
-//                 }
 //             }
 //         },
 //         summaryContainer: {
-//             // position: 'relative'
+//             position: 'relative'
 //         },
 //         productNameWrap: {
-//             // position: 'absolute',
+//             position: 'absolute',
 
 //         },
 //         productName: {
-//             fontWeight: 500,
+//             fontWeight: 500
 //         }
 //     }),
 // );
 
-// export interface StyleProps {
-//     label: string;
-// }
-// const useStyles = makeStyles<Theme, StyleProps>(theme => ({
-//     root: {
-//         width: '100%',
-//         '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
-//             // display: 'contents',
-//             // alignItems: 'flex-end',
-//             // justifyContent: 'flex-end'
-//             // marginTop: '1em'
-//             '& .MuiIconButton-label': {
-//                 display: 'grid',
-//                 gridTemplateColumns: 'repeat(8, 1fr)',
-//                 flexWrap: 'wrap',
-//                 flexDirection: 'column',
-//                 flexFlow: 'column wrap',
+export interface StyleProps {
+    label: string;
+}
+const useStyles = makeStyles<Theme, StyleProps>(theme => ({
+    root: {
+        width: '100%',
+        '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
+            // display: 'contents',
+            // alignItems: 'flex-end',
+            // justifyContent: 'flex-end'
+            // marginTop: '1em'
+            '& .MuiIconButton-label': {
+                display: 'grid',
+                gridTemplateColumns: 'repeat(8, 1fr)',
+                flexWrap: 'wrap',
+                flexDirection: 'column',
+                flexFlow: 'column wrap',
 
-//             },
-//             '& .MuiIconButton-label::before': {
-//                 color: 'yellow',
-//                 gridColumn: '4 / span 5'
-//             }
+            },
+            '& .MuiIconButton-label::before': {
+                color: 'yellow',
+                gridColumn: '4 / span 5'
+            }
 
-//         }
-//     },
-//     accordion: {
-//         color: 'red',
-//         position: 'relative',
-//         padding: '20px 0'
-
-
-//     },
-//     accordionSummary: {
-//         color: 'green',
-//         // clipPath: 'url(#blob)',
-//         // background: 'no-repeat url("https://i.picsum.photos/id/222/536/354.jpg?hmac=0F40OROL8Yvsv14Vjrqvhs8J3BjAdEC8IetqdiSzdlU") center center',
-//         // backgroundSize: 'cover',
-//         display: 'grid',
-//         gridTemplateColumns: 'repeat(12, 1fr)',
+        }
+    },
+    accordion: {
+        color: 'red',
+        position: 'relative',
+        padding: '20px 0'
 
 
-//         '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
-//             gridColumnEnd: 'span 6',
-//             // padding: 0
-//         },
-//         '& .MuiAccordionSummary-content': {
-//             gridColumnEnd: 'span 6',
-//             justifyContent: 'flex-end',
-//             margin: 0,
-//             height: '100%',
+    },
+    accordionSummary: {
+        color: 'green',
+        // clipPath: 'url(#blob)',
+        // background: 'no-repeat url("https://i.picsum.photos/id/222/536/354.jpg?hmac=0F40OROL8Yvsv14Vjrqvhs8J3BjAdEC8IetqdiSzdlU") center center',
+        // backgroundSize: 'cover',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(12, 1fr)',
 
-//         }
-//     },
-//     checkbox: {
-//         paddingRight: 0,
-//         //half of fontSize property on muisvgicon-root below
-//         marginRight: '-1em',
-//         color: theme.palette.primary.main,
-//         '&.Mui-checked': {
-//             color: '#72a047'
-//         },
-//         '& .MuiSvgIcon-root': {
-//             fontSize: '2em',
-//             stroke: 'white',
-//             strokeWidth: '1',
-//             r: '11',
-//             '&::after': {
-//                 content: '"test"',
-//                 display: 'block',
-//                 width: '100px',
-//                 height: '100px',
-//                 position: 'absolute',
-//                 left: 0,
-//                 top: 0
-//             }
-//         }
-//     },
-//     summaryContainer: {
-//         // position: 'relative'
-//     },
-//     productNameWrap: {
-//         // position: 'absolute',
 
-//     },
-//     productName: {
-//         fontWeight: 500,
-//     }
-// }));
+        '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
+            gridColumnEnd: 'span 6',
+            // padding: 0
+        },
+        '& .MuiAccordionSummary-content': {
+            gridColumnEnd: 'span 6',
+            justifyContent: 'flex-end',
+            margin: 0,
+            height: '100%',
+
+        }
+    },
+    checkbox: {
+        paddingRight: 0,
+        //half of fontSize property on muisvgicon-root below
+        marginRight: '-1em',
+        color: theme.palette.primary.main,
+        '&.Mui-checked': {
+            color: '#72a047'
+        },
+        '& .MuiSvgIcon-root': {
+            fontSize: '2em',
+            stroke: 'white',
+            strokeWidth: '1',
+            r: '11',
+            '&::after': {
+                content: '"test"',
+                display: 'block',
+                width: '100px',
+                height: '100px',
+                position: 'absolute',
+                left: 0,
+                top: 0
+            }
+        }
+    },
+    summaryContainer: {
+        // position: 'relative'
+    },
+    productNameWrap: {
+        // position: 'absolute',
+
+    },
+    productName: {
+        fontWeight: 500,
+    }
+}));
 
 
 
@@ -209,7 +155,7 @@ export interface BasePackageAccordionCheckboxGroupProps {
 
 const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGroupProps> = (props) => {
 
-    // const classes = useStyles();
+    const classes = useStyles(props);
     const { basePackages, service, label, fieldName, ...rest } = props;
     const { addProduct, getProduct, removeProduct } = useCalculator();
 
@@ -225,7 +171,7 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
     }
 
 
-    // const [expanded, setExpanded] = React.useState<string | false>(false);
+    const [expanded, setExpanded] = React.useState<string | false>(false);
 
     // const handleAccordionChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
     //     console.log('i am panel', panel);
@@ -236,65 +182,64 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
     //     console.log('isExpanded AFTER set', isExpanded)
     // };
 
-    // const handleAccordionChange = panel => (e) => {
-    //     // console.log('i am e', e)
-    //     // console.log('i am expanded', expanded)
-    //     // setExpanded(
-    //     //     expanded !== panel ? panel : ""
-    //     // );
-    // };
+    const handleAccordionChange = panel => (e) => {
+        console.log('i am e', e)
+        console.log('i am expanded', expanded)
+        setExpanded(
+            expanded !== panel ? panel : ""
+        );
+    };
     return (
-        <div /* className={classes.root} */>
+        <div className={classes.root}>
             <Field
                 name={fieldName}
-                /*  onChange={(e) => {
-                     console.log("change handled!"), e;
-                 }} */
+                onChange={(e) => {
+                    console.log("change handled!"), e;
+                }}
                 {...rest}
             >
                 {({ field, handleChange }) => {
                     // console.log('i am field', field)
 
                     return basePackages.map((basePackage, index) => {
-                        // const accIndex = ('panel' + index);
-                        // const css = `
-                        //     .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd .MuiIconButton-label {
-                        //        /* flex-direction:column;
-                        //         align-items:flex-end;*/
-                        //     }
-                        //     .MuiPaper-root.MuiAccordion-root.MuiAccordion-rounded.MuiPaper-elevation1.MuiPaper-rounded:nth-child(${index + 1})  .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd .MuiIconButton-label::before  {
-                        //         content: '${basePackage.productName}';
-                        //         text-transform: capitalize;
-                        //         font-size: .7em;
-                        //         font-weight: 500;
-                        //         color: black;
-
-                        //         text-align: right;
-
-                        //     }
-                        // `
+                        const accIndex = ('panel' + index);
+                        const css = `
+                            .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd .MuiIconButton-label {
+                               /* flex-direction:column;
+                                align-items:flex-end;*/
+                            }
+                            .MuiPaper-root.MuiAccordion-root.MuiAccordion-rounded.MuiPaper-elevation1.MuiPaper-rounded:nth-child(${index + 1})  .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd .MuiIconButton-label::before  {
+                                content: '${basePackage.productName}';
+                                text-transform: capitalize;
+                                font-size: .7em;
+                                font-weight: 500;
+                                color: black;
+                                
+                                text-align: right;
+                                
+                            }
+                        `
                         if (basePackage.productService === service) {
                             return (
-                                <Accordion /* expanded={expanded === accIndex} */ /* onChange={handleAccordionChange(accIndex)} */ /* className={classes.accordion} */ key={index} TransitionProps={{ unmountOnExit: true }} >
+                                <Accordion expanded={expanded === accIndex} /* onChange={handleAccordionChange(accIndex)} */ className={classes.accordion} key={index} TransitionProps={{ unmountOnExit: true }} >
                                     <AccordionSummary
                                         // conditional expand icon: https://stackoverflow.com/a/63691313/14657615
                                         // based on controlled accordion example in mui docs: https://material-ui.com/components/accordion/#controlled-accordion
-                                        /* expandIcon={expanded === accIndex ? <ExpandMoreIcon onClick={handleAccordionChange(accIndex)} /> : <Minimize onClick={handleAccordionChange(accIndex)} />} */
-                                        /* expandIcon={expanded === accIndex ? <ExpandMoreIcon onClick={handleAccordionChange(accIndex)} /> : <MoreInfoAccordionButton onClick={handleAccordionChange(accIndex)} />} */
+                                        expandIcon={expanded === accIndex ? <ExpandMoreIcon onClick={handleAccordionChange(accIndex)} /> : <MoreInfoAccordionButton onClick={handleAccordionChange(accIndex)} productName={basePackage.productName} />}
                                         aria-label="Expand"
-                                        /* className={classes.accordionSummary} */
+                                        className={classes.accordionSummary}
                                         aria-controls={"additional-actions" + index + "-content"}
                                         id={"additional-actions" + index + "-header"}
-                                    /*  onClick={(e) => {
-                                         // console.log('i am the accordionsummary onClick event', e);
-                                         //e.stopPropagation();
-                                     }} */
+                                        onClick={(e) => {
+                                            // console.log('i am the accordionsummary onClick event', e);
+                                            e.stopPropagation();
+                                        }}
                                     >
-                                        {/*   <style>
+                                        <style>
                                             {css}
                                         </style>
- */}
-                                        {/* <ThumbClipPath background={'url("https://i.picsum.photos/id/788/300/100.jpg?hmac=KWflciGhusmi2yJhbOvqFIQUb-0W2FRu5QENq2soFZM") no-repeat center center'} backgroundSize="cover" /> */}
+
+                                        <ThumbClipPath background={'url("https://i.picsum.photos/id/788/300/100.jpg?hmac=KWflciGhusmi2yJhbOvqFIQUb-0W2FRu5QENq2soFZM") no-repeat center center'} backgroundSize="cover" />
 
                                         {/* <Grid container className={classes.summaryContainer}>
 
@@ -305,7 +250,7 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
 
                                         <Checkbox
                                             id={basePackage.id}
-                                            /* className={classes.checkbox} */
+                                            className={classes.checkbox}
                                             {...field}
                                             icon={<AddCircle />} checkedIcon={<CheckCircle />}
                                             value={basePackage.id}
