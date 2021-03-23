@@ -8,6 +8,7 @@ import { number } from 'yup/lib/locale';
 
 
 export const GO_TO_SERVICE_SPECIFIC_BASE_PACKAGE = 'GO_TO_SERVICE_SPECIFIC_BASE_PACKAGE';
+export const CALCULATION_STEP_REACHED = 'CALCULATION_STEP_REACHED';
 
 
 export const StepperContext = createContext<{
@@ -19,7 +20,8 @@ export const StepperContext = createContext<{
 const INITIAL_STATE = {
     step: 0,
     stepTitle: 'Tell us about your property',
-    serviceSpecificBasePackage: null
+    serviceSpecificBasePackage: null,
+    calculationCanBegin: false
 }
 
 //define types of actions that will occur post-broadcast of the dispatch for stepper context
@@ -29,6 +31,7 @@ type ActionType =
     | { type: 'STEP_BACK'; payload: any }
     | { type: 'GO_TO_SPECIFIC_STEP'; payload: any }
     | { type: 'GO_TO_SERVICE_SPECIFIC_BASE_PACKAGE'; payload: any }
+    | { type: 'CALCULATION_STEP_REACHED'; payload: any }
     | { type: 'SET_STEP_TITLE'; payload: any };
 
 type StateType = typeof INITIAL_STATE;
@@ -70,7 +73,12 @@ function reducer(state: StateType, action: ActionType) {
                 step: 2,
                 serviceSpecificBasePackage: action.payload,
                 stepTitle: 'Select your base packages'
-            }
+            };
+        case CALCULATION_STEP_REACHED:
+            return {
+                ...state,
+                calculationCanBegin: true
+            };
         default:
             return state;
     }
