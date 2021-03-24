@@ -307,16 +307,17 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
     const { initializeAvailableProductsState, availableBasePackages, availableUpgrades } = useAvailableProducts();
 
 
+    //>! attempt with passing reference instead of calling function
 
-    const isMounted = useIsMounted();
-
-    React.useMemo(() => (
-        isMounted ? () => {
-            initializeCalculatorVariables(licenseOptions)
-            initializeAvailableProductsState(basePackageList, upgradeList)
-        } : undefined
-    ),
-        [isMounted, licenseOptions, basePackageList, upgradeList])
+    // const isMounted = useIsMounted();
+    // React.useMemo(() => (
+    //     //pass a reference to these handlers instead of calling the function while i'm rendering the component: https://www.reddit.com/r/reactjs/comments/ie35c2/error_cannot_update_a_component_storeprovider/g2dvjxw?utm_source=share&utm_medium=web2x&context=3
+    //     isMounted ? () => {
+    //         initializeCalculatorVariables(licenseOptions)
+    //         initializeAvailableProductsState(basePackageList, upgradeList)
+    //     } : undefined
+    // ),
+    //     [isMounted, licenseOptions, basePackageList, upgradeList])
 
 
 
@@ -335,19 +336,19 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
     //     if (licenseOptions) initializeCalculatorVariables(licenseOptions)
     // }, [licenseOptions])
 
-    //const isMounted = useIsMounted()
-    // console.log('i am isMounted', isMounted)
+    const isMounted = useIsMounted()
+    console.log('i am isMounted', isMounted)
 
 
-    // const lOptions = React.useMemo(() => (
-    //     isMounted ? initializeCalculatorVariables(licenseOptions) : undefined
-    // ),
-    //     [isMounted, licenseOptions])
+    const lOptions = React.useMemo(() => (
+        isMounted ? initializeCalculatorVariables(licenseOptions) : undefined
+    ),
+        [isMounted, licenseOptions])
 
 
-    // let avP = React.useMemo(() => {
-    //     isMounted ? initializeAvailableProductsState(basePackageList, upgradeList) : undefined
-    // }, [isMounted, basePackageList, upgradeList])
+    let avP = React.useMemo(() => {
+        isMounted ? initializeAvailableProductsState(basePackageList, upgradeList) : undefined
+    }, [isMounted, basePackageList, upgradeList])
 
 
     // React.useEffect(() => {
