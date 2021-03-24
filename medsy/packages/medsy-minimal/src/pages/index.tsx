@@ -305,6 +305,23 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
 
     const { initializeCalculatorVariables } = useCalculator();
     const { initializeAvailableProductsState, availableBasePackages, availableUpgrades } = useAvailableProducts();
+
+
+
+    const isMounted = useIsMounted();
+
+    React.useMemo(() => (
+        isMounted ? () => initializeCalculatorVariables(licenseOptions) : undefined
+    ),
+        [isMounted, licenseOptions])
+
+
+
+
+
+
+
+
     // let {availableBasePackages, availableUpgrades} = useAvailableProducts();
 
     // setup license data
@@ -315,19 +332,19 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
     //     if (licenseOptions) initializeCalculatorVariables(licenseOptions)
     // }, [licenseOptions])
 
-    const isMounted = useIsMounted()
+    //const isMounted = useIsMounted()
     // console.log('i am isMounted', isMounted)
 
 
-    const lOptions = React.useMemo(() => (
-        isMounted ? initializeCalculatorVariables(licenseOptions) : undefined
-    ),
-        [isMounted, licenseOptions])
+    // const lOptions = React.useMemo(() => (
+    //     isMounted ? initializeCalculatorVariables(licenseOptions) : undefined
+    // ),
+    //     [isMounted, licenseOptions])
 
 
-    let avP = React.useMemo(() => {
-        isMounted ? initializeAvailableProductsState(basePackageList, upgradeList) : undefined
-    }, [isMounted, basePackageList, upgradeList])
+    // let avP = React.useMemo(() => {
+    //     isMounted ? initializeAvailableProductsState(basePackageList, upgradeList) : undefined
+    // }, [isMounted, basePackageList, upgradeList])
 
 
     // React.useEffect(() => {
