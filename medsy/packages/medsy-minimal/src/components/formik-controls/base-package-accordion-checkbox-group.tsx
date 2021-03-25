@@ -14,7 +14,9 @@ import { product as productInterface } from 'interfaces/google-spreadsheet-data'
 
 
 import { useCalculator } from 'contexts/calculator/calculator.provider'
-import { AddCircle, CheckCircle, Minimize } from '@material-ui/icons';
+import { AddCircle, CheckCircle, AddCircleOutline, AddCircleOutlined, CheckCircleOutline, Minimize } from '@material-ui/icons';
+import AddCircleOutlinedIcon from '@material-ui/icons/AddCircleOutlined';
+import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import MoreInfoAccordionButton from 'components/more-info-accordion-button';
 import ThumbClipPath from 'components/thumb-clip-path';
 //todo - go through this optimization: https://medium.com/@freshmilkdev/reactjs-render-optimization-for-collapsible-material-ui-long-list-with-checkboxes-231b36892e20
@@ -74,8 +76,19 @@ const useStyles = makeStyles<Theme, StyleProps>(theme => ({
 
             },
             '& .MuiIconButton-label::before': {
-                color: 'yellow',
-                gridColumn: '4 / span 5'
+                gridColumn: '4 / span 5',
+            },
+
+
+            '&.Mui-expanded': {
+                '& .MuiIconButton-label::before': {
+                    border: 'solid goldenrod 2px',
+                    transform: 'rotate(180deg)',
+                    gridColumn: '4 / span 5',
+                    display: 'none'
+
+                },
+
             }
 
         }
@@ -83,7 +96,10 @@ const useStyles = makeStyles<Theme, StyleProps>(theme => ({
     accordion: {
         color: 'red',
         position: 'relative',
-        padding: '20px 0'
+        padding: '20px 0',
+        '&.Mui-expanded': {
+            border: 'solid 2px purple',
+        }
 
 
     },
@@ -96,6 +112,7 @@ const useStyles = makeStyles<Theme, StyleProps>(theme => ({
         gridTemplateColumns: 'repeat(12, 1fr)',
 
 
+
         '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
             gridColumnEnd: 'span 6',
             // padding: 0
@@ -106,7 +123,13 @@ const useStyles = makeStyles<Theme, StyleProps>(theme => ({
             margin: 0,
             height: '100%',
 
-        }
+            '& p.MuiTypography-root': {
+                display: 'none'
+            }
+
+        },
+
+
     },
     checkbox: {
         paddingRight: 0,
@@ -114,22 +137,13 @@ const useStyles = makeStyles<Theme, StyleProps>(theme => ({
         marginRight: '-1em',
         color: theme.palette.primary.main,
         '&.Mui-checked': {
-            color: '#72a047'
+            color: '#72a047',
         },
         '& .MuiSvgIcon-root': {
             fontSize: '2em',
-            stroke: 'white',
+            stroke: '',
             strokeWidth: '1',
             r: '11',
-            '&::after': {
-                content: '"test"',
-                display: 'block',
-                width: '100px',
-                height: '100px',
-                position: 'absolute',
-                left: 0,
-                top: 0
-            }
         }
     },
     summaryContainer: {
@@ -141,6 +155,7 @@ const useStyles = makeStyles<Theme, StyleProps>(theme => ({
     },
     productName: {
         fontWeight: 500,
+        zIndex: 1
     }
 }));
 
@@ -247,6 +262,8 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
                                                 <Typography className={classes.productName}>{basePackage.productName}</Typography>
                                             </Grid>
                                         </Grid> */}
+
+                                        <Typography className={classes.productName}>{basePackage.productName}</Typography>
 
                                         <Checkbox
                                             id={basePackage.id}

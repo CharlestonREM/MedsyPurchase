@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 //attempt to use formik in component
-import Formik, { useFormikContext } from 'formik';
+import Formik, { useFormikContext, useField } from 'formik';
 
 
 import DiscreteSlider from "./discrete-slider";
@@ -59,6 +59,7 @@ export enum ValueLabelDisplayTypes {
     Auto = "auto",
     Off = "off"
 }
+
 export interface discreteSlider {
     label: string,
     defaultValue: number,
@@ -84,40 +85,23 @@ export interface RadioGroupTabsDiscreteSliderProps {
 }
 
 const RadioGroupTabsDiscreteSlider: React.FC<RadioGroupTabsDiscreteSliderProps> = (props) => {
-
     // > tip from here for renaming destructured variables
     //> ---> https://wesbos.com/destructuring-renaming
-    const { values: formValues } = useFormikContext();
-
-
-
-    console.log(props)
+    //const { values: formValues } = useFormikContext();
+    const { label, name, options, ...rest } = props;
+    const [propertyTypeField, propertyTypeMeta, propertyTypeHelpers] = useField(name);
     //>simpleTab example component methods
     const classes = useStyles();
     //>`usestate` is tracking the clicks and changes
     const [value, setValue] = useState(0);
     //info - handleChange handler
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        console.log('i am handle change for tabs...')
+        console.log('i am handle change for tabs...', propertyTypeField, event, newValue, options[newValue].value)
+
         //>The value is a numeric value of the index of the Tabs array, which is zero-indexed
         setValue(newValue);
+        propertyTypeHelpers.setValue(options[newValue].value)
     };
-
-    //info ---> actionHandler
-    const getPropertyType = (currentTab) => {
-        console.log('i am getpropertytype callback firing', currentTab)
-    }
-
-    //>info desconstruct props object for props variables
-    const { label, name, options, ...rest } = props;
-
-    //info ---> useEffect for componentDidMount behavior
-    useEffect(() => {
-        console.log('propertyType', formValues[name]);
-        //console.log(props);
-        formValues[name] = options[value].key;
-        console.log("afterchange", formValues)
-    }, []);
 
     //example in usage
     //  <RadioGroupTabsDiscreteSlider label={step1Radio.props.label} name={step1Radio.props.name} options={step1Radio.props.options} /> 

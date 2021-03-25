@@ -337,7 +337,7 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
     // }, [licenseOptions])
 
     const isMounted = useIsMounted()
-    console.log('i am isMounted', isMounted)
+    // console.log('i am isMounted', isMounted)
 
 
     const lOptions = React.useMemo(() => (
@@ -375,8 +375,15 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
                     {/* //TODO- through object deconstruction i pass initial values as example; i now need to dynamicaly add state as prop to `FormikStepper` component and add to `FormikStep` manually */}
                     <FormikStep stepTitle="Tell us about your property" validationSchema={validationSchema.step1} stepperStep={1} fieldDataDisplay={'propertyType'}>
 
-                        <RadioButtonsFmui />
-                        <SelectPropertySizeFmui ranges={ranges} squareFootageLevels={squareFootage} />
+
+
+                        <RadioGroupTabsDiscreteSlider label={step1Radio.props.label} name={step1Radio.props.name} options={step1Radio.props.options} />
+
+
+
+
+                        {/* <RadioButtonsFmui />
+                        <SelectPropertySizeFmui ranges={ranges} squareFootageLevels={squareFootage} /> */}
 
                     </FormikStep>
 

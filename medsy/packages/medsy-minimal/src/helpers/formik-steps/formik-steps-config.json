@@ -11,11 +11,11 @@
           },
           "props": {
             "label": "Tell us about your property",
-            "name": " propertyType",
+            "name": "propertyType",
             "options": [
               {
                 "key": "House",
-                "value": " house",
+                "value": "house",
                 "optionImageUrl": "https://picsum.photos/id/164/300/85",
                 "discreteSlider": {
                   "label": "Property Size (Square Footage)",
@@ -60,7 +60,7 @@
               },
               {
                 "key": "Land",
-                "value": " land",
+                "value": "land",
                 "optionImageUrl": "https://picsum.photos/id/10/300/85",
                 "discreteSlider": {
                   "label": "Property Size (Acreage)",
