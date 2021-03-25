@@ -6,12 +6,18 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-
-//attempt to use formik in component
 import Formik, { useFormikContext, useField } from 'formik';
-
-
 import DiscreteSlider from "./discrete-slider";
+import { useCalculator } from 'contexts/calculator/calculator.provider'
+import { useAvailableProducts } from 'contexts/available-products/available-products.provider';
+import _ from 'lodash'
+
+
+
+
+
+
+
 //>mui simple tabs code
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -89,18 +95,61 @@ const RadioGroupTabsDiscreteSlider: React.FC<RadioGroupTabsDiscreteSliderProps> 
     //> ---> https://wesbos.com/destructuring-renaming
     //const { values: formValues } = useFormikContext();
     const { label, name, options, ...rest } = props;
+    const [basePackageCheckboxField, basePackageCheckboxMeta, basePackageCheckboxHelpers] = useField('basePackageCheckbox');
+    const [upgradeCheckboxField, upgradeCheckboxMeta, upgradeCheckboxHelpers] = useField('upgradeCheckbox');
+    const { updatePropertyType } = useCalculator();
+    const { availableBasePackages, availableUpgrades, removeNoLandProducts, returnNoLandProducts, allBasePackages, allUpgrades } = useAvailableProducts();
     const [propertyTypeField, propertyTypeMeta, propertyTypeHelpers] = useField(name);
+
     //>simpleTab example component methods
     const classes = useStyles();
     //>`usestate` is tracking the clicks and changes
     const [value, setValue] = useState(0);
     //info - handleChange handler
+
+
+    const removeNoLandFromSelected = (field, setField, allList) => {
+        console.log(field, setField)
+        let newValue = [];
+        //grab all products from ids in idArray
+        _.forEach(field.value, (fieldName) => {
+            console.log('i am the find:', _.find(allList, { 'id': fieldName }))
+            newValue.push(_.find(allList, { 'id': fieldName }))
+        })
+        newValue = _.reject(newValue, { 'propertyType': 'no land' });
+        //pull all field ids into new array
+        newValue = _.map(newValue, 'id');
+        setField(newValue)
+        //remove all products returned that have the property type noland from the field
+        //set the field value to this new array
+    }
+
+
+
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         // console.log('i am handle change for tabs...', propertyTypeField, event, newValue, options[newValue].value)
 
         //>The value is a numeric value of the index of the Tabs array, which is zero-indexed
         setValue(newValue);
         propertyTypeHelpers.setValue(options[newValue].value)
+        updatePropertyType(options[newValue].value);
+        //add business logic from fmui
+        if (options[newValue].value === 'land') {
+            console.log('i am land')
+            console.log('i am available upgrades', availableUpgrades)
+            //remove no land products from availabe products
+            removeNoLandProducts({
+                basePackageList: availableBasePackages,
+                upgradeList: availableUpgrades
+            })
+            //removeNoLandProducts from currently selected basePackages
+            removeNoLandFromSelected(basePackageCheckboxField, basePackageCheckboxHelpers.setValue, allBasePackages);
+            //remove no land products from currently selected upgrades
+            removeNoLandFromSelected(upgradeCheckboxField, upgradeCheckboxHelpers.setValue, allUpgrades);
+        } else {
+            returnNoLandProducts();
+        }
+
     };
 
     //example in usage
