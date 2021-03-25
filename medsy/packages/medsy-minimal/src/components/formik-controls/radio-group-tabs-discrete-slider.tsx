@@ -74,9 +74,10 @@ export interface discreteSlider {
     step: number,
     valueLabelDisplay?: string,
     // valueLabelDisplay?: ValueLabelDisplayTypes,
-    marks: boolean | Array<any>,
+    marks: Array<any>,
     min: number,
-    max: number
+    max: number,
+    name: string
 }
 interface radioOptionProps {
     key: string,

@@ -55,7 +55,8 @@
                     }
                   ],
                   "min": 0,
-                  "max": 6
+                  "max": 6,
+                  "name":"propertySize"
                 }
               },
               {
@@ -92,7 +93,8 @@
                     }
                   ],
                   "min": 0,
-                  "max": 4
+                  "max": 4,
+                  "name":"propertySize"
                 }
               }
             ]
