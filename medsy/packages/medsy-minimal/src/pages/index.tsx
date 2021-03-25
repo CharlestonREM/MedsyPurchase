@@ -377,7 +377,7 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
 
 
 
-                        <RadioGroupTabsDiscreteSlider label={step1Radio.props.label} name={step1Radio.props.name} options={step1Radio.props.options} />
+                        <RadioGroupTabsDiscreteSlider label={step1Radio.props.label} name={step1Radio.props.name} options={step1Radio.props.options} squareFootageLevels={squareFootage} />
 
 
 

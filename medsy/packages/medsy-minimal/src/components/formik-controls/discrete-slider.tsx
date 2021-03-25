@@ -3,7 +3,8 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 // import Slider from "@material-ui/core/Slider";
 import { discreteSlider } from "./radio-group-tabs-discrete-slider";
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, useField } from 'formik';
+import { useCalculator } from 'contexts/calculator/calculator.provider'
 
 
 //test for mui slider
@@ -37,7 +38,7 @@ export const Slider: React.ComponentType<SliderProps> = (
     <MuiSlider
         {...fieldToSlider(props)}
         onChange={(e, value) => {
-            console.log('onchange fired', value);
+            console.log('onchange fired', props);
             props.form.setFieldValue(props.field.name, value);
         }}
     />
@@ -67,7 +68,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 export interface DiscreteSliderProps {
-    discreteSlider: discreteSlider
+    discreteSlider: discreteSlider,
+    squareFootageLevels: any[]
 }
 
 const DiscreteSlider: React.FC<DiscreteSliderProps> = (props) => {
@@ -84,12 +86,14 @@ const DiscreteSlider: React.FC<DiscreteSliderProps> = (props) => {
         name
     } = props.discreteSlider;
 
-    console.log('i am marks', marks);
+    // console.log('i am marks', marks);
 
     function valueLabelFormat(value: number) {
         return marks.findIndex((mark) => mark.value === value) + 1;
     }
-
+    const [propertySizeField, propertySizeMeta, propertySizeHelpers] = useField('propertySize');
+    const { updatePropertySize, getSquareFootageLevels } = useCalculator();
+    // console.log('i am props', props.squareFootageLevels)
 
 
     return (
@@ -107,6 +111,7 @@ const DiscreteSlider: React.FC<DiscreteSliderProps> = (props) => {
                 max={max}
             /> */}
             <Field
+                defaultValue={defaultValue}
                 component={Slider}
                 name={name}
                 valueLabelFormat={valueLabelFormat}
@@ -116,6 +121,16 @@ const DiscreteSlider: React.FC<DiscreteSliderProps> = (props) => {
                 marks={marks}
                 min={min}
                 max={max}
+                /* onChange={(e, v) => {
+                    
+                    handleSliderChange(e);
+                }} */
+                onChangeCommitted={(e, value) => {
+                    console.log('i am onchangecommitted', value);
+                    updatePropertySize(value)
+                    //update the state.squarefootagelevels
+                    getSquareFootageLevels(props.squareFootageLevels)
+                }}
             />
         </div>
     );

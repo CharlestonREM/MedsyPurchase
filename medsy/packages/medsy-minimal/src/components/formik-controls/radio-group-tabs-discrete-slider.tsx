@@ -89,13 +89,14 @@ export interface RadioGroupTabsDiscreteSliderProps {
     label: string,
     name: string,
     options: radioOptionProps[],
+    squareFootageLevels: any[]
 }
 
 const RadioGroupTabsDiscreteSlider: React.FC<RadioGroupTabsDiscreteSliderProps> = (props) => {
     // > tip from here for renaming destructured variables
     //> ---> https://wesbos.com/destructuring-renaming
     //const { values: formValues } = useFormikContext();
-    const { label, name, options, ...rest } = props;
+    const { label, name, options, squareFootageLevels, ...rest } = props;
     const [basePackageCheckboxField, basePackageCheckboxMeta, basePackageCheckboxHelpers] = useField('basePackageCheckbox');
     const [upgradeCheckboxField, upgradeCheckboxMeta, upgradeCheckboxHelpers] = useField('upgradeCheckbox');
     const { updatePropertyType } = useCalculator();
@@ -136,8 +137,6 @@ const RadioGroupTabsDiscreteSlider: React.FC<RadioGroupTabsDiscreteSliderProps> 
         updatePropertyType(options[newValue].value);
         //add business logic from fmui
         if (options[newValue].value === 'land') {
-            console.log('i am land')
-            console.log('i am available upgrades', availableUpgrades)
             //remove no land products from availabe products
             removeNoLandProducts({
                 basePackageList: availableBasePackages,
@@ -183,7 +182,7 @@ const RadioGroupTabsDiscreteSlider: React.FC<RadioGroupTabsDiscreteSliderProps> 
                 options.map((option, index) => {
                     return (
                         <TabPanel key={option.key} value={value} index={index}>
-                            <DiscreteSlider discreteSlider={option.discreteSlider} />
+                            <DiscreteSlider discreteSlider={option.discreteSlider} squareFootageLevels={squareFootageLevels} />
                         </TabPanel>
                     )
                 })
