@@ -19,7 +19,7 @@
                 "optionImageUrl": "https://picsum.photos/id/164/300/85",
                 "discreteSlider": {
                   "label": "Property Size (Square Footage)",
-                  "defaultValue": 1,
+                  "defaultValue": 0,
                   "getAriaValueText": "function",
                   "ariaLabelledby": "house-label",
                   "step": 1,
@@ -27,31 +27,31 @@
                   "marks": [
                     {
                       "value": 0,
-                      "label": "(\n      <span>\n        Under 2,000 ft<sup>2</sup>\n      </span>\n    )"
+                      "label": " Under 2,000 ft2"
                     },
                     {
                       "value": 1,
-                      "label": "(\n      <span>\n        2,000 - 3,499ft<sup>2</sup>\n      </span>\n    )"
+                      "label": " 2,000 - 3,499ft2"
                     },
                     {
                       "value": 2,
-                      "label": "(\n      <span>\n        3,500 - 4,999ft<sup>2</sup>\n      </span>\n    )"
+                      "label": " 3,500 - 4,999ft2"
                     },
                     {
                       "value": 3,
-                      "label": "(\n      <span>\n        5,000 - 6,499ft<sup>2</sup>\n      </span>\n    )"
+                      "label": " 5,000 - 6,499ft2"
                     },
                     {
                       "value": 4,
-                      "label": "(\n      <span>\n        6,500 - 7,999ft<sup>2</sup>\n      </span>\n    )"
+                      "label": " 6,500 - 7,999ft2"
                     },
                     {
                       "value": 5,
-                      "label": "(\n      <span>\n        8,000 - 9,499ft<sup>2</sup>\n      </span>\n    )"
+                      "label": " 8,000 - 9,499ft2"
                     },
                     {
                       "value": 6,
-                      "label": "(\n      <span>\n        9,500 - 10,999ft<sup>2</sup>\n      </span>\n    )"
+                      "label": " 9,500 - 10,999ft2"
                     }
                   ],
                   "min": 0,
@@ -64,7 +64,7 @@
                 "optionImageUrl": "https://picsum.photos/id/10/300/85",
                 "discreteSlider": {
                   "label": "Property Size (Acreage)",
-                  "defaultValue": 1,
+                  "defaultValue": 0,
                   "getAriaValueText": "function",
                   "ariaLabelledby": "house-label",
                   "step": 1,
@@ -72,35 +72,27 @@
                   "marks": [
                     {
                       "value": 0,
-                      "label": "(\n      <span>\n        Under 2,000 ft<sup>2</sup>\n      </span>\n    )"
+                      "label": "1acre or less"
                     },
                     {
                       "value": 1,
-                      "label": "(\n      <span>\n        2,000 - 3,499ft<sup>2</sup>\n      </span>\n    )"
+                      "label": "2-5"
                     },
                     {
                       "value": 2,
-                      "label": "(\n      <span>\n        3,500 - 4,999ft<sup>2</sup>\n      </span>\n    )"
+                      "label": "6-20"
                     },
                     {
                       "value": 3,
-                      "label": "(\n      <span>\n        5,000 - 6,499ft<sup>2</sup>\n      </span>\n    )"
+                      "label": "21-50"
                     },
                     {
                       "value": 4,
-                      "label": "(\n      <span>\n        6,500 - 7,999ft<sup>2</sup>\n      </span>\n    )"
-                    },
-                    {
-                      "value": 5,
-                      "label": "(\n      <span>\n        8,000 - 9,499ft<sup>2</sup>\n      </span>\n    )"
-                    },
-                    {
-                      "value": 6,
-                      "label": "(\n      <span>\n        9,500 - 10,999ft<sup>2</sup>\n      </span>\n    )"
+                      "label": ">50"
                     }
                   ],
                   "min": 0,
-                  "max": 6
+                  "max": 4
                 }
               }
             ]

@@ -36,6 +36,10 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             //width: 300
+            fontSize: '.25em',
+            '& .MuiSlider-markLabel': {
+                fontSize: '.4rem'
+            }
         },
         margin: {
             height: theme.spacing(3)
@@ -43,64 +47,64 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-const marks = [
-    {
-        value: 0,
-        label: (
-            <span>
-                Under 2,000 ft<sup>2</sup>
-            </span>
-        )
-    },
-    {
-        value: 1,
-        label: (
-            <span>
-                2,000 - 3,499ft<sup>2</sup>
-            </span>
-        )
-    },
-    {
-        value: 2,
-        label: (
-            <span>
-                3,500 - 4,999ft<sup>2</sup>
-            </span>
-        )
-    },
-    {
-        value: 3,
-        label: (
-            <span>
-                5,000 - 6,499ft<sup>2</sup>
-            </span>
-        )
-    },
-    {
-        value: 4,
-        label: (
-            <span>
-                6,500 - 7,999ft<sup>2</sup>
-            </span>
-        )
-    },
-    {
-        value: 5,
-        label: (
-            <span>
-                8,000 - 9,499ft<sup>2</sup>
-            </span>
-        )
-    },
-    {
-        value: 6,
-        label: (
-            <span>
-                9,500 - 10,999ft<sup>2</sup>
-            </span>
-        )
-    }
-];
+// const marks = [
+//     {
+//         value: 0,
+//         label: (
+//             <span>
+//                 Under 2,000 ft<sup>2</sup>
+//             </span>
+//         )
+//     },
+//     {
+//         value: 1,
+//         label: (
+//             <span>
+//                 2,000 - 3,499ft<sup>2</sup>
+//             </span>
+//         )
+//     },
+//     {
+//         value: 2,
+//         label: (
+//             <span>
+//                 3,500 - 4,999ft<sup>2</sup>
+//             </span>
+//         )
+//     },
+//     {
+//         value: 3,
+//         label: (
+//             <span>
+//                 5,000 - 6,499ft<sup>2</sup>
+//             </span>
+//         )
+//     },
+//     {
+//         value: 4,
+//         label: (
+//             <span>
+//                 6,500 - 7,999ft<sup>2</sup>
+//             </span>
+//         )
+//     },
+//     {
+//         value: 5,
+//         label: (
+//             <span>
+//                 8,000 - 9,499ft<sup>2</sup>
+//             </span>
+//         )
+//     },
+//     {
+//         value: 6,
+//         label: (
+//             <span>
+//                 9,500 - 10,999ft<sup>2</sup>
+//             </span>
+//         )
+//     }
+// ];
 
 function valuetext(value: number) {
     return `${value}°C`;
@@ -118,9 +122,13 @@ const DiscreteSlider: React.FC<DiscreteSliderProps> = (props) => {
         ariaLabelledby,
         step,
         valueLabelDisplay,
-        //marks,
+        marks,
         min,
         max } = props.discreteSlider;
+
+    console.log('i am marks', marks);
+
+
 
     return (
         <div className={classes.root}>

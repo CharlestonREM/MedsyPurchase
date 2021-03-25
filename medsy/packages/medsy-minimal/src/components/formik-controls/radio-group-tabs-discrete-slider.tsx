@@ -96,7 +96,7 @@ const RadioGroupTabsDiscreteSlider: React.FC<RadioGroupTabsDiscreteSliderProps> 
     const [value, setValue] = useState(0);
     //info - handleChange handler
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        console.log('i am handle change for tabs...', propertyTypeField, event, newValue, options[newValue].value)
+        // console.log('i am handle change for tabs...', propertyTypeField, event, newValue, options[newValue].value)
 
         //>The value is a numeric value of the index of the Tabs array, which is zero-indexed
         setValue(newValue);
