@@ -93,7 +93,7 @@ const DiscreteSlider: React.FC<DiscreteSliderProps> = (props) => {
     }
     const [propertySizeField, propertySizeMeta, propertySizeHelpers] = useField('propertySize');
     const { updatePropertySize, getSquareFootageLevels } = useCalculator();
-    // console.log('i am props', props.squareFootageLevels)
+
 
 
     return (
@@ -126,10 +126,7 @@ const DiscreteSlider: React.FC<DiscreteSliderProps> = (props) => {
                     handleSliderChange(e);
                 }} */
                 onChangeCommitted={(e, value) => {
-                    console.log('i am onchangecommitted', value);
                     updatePropertySize(value)
-                    //update the state.squarefootagelevels
-                    getSquareFootageLevels(props.squareFootageLevels)
                 }}
             />
         </div>

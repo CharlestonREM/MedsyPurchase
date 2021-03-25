@@ -111,9 +111,9 @@ const useCalculatorActions = (initialCalculator = INITIAL_STATE) => {
     const getSquareFootageLevelsHandler = (squareFootageLevels: any[]) => {
         dispatch({ type: 'GET_SQUARE_FOOTAGE_LEVELS', payload: squareFootageLevels })
     }
-    const initializeCalculatorVariablesHandler = (variables) => {
+    const initializeCalculatorVariablesHandler = (license, squareFootage) => {
         // console.log('i am initializecalculatorsvariablehandler', variables)
-        dispatch({ type: INITIALIZE_CALCULATOR_VARIABLES, payload: variables })
+        dispatch({ type: INITIALIZE_CALCULATOR_VARIABLES, payload: { license: license, squareFootage: squareFootage } })
     }
     const getProductsCount = state.products?.reduce(
         (acc, product) => acc + product.quantity,

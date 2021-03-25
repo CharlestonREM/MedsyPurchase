@@ -184,7 +184,7 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
     //  >Formik will make these values available to render methods component as `values`
     const initialValues = {
         propertyType: 'house',
-        propertySize: -1,
+        propertySize: 0,
         baseServiceCheckbox: [],
         basePackageCheckbox: [],
         upgradeCheckbox: [],
@@ -341,7 +341,7 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
 
 
     const lOptions = React.useMemo(() => (
-        isMounted ? initializeCalculatorVariables(licenseOptions) : undefined
+        isMounted ? initializeCalculatorVariables(licenseOptions, squareFootage) : undefined
     ),
         [isMounted, licenseOptions])
 

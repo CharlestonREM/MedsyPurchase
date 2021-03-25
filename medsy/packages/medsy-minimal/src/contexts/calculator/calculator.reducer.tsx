@@ -205,7 +205,7 @@ export const reducer = (state, action) => {
             return { ...state, squareFootageLevels: action.payload }
         case INITIALIZE_CALCULATOR_VARIABLES:
             // console.log('i am the payload from INITIALIZECALCULATORVARIABLES', action.payload)
-            return { ...state, licenseOptions: action.payload }
+            return { ...state, licenseOptions: action.payload.license, squareFootageLevels: action.payload.squareFootage }
         default:
             throw new Error(`Unknown action: ${action.type}`);
     }
