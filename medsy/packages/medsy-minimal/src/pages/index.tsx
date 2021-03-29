@@ -82,6 +82,7 @@ import { useAvailableProducts } from 'contexts/available-products/available-prod
 import SelectUpgradesStep from 'components/select-upgrades-step';
 
 import DynamicIcon from 'components/dynamic-icon';
+import InfoBanner from 'components/info-banner';
 
 //setup styles for grid
 const useStyles = makeStyles((theme: Theme) =>
@@ -402,8 +403,9 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
                         <ConfirmSelectionStep upgrades={upgradeList} products={availableBasePackages} upgradeField='upgradeCheckbox' basePackageField="basePackageCheckbox" />
                     </FormikStep>
                     <FormikStep stepTitle="Tell us about you" stepperStep={3} validationSchema={validationSchema.step6}>
+                        <InfoBanner title="Profile Information" imgUrl="https://i.picsum.photos/id/863/360/160.jpg?hmac=FC3Eqo8ORP1E90feXuT528igkgVnnwgnsms_x5E0NFs" />
                         <FormControl>
-                            <Field name="Give some property info" label="Name" component={TextField} />
+                            <Field name="profile.customerName" label="Name" component={TextField} />
                         </FormControl>
                         <FormControl>
                             <Field name="profile.brokerage" label="Name of Brokerage (optional)" component={TextField} />
@@ -415,7 +417,8 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
                             <Field name="profile.phone" label="Phone Number" component={TextField} />
                         </FormControl>
                     </FormikStep>
-                    <FormikStep stepTitle="Give us session info" stepperStep={3} validationSchema={validationSchema.step7}>
+                    <FormikStep stepTitle="Tell us about your property" stepperStep={3} validationSchema={validationSchema.step7}>
+                        <InfoBanner title="Property Information" imgUrl="https://i.picsum.photos/id/193/360/160.jpg?hmac=3ykYYtiI8xVETAcHptF3vRQUuwkjskbtvFdOenscIno" />
                         <FormControl>
                             <Field name="property.propertyStreetAddress" label="Street Address" component={TextField} />
                         </FormControl>
@@ -452,7 +455,8 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
                             <Field name="property.propertySpecialRequests" label="Special Requests (e.g.)" component={TextField} />
                         </FormControl>
                     </FormikStep>
-                    <FormikStep stepTitle="Tell us about your property" stepperStep={3} validationSchema={validationSchema.step8}>
+                    <FormikStep stepTitle="Let's plan the session" stepperStep={3} validationSchema={validationSchema.step8}>
+                        <InfoBanner title="Session Information" imgUrl="https://i.picsum.photos/id/435/360/160.jpg?hmac=PzauqOrwyr6Bp0a2W5Cwii7j0B7V7ntq_rnAngRCPKU" />
                         <FormControl>
                             <DateOrTimePicker component="DatePicker" name="session.sessionPreferredDate" label="Preferred Date" />
 
