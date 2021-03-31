@@ -199,7 +199,17 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
             value: 'no-pets',
             label: 'No',
         }
-    ]
+    ];
+    const licenseRanges = [
+        {
+            value: 'single',
+            label: 'Single Use License',
+        },
+        {
+            value: 'multi',
+            label: 'Multi-Use License',
+        }
+    ];
 
     /* 
     ! -----------------------
@@ -442,24 +452,11 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
                         <StyledInput name="property.propertyCity" label="City" width={12} />
                         <StyledInput name="property.propertyState" label="State" width={6} />
                         <StyledInput name="property.propertyZip" label="Zip Code" width={6} />
-                            //todo - use custom antswitcy yes or no based on this: - https://codesandbox.io/s/x8bz8
-       {/*  <Box margin={1}>
-                            <FormControlLabel
-                                control={
-                                    <Field component={Switch} type="checkbox" name="property.propertyOccupancy" />
-                                }
-                                label="the property is occupied"
-                            />
-                        </Box> */}
                         <StyledSelect name="property.propertyOccupancy" label="Occupancy" width={6} ranges={occupancyRanges} />
                         <StyledInput name="property.propertyGateCode" label="Gate Code (if applicable)" width={6} />
-                        {/* <StyledInput name="property.propertyPets" label="Do you have pets?" width={6} /> */}
                         <StyledSelect name="property.propertyPets" label="Do you have pets?" width={6} ranges={petRanges} />
                         <StyledInput name="property.propertyLockCode" label="Lock Code (if applicable)" width={6} />
-
-
                         <StyledInput name="property.propertySpecialRequests" label="Special Requests (e.g.)" width={12} multiline />
-
                     </FormikStep>
                     <FormikStep stepTitle="Let's plan the session" stepperStep={3} validationSchema={validationSchema.step8}>
                         <InfoBanner title="Session Information" imgUrl="https://i.picsum.photos/id/435/360/160.jpg?hmac=PzauqOrwyr6Bp0a2W5Cwii7j0B7V7ntq_rnAngRCPKU" />
@@ -478,12 +475,8 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
                             <DateOrTimePicker component="TimePicker" name="session.sessionAlternateTime" label="Alternate Time" />
 
                         </FormControl>
-                        <FormControl>
-                            <Field name="session.licenseType" label="Select your license type" component={TextField} />
-                        </FormControl>
-                        <FormControl>
-                            <Field name="session.sessionSpecialRequests" label="Special Requests (e.g.)" component={TextField} />
-                        </FormControl>
+                        <StyledSelect name="session.licenseType" label="Select your license type" width={12} ranges={licenseRanges} />
+                        <StyledInput name="session.sessionSpecialRequests" label="Special Requests (e.g.)" width={12} multiline />
                     </FormikStep>
                     <FormikStep stepTitle="Order Confirmation" stepperStep={3}>
                         <ConfirmOrder
