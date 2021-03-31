@@ -80,11 +80,11 @@ const BaseServiceToggleButtonGroup: React.FC<BaseServiceToggleButtonGroupProps> 
     const { addProduct, clearCalculator, getProduct, removeProduct, removeProductsOfServiceType } = useCalculator();
 
     const removeBasePackagesOfServiceType = (service) => {
-        console.log('i am service', service);
+        // console.log('i am service', service);
         //filter through basePackageCheckbox array
         // let newBasePackageArray = [...basePackageField.value];
         const filteredBasePackages = _.filter(basePackageField.value, basePackageId => basePackageId.includes(service) !== true);
-        console.log('i am filteredBasePackages', filteredBasePackages)
+        // console.log('i am filteredBasePackages', filteredBasePackages)
         basePackageHelpers.setValue(filteredBasePackages);
     }
 
@@ -129,11 +129,11 @@ const BaseServiceToggleButtonGroup: React.FC<BaseServiceToggleButtonGroupProps> 
 
         <Grid container justify="center" className={classes.root}>
             <Field component={ToggleButtonGroup} name={props.name} orientation="vertical" type="checkbox" onChange={(e: any) => {
-                console.log('on change fired')
-                console.log(baseServiceField)
+                // console.log('on change fired')
+                // console.log(baseServiceField)
 
                 const buttonServiceId = e.target['offsetParent']['offsetParent']['value'];
-                console.log('buttonserviceid', buttonServiceId)
+                // console.log('buttonserviceid', buttonServiceId)
 
                 const buttonService = props.baseServices[buttonServiceId];
 

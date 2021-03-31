@@ -262,7 +262,7 @@ const SelectionsList: React.FC<SelectionsListProps> = (props) => {
     }
 
     const stepperContext = useContext(StepperContext)
-    console.log('i am stepperContext', stepperContext)
+    // console.log('i am stepperContext', stepperContext)
 
     const setSpecificStep = (step, newStep) => {
         return newStep

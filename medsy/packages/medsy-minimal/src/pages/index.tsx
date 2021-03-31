@@ -83,6 +83,8 @@ import SelectUpgradesStep from 'components/select-upgrades-step';
 
 import DynamicIcon from 'components/dynamic-icon';
 import InfoBanner from 'components/info-banner';
+import StyledInput from 'components/formik-controls/styled-input';
+import StyledSelect from 'components/formik-controls/styled-select';
 
 //setup styles for grid
 const useStyles = makeStyles((theme: Theme) =>
@@ -174,6 +176,30 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
             label: '9,500 - 10,999 Sq. Ft.'
         }
     ];
+    const occupancyRanges = [
+        {
+            value: 'vacant',
+            label: 'Vacant',
+        },
+        {
+            value: 'owner-occupied',
+            label: 'Owner Occupied',
+        },
+        {
+            value: 'tenant-occupied',
+            label: 'Tenant Occupied',
+        }
+    ];
+    const petRanges = [
+        {
+            value: 'yes-pets',
+            label: 'Yes',
+        },
+        {
+            value: 'no-pets',
+            label: 'No',
+        }
+    ]
 
     /* 
     ! -----------------------
@@ -201,9 +227,9 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
             propertyCity: ' charleston',
             propertyState: 'sc',
             propertyZip: '29455',
-            propertyOccupancy: true,
+            propertyOccupancy: null,
             propertyGateCode: '000',
-            propertyPets: 'no',
+            propertyPets: null,
             propertyLockCode: '555',
             propertySpecialRequests: 'i am test property special requests'
         },
@@ -269,7 +295,7 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
         step6: Yup.object({
             profile: Yup.object({
                 customerName: Yup.string().required('Required'),
-                brokerage: Yup.string().required('Required'),
+                brokerage: Yup.string(),
                 email: Yup.string()
                     .email('Invalid email format')
                     .required('Required'),
@@ -282,11 +308,11 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
                 propertyCity: Yup.string().required('Required'),
                 propertyState: Yup.string().required('Required'),
                 propertyZip: Yup.string().required('Required'),
-                propertyOccupancy: Yup.string().required('Required'),
+                propertyOccupancy: Yup.string().ensure().required('Required'),
                 propertyGateCode: Yup.string().required('Required'),
-                propertyPets: Yup.string().required('Required'),
+                propertyPets: Yup.string().ensure().required('Required'),
                 propertyLockCode: Yup.string().required('Required'),
-                propertySpecialRequests: Yup.string().required('Required'),
+                propertySpecialRequests: Yup.string(),
             })
         }),
         step8: Yup.object({
@@ -296,7 +322,7 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
                 sessionAlternateDate: Yup.date().typeError('Please select a valid Date').required('Required'),
                 sessionAlternateTime: Yup.date().typeError('Please select a valid Date').required('Required'),
                 licenseType: Yup.string().required('Required'),
-                sessionSpecialRequests: Yup.string().required('Required')
+                sessionSpecialRequests: Yup.string()
             })
         })
     }
@@ -402,58 +428,38 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
                     <FormikStep stepTitle="Confirm your selections" stepperStep={2} validationSchema={validationSchema.step5}>
                         <ConfirmSelectionStep upgrades={upgradeList} products={availableBasePackages} upgradeField='upgradeCheckbox' basePackageField="basePackageCheckbox" />
                     </FormikStep>
-                    <FormikStep stepTitle="Tell us about you" stepperStep={3} validationSchema={validationSchema.step6}>
+                    <FormikStep stepTitle="Tell us about you" stepperStep={3} validationSchema={validationSchema.step6} fieldDataDisplay={'profile'}>
                         <InfoBanner title="Profile Information" imgUrl="https://i.picsum.photos/id/863/360/160.jpg?hmac=FC3Eqo8ORP1E90feXuT528igkgVnnwgnsms_x5E0NFs" />
-                        <FormControl>
-                            <Field name="profile.customerName" label="Name" component={TextField} />
-                        </FormControl>
-                        <FormControl>
-                            <Field name="profile.brokerage" label="Name of Brokerage (optional)" component={TextField} />
-                        </FormControl>
-                        <FormControl>
-                            <Field name="profile.email" label="Email address" component={TextField} />
-                        </FormControl>
-                        <FormControl>
-                            <Field name="profile.phone" label="Phone Number" component={TextField} />
-                        </FormControl>
+                        <StyledInput name="profile.customerName" label="Name" width={12} />
+                        <StyledInput name="profile.brokerage" label="Name of Brokerage (optional)" width={12} />
+                        <StyledInput name="profile.email" label="Email address" width={12} />
+                        <StyledInput name="profile.phone" label="Phone Number" width={12} />
                     </FormikStep>
-                    <FormikStep stepTitle="Tell us about your property" stepperStep={3} validationSchema={validationSchema.step7}>
+                    <FormikStep stepTitle="Tell us about your property" stepperStep={3} validationSchema={validationSchema.step7} fieldDataDisplay={'property'}>
                         <InfoBanner title="Property Information" imgUrl="https://i.picsum.photos/id/193/360/160.jpg?hmac=3ykYYtiI8xVETAcHptF3vRQUuwkjskbtvFdOenscIno" />
-                        <FormControl>
-                            <Field name="property.propertyStreetAddress" label="Street Address" component={TextField} />
-                        </FormControl>
-                        <FormControl>
-                            <Field name="property.propertyCity" label="City" component={TextField} />
-                        </FormControl>
-                        <FormControl>
-                            <Field name="property.propertyState" label="State" component={TextField} />
-                        </FormControl>
-                        <FormControl>
-                            <Field name="property.propertyZip" label="Zip Code" component={TextField} />
-                        </FormControl>
-                        <FormControl>
+                        <StyledInput name="profile.phone" label="Phone Number" width={12} />
+                        <StyledInput name="property.propertyStreetAddress" label="Street Address" width={12} />
+                        <StyledInput name="property.propertyCity" label="City" width={12} />
+                        <StyledInput name="property.propertyState" label="State" width={6} />
+                        <StyledInput name="property.propertyZip" label="Zip Code" width={6} />
                             //todo - use custom antswitcy yes or no based on this: - https://codesandbox.io/s/x8bz8
-        <Box margin={1}>
-                                <FormControlLabel
-                                    control={
-                                        <Field component={Switch} type="checkbox" name="property.propertyOccupancy" />
-                                    }
-                                    label="the property is occupied"
-                                />
-                            </Box>
-                        </FormControl>
-                        <FormControl>
-                            <Field name="property.propertyGateCode" label="Gate Code (if applicable)" component={TextField} />
-                        </FormControl>
-                        <FormControl>
-                            <Field name="property.propertyPets" label="Do you have pets?" component={TextField} />
-                        </FormControl>
-                        <FormControl>
-                            <Field name="property.propertyLockCode" label="Lock Code (if applicable)" component={TextField} />
-                        </FormControl>
-                        <FormControl>
-                            <Field name="property.propertySpecialRequests" label="Special Requests (e.g.)" component={TextField} />
-                        </FormControl>
+       {/*  <Box margin={1}>
+                            <FormControlLabel
+                                control={
+                                    <Field component={Switch} type="checkbox" name="property.propertyOccupancy" />
+                                }
+                                label="the property is occupied"
+                            />
+                        </Box> */}
+                        <StyledSelect name="property.propertyOccupancy" label="Occupancy" width={6} ranges={occupancyRanges} />
+                        <StyledInput name="property.propertyGateCode" label="Gate Code (if applicable)" width={6} />
+                        {/* <StyledInput name="property.propertyPets" label="Do you have pets?" width={6} /> */}
+                        <StyledSelect name="property.propertyPets" label="Do you have pets?" width={6} ranges={petRanges} />
+                        <StyledInput name="property.propertyLockCode" label="Lock Code (if applicable)" width={6} />
+
+
+                        <StyledInput name="property.propertySpecialRequests" label="Special Requests (e.g.)" width={12} multiline />
+
                     </FormikStep>
                     <FormikStep stepTitle="Let's plan the session" stepperStep={3} validationSchema={validationSchema.step8}>
                         <InfoBanner title="Session Information" imgUrl="https://i.picsum.photos/id/435/360/160.jpg?hmac=PzauqOrwyr6Bp0a2W5Cwii7j0B7V7ntq_rnAngRCPKU" />

@@ -18,6 +18,7 @@ export interface InfoBannerProps {
 const useStyles = makeStyles({
     root: {
         width: '100%',
+        marginBottom: '2em'
     },
     banner: {
         position: 'relative',
