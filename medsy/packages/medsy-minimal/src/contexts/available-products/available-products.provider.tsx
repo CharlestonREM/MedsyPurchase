@@ -1,7 +1,7 @@
 import { INITIALIZE_AVAILABLE_PRODUCTS_STATE, REMOVE_NO_LAND_BASE_PACKAGES, REMOVE_NO_LAND_UPGRADES, RETURN_NO_LAND_PRODUCTS } from 'constants/available-products-actions';
 
 //>CREATE STEPPER CONTEXT FOR PROVIDING AVAILABLE PRODUCT DATA AND FUNCTIONS
-import React, { createContext, useReducer, useContext } from 'react';
+import React, { createContext, useReducer, useContext, useMemo } from 'react';
 
 //reducer
 import { reducer } from './available-products.reducer'
@@ -80,17 +80,19 @@ export const AvailableProductsProvider = ({ children }) => {
     } = useAvailableProductsActions();
     const { rehydrated, error } = useStorage(state, rehydrateLocalState);
 
+    const context = useMemo(() => ({
+        availableBasePackages: state.availableBasePackages,
+        availableUpgrades: state.availableUpgrades,
+        allBasePackages: state.allBasePackages,
+        allUpgrades: state.allUpgrades,
+        initializeAvailableProductsState: initializeAvailableProductsStateHandler,
+        removeNoLandProducts: removeNoLandProductsHandler,
+        returnNoLandProducts: returnNoLandProductsHandler
+    }), [state.availableBasePackages, state.allBasePackages])
+
     return (
         <AvailableProductsContext.Provider
-            value={{
-                availableBasePackages: state.availableBasePackages,
-                availableUpgrades: state.availableUpgrades,
-                allBasePackages: state.allBasePackages,
-                allUpgrades: state.allUpgrades,
-                initializeAvailableProductsState: initializeAvailableProductsStateHandler,
-                removeNoLandProducts: removeNoLandProductsHandler,
-                returnNoLandProducts: returnNoLandProductsHandler
-            }}
+            value={context}
         >
             {children}
         </AvailableProductsContext.Provider>

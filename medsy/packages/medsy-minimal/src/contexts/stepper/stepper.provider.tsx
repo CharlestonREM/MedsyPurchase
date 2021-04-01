@@ -1,5 +1,5 @@
 //>CREATE STEPPER CONTEXT FOR PROVIDING STEP DATA AND FUNCTIONS
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useMemo, useReducer } from 'react';
 import { number } from 'yup/lib/locale';
 // export const StepperContext = createContext<{
 //     step?: number;
@@ -84,11 +84,14 @@ function reducer(state: StateType, action: ActionType) {
     }
 }
 
+//info - useMemo; returns a memoized value. it's a react hook.
+
 export const StepperProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
     //console.log('i am stepper provider!')
+    const context = useMemo(() => ({ state, dispatch }), [state.step]);
     return (
-        <StepperContext.Provider value={{ state, dispatch }}>
+        <StepperContext.Provider value={context}>
             {children}
         </StepperContext.Provider>
     )
