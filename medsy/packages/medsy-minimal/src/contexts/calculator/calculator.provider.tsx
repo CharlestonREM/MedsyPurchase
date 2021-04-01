@@ -3,7 +3,7 @@ import {
     REHYDRATE, TOGGLE_CALCULATOR, ADD_PRODUCT, REMOVE_PRODUCT, REMOVE_PRODUCTS_OF_SERVICE_TYPE, CLEAR_PRODUCT_FROM_CALCULATOR, CLEAR_CALCULATOR, APPLY_DISCOUNT_CONDITION, REMOVE_DISCOUNT_CONDITION, UPDATE_PROPERTY_TYPE, UPDATE_PROPERTY_SIZE, RESET_PROPERTY_TYPE, RESET_PROPERTY_SIZE, GET_SQUARE_FOOTAGE_LEVELS, GET_TOTAL_PRICE, INITIALIZE_CALCULATOR_VARIABLES
 } from 'constants/actions';
 //necessary imports
-import React, { useReducer, useContext, createContext, useEffect } from 'react';
+import React, { useReducer, useContext, createContext, useEffect, useMemo } from 'react';
 
 //> the reducer is based on the calculator.reducer as a boilerplate
 import { reducer, calculatorProductsTotalPrice } from './calculator.reducer';
@@ -172,42 +172,45 @@ export const CalculatorProvider = ({ children }) => {
     } = useCalculatorActions();
     const { rehydrated, error } = useStorage(state, rehydrateLocalState);
 
+    const context = useMemo(() => ({
+        isOpen: state.isOpen,
+        products: state.products,
+        propertyType: state.propertyType,
+        propertySize: state.propertySize,
+        discountCondition: state.discountCondition,
+        calculatorProductsCount: state.products?.length,
+        productsCount: getProductsCount,
+        squareFootageLevels: state.squareFootageLevels,
+        license: state.license,
+        licenseOptions: state.licenseOptions,
+        //for now this is our first entry point into testing calculator
+        addProduct: addProductHandler,
+        removeProduct: removeProductHandler,
+        removeProductsOfServiceType: removeProductsofServiceTypeHandler,
+        removeProductFromCalculator: clearProductFromCalculatorHandler,
+        clearCalculator: clearCalculatorHandler,
+        isInCalculator: isInCalculatorHandler,
+        getProduct: getProductHandler,
+        toggleCalculator: toggleCalculatorHandler,
+        //> this is the only one we need because it applies discounts
+        calculatePrice: getCalculatorProductsTotalPrice,
+        //> `subTotal` method is unnecessary for our app
+        calculateSubTotalPrice: getCalculatorProductsPrice,
+        applyDiscountCondition: discountConditionHandler,
+        removeDiscountCondition: removeDiscountConditionHandler,
+        calculateDiscount: getDiscount,
+        updatePropertyType: updatePropertyTypeHandler,
+        updatePropertySize: updatePropertySizeHandler,
+        resetPropertyType: resetPropertyTypeHandler,
+        resetPropertySize: resetPropertySizeHandler,
+        getSquareFootageLevels: getSquareFootageLevelsHandler,
+        initializeCalculatorVariables: initializeCalculatorVariablesHandler
+    }), [state.squareFootageLevels, state.licenseOptions])
+
+
     return (
         <CalculatorContext.Provider
-            value={{
-                isOpen: state.isOpen,
-                products: state.products,
-                propertyType: state.propertyType,
-                propertySize: state.propertySize,
-                discountCondition: state.discountCondition,
-                calculatorProductsCount: state.products?.length,
-                productsCount: getProductsCount,
-                squareFootageLevels: state.squareFootageLevels,
-                license: state.license,
-                licenseOptions: state.licenseOptions,
-                //for now this is our first entry point into testing calculator
-                addProduct: addProductHandler,
-                removeProduct: removeProductHandler,
-                removeProductsOfServiceType: removeProductsofServiceTypeHandler,
-                removeProductFromCalculator: clearProductFromCalculatorHandler,
-                clearCalculator: clearCalculatorHandler,
-                isInCalculator: isInCalculatorHandler,
-                getProduct: getProductHandler,
-                toggleCalculator: toggleCalculatorHandler,
-                //> this is the only one we need because it applies discounts
-                calculatePrice: getCalculatorProductsTotalPrice,
-                //> `subTotal` method is unnecessary for our app
-                calculateSubTotalPrice: getCalculatorProductsPrice,
-                applyDiscountCondition: discountConditionHandler,
-                removeDiscountCondition: removeDiscountConditionHandler,
-                calculateDiscount: getDiscount,
-                updatePropertyType: updatePropertyTypeHandler,
-                updatePropertySize: updatePropertySizeHandler,
-                resetPropertyType: resetPropertyTypeHandler,
-                resetPropertySize: resetPropertySizeHandler,
-                getSquareFootageLevels: getSquareFootageLevelsHandler,
-                initializeCalculatorVariables: initializeCalculatorVariablesHandler
-            }}
+            value={context}
         >
             {children}
         </CalculatorContext.Provider>
