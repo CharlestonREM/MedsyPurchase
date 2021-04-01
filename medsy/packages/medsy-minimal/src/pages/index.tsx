@@ -1,91 +1,49 @@
 //imp IMPORT REACT
 import * as React from 'react';
 import _ from 'lodash';
-
-
-
 //imp MATERIAL UI
-import { Box, Card, CardContent, Grid, Typography, Button, LinearProgress, FormControl, FormHelperText, FormGroup, MenuItem, Paper, Stepper, Step, StepLabel, StepIcon } from '@material-ui/core';
-import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
-import VideocamOutlinedIcon from '@material-ui/icons/VideocamOutlined';
-import EventSeatOutlinedIcon from '@material-ui/icons/EventSeatOutlined';
-import HomeWorkOutlinedIcon from '@material-ui/icons/HomeWorkOutlined';
+import { Grid, Button, FormControl, Stepper, Step, StepLabel } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-
 //imp layout components
 import TopNav from 'containers/layout/top-nav'
 
 //imp FORMIK
-import { Field, Form, Formik, useFormikContext, ErrorMessage, FormikConfig, FormikValues, useFormik } from 'formik';
-//imp FORMIK-MATERIAL-UI LIBRARY OF BINDINGS
-import { CheckboxWithLabel, TextField, Switch } from 'formik-material-ui';
+import { Form, Formik, FormikConfig, FormikValues } from 'formik';
 //imp Yup
 import * as Yup from 'yup';
 //imp calculator
 import Calculator from "components/calculator";
 import { useCalculator } from 'contexts/calculator/calculator.provider'
-//radio imports
-import { FormControlLabel, Radio } from '@material-ui/core';
-import { RadioGroup } from 'formik-material-ui';
-
-
 //imp Custom FormikControl Components
 import RadioGroupTabsDiscreteSlider from 'components/formik-controls/radio-group-tabs-discrete-slider'
-import RadioButtons from 'components/formik-controls/radio-buttons'
-import CheckboxGroup from 'components/formik-controls/checkbox-group'
-
 import { serviceData } from 'helpers/get-service-data';
-
-
 //info - PRODUCT LIST
-import { getBasePackageList } from "helpers/product-list/get-base-package-list";
-import { getUpgradeList } from "helpers/product-list/get-upgrade-list";
-import { getSquareFootage } from 'helpers/product-list/get-square-footage-data'
-import { getLicense } from 'helpers/product-list/get-license'
 import { getGoogleData } from 'helpers/product-list/get-google-data';
-
 //info - FORMIK STEPS FOR FORM STEPS
 import * as formikStepsConfig from 'helpers/formik-steps/formik-steps-config.json'
 import { StepperContext } from 'contexts/stepper/stepper.provider'
 import SimpleModal from 'containers/modal/modal'
-
 //use state
 import { useState } from 'react';
-import { Event, RefreshSharp, Router } from '@material-ui/icons';
-
-import { useRouter } from 'next/router';
-
 import BaseServiceToggleButtonGroup from "components/formik-controls/base-service-toggle-button-group";
-import BaseProductCheckboxStep from 'components/baseProductCheckboxStep'
 import SelectBaseProductsStep from 'components/select-base-products-step'
-import UpgradeCheckboxStep from "components/formik-controls/upgradeCheckboxStep";
 import ConfirmSelectionStep from "components/confirm-selection-step";
 import ConfirmOrder from "components/confirm-order";
 import DateOrTimePicker from 'components/formik-controls/date-or-time-picker';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-
-import RadioButtonsFmui from 'components/formik-controls/radio-buttons-fmui'
-import SelectPropertySizeFmui from 'components/formik-controls/select-property-size-fmui'
-
 //data displays
 import FormDataDisplay from 'components/data-displays/form-data-display';
 import CalculatorContextDataDisplay from 'components/data-displays/calculator-context-data-display';
 import FieldDataDisplay from 'components/data-displays/field-data-display';
 import AvailableProductsContextDataDisplay from 'components/data-displays/available-products-context-data-display'
-
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import SelectBaseProductStep from 'components/select-base-products-step';
 import { useAvailableProducts } from 'contexts/available-products/available-products.provider';
-
 import SelectUpgradesStep from 'components/select-upgrades-step';
-
-import DynamicIcon from 'components/dynamic-icon';
 import InfoBanner from 'components/info-banner';
 import StyledInput from 'components/formik-controls/styled-input';
 import StyledSelect from 'components/formik-controls/styled-select';
-
 //setup styles for grid
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -111,18 +69,8 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }),
 );
-
-
-
-
-
-//component
-//---> you have to pass in `products` as a parameter of the component, i.e. as arbitrary arguments, i.e. as props!
 export default function Crem({ basePackageList, upgradeList, squareFootage, licenseOptions }) {
-
     const classes = useStyles();
-
-    // console.log("formikStepsConfig", formikStepsConfig.formikSteps)
     const step1 = formikStepsConfig.formikSteps[0];
     const step1Radio = step1.fields[0];
 
