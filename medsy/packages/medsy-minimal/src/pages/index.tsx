@@ -93,14 +93,14 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
     const { initializeCalculatorVariables } = useCalculator();
     const { initializeAvailableProductsState, availableBasePackages, availableUpgrades } = useAvailableProducts();
 
-    const isMounted = useIsMounted()
-    const lOptions = React.useMemo(() => (
-        isMounted ? initializeCalculatorVariables(licenseOptions, squareFootage) : undefined
-    ),
-        [isMounted, licenseOptions])
-    let avP = React.useMemo(() => {
-        isMounted ? initializeAvailableProductsState(basePackageList, upgradeList) : undefined
-    }, [isMounted, basePackageList, upgradeList])
+    // const isMounted = useIsMounted()
+    // const lOptions = React.useMemo(() => (
+    //     isMounted ? initializeCalculatorVariables(licenseOptions, squareFootage) : undefined
+    // ),
+    //     [isMounted, licenseOptions])
+    // let avP = React.useMemo(() => {
+    //     isMounted ? initializeAvailableProductsState(basePackageList, upgradeList) : undefined
+    // }, [isMounted, basePackageList, upgradeList])
 
     return (
         <Grid container className={classes.max}>
@@ -116,10 +116,10 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
                         <BaseServiceToggleButtonGroup name="baseServiceCheckbox" baseServices={serviceData} />
                     </FormikStep>
                     <FormikStep stepTitle="Select your base packages" stepperStep={2} validationSchema={validationSchema.step3} fieldDataDisplay={'basePackageCheckbox'}>
-                        {/* <SelectBaseProductsStep basePackages={availableBasePackages} baseServiceField="baseServiceCheckbox" basePackageField="basePackageCheckbox" /> */}
+                        <SelectBaseProductsStep basePackages={availableBasePackages} baseServiceField="baseServiceCheckbox" basePackageField="basePackageCheckbox" />
                     </FormikStep>
                     <FormikStep stepTitle="Select your package upgrades" stepperStep={2} fieldDataDisplay={'upgradeCheckbox'}>
-                        {/* <SelectUpgradesStep upgrades={availableUpgrades} basePackages={availableBasePackages} basePackageField="basePackageCheckbox" /> */}
+                        <SelectUpgradesStep upgrades={availableUpgrades} basePackages={availableBasePackages} basePackageField="basePackageCheckbox" />
                     </FormikStep>
                     <FormikStep stepTitle="Confirm your selections" stepperStep={2} validationSchema={validationSchema.step5}>
                         <ConfirmSelectionStep upgrades={upgradeList} products={availableBasePackages} upgradeField='upgradeCheckbox' basePackageField="basePackageCheckbox" />
@@ -180,13 +180,13 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
     );
 }
 
-const useIsMounted = () => {
-    const [isMounted, setIsMounted] = useState(false)
-    React.useEffect(() => {
-        setIsMounted(true)
-    }, [])
-    return isMounted
-}
+// const useIsMounted = () => {
+//     const [isMounted, setIsMounted] = useState(false)
+//     React.useEffect(() => {
+//         setIsMounted(true)
+//     }, [])
+//     return isMounted
+// }
 
 export async function getServerSideProps() {
     const googleData = await getGoogleData();
