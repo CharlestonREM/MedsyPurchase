@@ -1,4 +1,4 @@
-import React, { useReducer, createContext } from 'react';
+import React from 'react';
 //import mui components need for figma wireframe
 import { Button, Typography } from '@material-ui/core';
 import { useField, useFormik, useFormikContext } from 'formik';
@@ -18,6 +18,21 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = (props) => {
     // console.log('UPGRADES', upgrades)
     // console.log('PRODUCTS', products)
 
+    const { isSubmitting } = useFormikContext();
+
+
+    // {/* {isSubmitting && <LinearProgress />}
+    // <Button
+    //     variant="contained"
+    //     color="primary"
+    //     disabled={isSubmitting}
+    //     onClick={submitForm}
+    // >
+    //     Submit
+    //     </Button> */}
+
+    console.log('i am formik context:')
+    console.log(useFormikContext())
 
 
     return (
@@ -40,7 +55,7 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = (props) => {
             <ReviewInfo title="Profile" infoGroupName="profile" infoStep={5} />
             <ReviewInfo title="Property" infoGroupName="property" infoStep={6} />
             <ReviewInfo title="Session" infoGroupName="session" infoStep={7} />
-            <Button>Place Order</Button>
+            <Button disabled={isSubmitting} color="primary" variant="contained" >Place Order</Button>
         </React.Fragment>
     );
 }
