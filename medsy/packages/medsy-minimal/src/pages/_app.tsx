@@ -29,7 +29,6 @@ export default function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <React.Fragment>
       <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <StepperProvider>
           <AvailableProductsProvider>
