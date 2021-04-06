@@ -18,9 +18,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         title: {
             flexGrow: 1,
-            //this was based on mui example of appbar component
-            //https://material-ui.com/components/app-bar/#SearchAppBar.js
-            //display: 'none',
             [theme.breakpoints.up('sm')]: {
                 display: 'block',
             },

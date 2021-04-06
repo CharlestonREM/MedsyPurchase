@@ -114,11 +114,8 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
                     <FormikStep stepTitle="Tell us about your property" validationSchema={validationSchema.step1} stepperStep={1} fieldDataDisplay={'propertySize'}>
                         <RadioGroupTabsDiscreteSlider label={step1Radio.props.label} name={step1Radio.props.name} options={step1Radio.props.options} squareFootageLevels={squareFootage} />
                     </FormikStep>
-
                     <FormikStep stepTitle="Select your base services" stepperStep={2} validationSchema={validationSchema.step2} fieldDataDisplay={'baseServiceCheckbox'}>
-
                         <BaseServiceToggleButtonGroup name="baseServiceCheckbox" baseServices={serviceData} />
-
                     </FormikStep>
                     <FormikStep stepTitle="Select your base packages" stepperStep={2} validationSchema={validationSchema.step3} fieldDataDisplay={'basePackageCheckbox'}>
                         <SelectBaseProductsStep basePackages={availableBasePackages} baseServiceField="baseServiceCheckbox" basePackageField="basePackageCheckbox" />
@@ -153,18 +150,15 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
                         <InfoBanner title="Session Information" imgUrl="https://i.picsum.photos/id/435/360/160.jpg?hmac=PzauqOrwyr6Bp0a2W5Cwii7j0B7V7ntq_rnAngRCPKU" />
                         <FormControl>
                             <DateOrTimePicker component="DatePicker" name="session.sessionPreferredDate" label="Preferred Date" />
-
                         </FormControl>
                         <FormControl>
                             <DateOrTimePicker component="TimePicker" name="session.sessionPreferredTime" label="Preferred Time" />
-
                         </FormControl>
                         <FormControl>
                             <DateOrTimePicker component="DatePicker" name="session.sessionAlternateDate" label="Alternate Date" />
                         </FormControl>
                         <FormControl>
                             <DateOrTimePicker component="TimePicker" name="session.sessionAlternateTime" label="Alternate Time" />
-
                         </FormControl>
                         <StyledSelect name="session.licenseType" label="Select your license type" width={12} ranges={licenseRanges} />
                         <StyledInput name="session.sessionSpecialRequests" label="Special Requests (e.g.)" width={12} multiline />
