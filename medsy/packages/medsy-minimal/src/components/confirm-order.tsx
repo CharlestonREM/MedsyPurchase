@@ -2,7 +2,7 @@ import React from 'react';
 //import mui components need for figma wireframe
 import { Button, Typography } from '@material-ui/core';
 import { useField, useFormik, useFormikContext } from 'formik';
-
+import { onSubmit } from 'helpers/submitForm';
 import { SelectionListProps } from 'interfaces/selections-list';
 import SelectionsList from 'components/selections-list'
 import ReviewInfo from 'components/review-info'
@@ -18,7 +18,7 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = (props) => {
     // console.log('UPGRADES', upgrades)
     // console.log('PRODUCTS', products)
 
-    const { isSubmitting } = useFormikContext();
+    const { isSubmitting, setSubmitting, values, } = useFormikContext();
 
 
     // {/* {isSubmitting && <LinearProgress />}
@@ -55,7 +55,7 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = (props) => {
             <ReviewInfo title="Profile" infoGroupName="profile" infoStep={5} />
             <ReviewInfo title="Property" infoGroupName="property" infoStep={6} />
             <ReviewInfo title="Session" infoGroupName="session" infoStep={7} />
-            <Button disabled={isSubmitting} color="primary" variant="contained" >Place Order</Button>
+            <Button disabled={isSubmitting} type="submit" color="primary" variant="contained" onClick={onSubmit(values, setSubmitting)}>Place Order</Button>
         </React.Fragment>
     );
 }
