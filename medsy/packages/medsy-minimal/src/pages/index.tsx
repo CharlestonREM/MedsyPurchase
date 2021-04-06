@@ -46,7 +46,6 @@ const useStyles = makeStyles((theme: Theme) =>
         max: {
             maxWidth: '450px',
             margin: 'auto',
-            // backgroundColor: '#E5E5E5'
         }
     }),
 );
@@ -110,7 +109,6 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
             </Grid>
             <Grid item xs={12}>
                 <FormikStepper>
-                    {/* //TODO- through object deconstruction i pass initial values as example; i now need to dynamicaly add state as prop to `FormikStepper` component and add to `FormikStep` manually */}
                     <FormikStep stepTitle="Tell us about your property" validationSchema={validationSchema.step1} stepperStep={1} fieldDataDisplay={'propertySize'}>
                         <RadioGroupTabsDiscreteSlider label={step1Radio.props.label} name={step1Radio.props.name} options={step1Radio.props.options} squareFootageLevels={squareFootage} />
                     </FormikStep>
