@@ -41,10 +41,10 @@ export const validationSchema = {
     }),
     step8: Yup.object({
         session: Yup.object({
-            sessionPreferredDate: Yup.date().typeError('Please select a valid Date').required('Required'),
-            sessionPreferredTime: Yup.date().typeError('Please select a valid Date').required('Required'),
-            sessionAlternateDate: Yup.date().typeError('Please select a valid Date').required('Required'),
-            sessionAlternateTime: Yup.date().typeError('Please select a valid Date').required('Required'),
+            sessionPreferredDate: Yup.date().typeError('Please select a valid Date')/* .required('Required') */,
+            sessionPreferredTime: Yup.date().typeError('Please select a valid Date')/* .required('Required') */,
+            sessionAlternateDate: Yup.date().typeError('Please select a valid Date')/* .required('Required') */,
+            sessionAlternateTime: Yup.date().typeError('Please select a valid Date')/* .required('Required') */,
             licenseType: Yup.string().required('Required'),
             sessionSpecialRequests: Yup.string()
         })

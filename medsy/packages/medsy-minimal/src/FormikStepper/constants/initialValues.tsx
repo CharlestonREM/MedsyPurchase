@@ -15,9 +15,11 @@ export const initialValues = {
         propertyCity: ' charleston',
         propertyState: 'sc',
         propertyZip: '29455',
-        propertyOccupancy: null,
+        propertyOccupancy: 'Vacant',
+        // propertyOccupancy: null,
         propertyGateCode: '000',
-        propertyPets: null,
+        propertyPets: 'no',
+        // propertyPets: null,
         propertyLockCode: '555',
         propertySpecialRequests: 'i am test property special requests'
     },

@@ -18,9 +18,9 @@ const ReviewInfo: React.FC<ReviewInfoProps> = (props) => {
     const form = useFormikContext();
     const infoGroup = form.values[props.infoGroupName];
     //console.log('useFormikContext for infoGroupName', infoGroup);
-    console.log('FORM......', form)
-    console.log('I AM INFO GROUP!')
-    console.log(infoGroup)
+    // console.log('FORM......', form)
+    // console.log('I AM INFO GROUP!')
+    // console.log(infoGroup)
     // Object.entries(infoGroup).map((field: any[], index) => {
     //     if (typeof field[1].getMonth === 'function') {
     //         console.log(format(field[1], 'MM/dd/yyyy'))

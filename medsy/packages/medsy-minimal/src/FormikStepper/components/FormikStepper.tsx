@@ -4,7 +4,7 @@ import React from 'react';
 import { StepperContext } from 'contexts/stepper/stepper.provider'
 import { FormikStepProps } from '../interfaces/FormikStep'
 import { Form, Formik } from 'formik';
-import { Grid, Button, Stepper, Step, StepLabel } from '@material-ui/core';
+import { Grid, Button, LinearProgress, Stepper, Step, StepLabel } from '@material-ui/core';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { initialValues } from '../constants/initialValues'
@@ -56,8 +56,9 @@ const FormikStepper: React.FC<FormikStepperProps> = ({ children, ...props }) => 
             validationSchema={currentChild.props.validationSchema}
             onSubmit={async (values, helpers) => {
                 if (isLastStep()) {
-                    // await onSubmit(values, helpers.setSubmitting);
+                    await onSubmit(values, helpers);
                     // await props.onSubmit(values, helpers);
+                    console.log('i am last step')
                 } else {
                     dispatch({
                         type: 'STEP_NEXT',
@@ -112,6 +113,18 @@ const FormikStepper: React.FC<FormikStepperProps> = ({ children, ...props }) => 
                             </Grid>
                         </Grid>
                         {currentChild}
+
+                        {isSubmitting && <LinearProgress />}
+
+                        {isLastStep() ?
+                            <Button disabled={isSubmitting} type="submit" color="primary" variant="contained" onClick={() => {
+                                async (values, helpers) => {
+                                    await onSubmit(values, helpers);
+                                }
+                            }}>Place Order</Button>
+                            :
+                            null}
+
                         {/* <Calculator />
                         {currentChild.props.fieldDataDisplay !== undefined ? <FieldDataDisplay fieldName={currentChild.props.fieldDataDisplay} color="violet" /> : null}
                         <AvailableProductsContextDataDisplay color='dodgerblue' />

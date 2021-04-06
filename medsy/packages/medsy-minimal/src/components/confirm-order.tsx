@@ -1,8 +1,6 @@
 import React from 'react';
 //import mui components need for figma wireframe
-import { Button, Typography } from '@material-ui/core';
-import { useField, useFormik, useFormikContext } from 'formik';
-import { onSubmit } from 'helpers/submitForm';
+import { Button, LinearProgress, Typography } from '@material-ui/core';
 import { SelectionListProps } from 'interfaces/selections-list';
 import SelectionsList from 'components/selections-list'
 import ReviewInfo from 'components/review-info'
@@ -17,24 +15,6 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = (props) => {
     //const profileInfo = useField('')
     // console.log('UPGRADES', upgrades)
     // console.log('PRODUCTS', products)
-
-    const { isSubmitting, setSubmitting, values, } = useFormikContext();
-
-
-    // {/* {isSubmitting && <LinearProgress />}
-    // <Button
-    //     variant="contained"
-    //     color="primary"
-    //     disabled={isSubmitting}
-    //     onClick={submitForm}
-    // >
-    //     Submit
-    //     </Button> */}
-
-    console.log('i am formik context:')
-    console.log(useFormikContext())
-
-
     return (
         <React.Fragment>
             <section>
@@ -55,7 +35,6 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = (props) => {
             <ReviewInfo title="Profile" infoGroupName="profile" infoStep={5} />
             <ReviewInfo title="Property" infoGroupName="property" infoStep={6} />
             <ReviewInfo title="Session" infoGroupName="session" infoStep={7} />
-            <Button disabled={isSubmitting} type="submit" color="primary" variant="contained" onClick={onSubmit(values, setSubmitting)}>Place Order</Button>
         </React.Fragment>
     );
 }
