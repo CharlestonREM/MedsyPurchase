@@ -168,15 +168,6 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
                             upgradeField='upgradeCheckbox'
                             basePackageField="basePackageCheckbox"
                         />
-                        {/* {isSubmitting && <LinearProgress />}
-    <Button
-        variant="contained"
-        color="primary"
-        disabled={isSubmitting}
-        onClick={submitForm}
-    >
-        Submit
-        </Button> */}
                     </FormikStep>
                 </FormikStepper>
                 <Calculator />
