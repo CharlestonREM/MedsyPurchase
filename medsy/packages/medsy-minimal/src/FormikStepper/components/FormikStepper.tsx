@@ -13,6 +13,11 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Calculator from 'components/calculator'
 import { onSubmit } from 'helpers/submitForm';
+//data displays
+import FormDataDisplay from 'components/data-displays/form-data-display';
+import CalculatorContextDataDisplay from 'components/data-displays/calculator-context-data-display';
+import FieldDataDisplay from 'components/data-displays/field-data-display';
+import AvailableProductsContextDataDisplay from 'components/data-displays/available-products-context-data-display'
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         stepperAction: {
@@ -125,11 +130,11 @@ const FormikStepper: React.FC<FormikStepperProps> = ({ children, ...props }) => 
                             :
                             null}
 
-                        {/* <Calculator />
+                        <Calculator />
                         {currentChild.props.fieldDataDisplay !== undefined ? <FieldDataDisplay fieldName={currentChild.props.fieldDataDisplay} color="violet" /> : null}
                         <AvailableProductsContextDataDisplay color='dodgerblue' />
                         <CalculatorContextDataDisplay color='greenyellow' />
-                        <FormDataDisplay values={values} errors={errors} isSubmitting={isSubmitting} /> */}
+                        <FormDataDisplay values={values} errors={errors} isSubmitting={isSubmitting} />
                     </Form>
                 </MuiPickersUtilsProvider>
             )}

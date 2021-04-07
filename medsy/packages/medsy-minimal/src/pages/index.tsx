@@ -22,11 +22,6 @@ import SelectBaseProductsStep from 'components/select-base-products-step'
 import ConfirmSelectionStep from "components/confirm-selection-step";
 import ConfirmOrder from "components/confirm-order";
 import DateOrTimePicker from 'components/formik-controls/date-or-time-picker';
-//data displays
-import FormDataDisplay from 'components/data-displays/form-data-display';
-import CalculatorContextDataDisplay from 'components/data-displays/calculator-context-data-display';
-import FieldDataDisplay from 'components/data-displays/field-data-display';
-import AvailableProductsContextDataDisplay from 'components/data-displays/available-products-context-data-display'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { useAvailableProducts } from 'contexts/available-products/available-products.provider';
 import SelectUpgradesStep from 'components/select-upgrades-step';
@@ -168,10 +163,6 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
                         />
                     </FormikStep>
                 </FormikStepper>
-                <Calculator />
-                {/* <FieldDataDisplay/>
-                    <CalculatorContextDataDisplay/>
-                    <FormDataDisplay/> */}
                 <SimpleModal />
             </Grid>
         </Grid>
