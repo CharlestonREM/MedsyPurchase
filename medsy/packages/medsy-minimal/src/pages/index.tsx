@@ -108,16 +108,16 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
             <Grid item xs={12}>
                 <FormikStepper>
                     <FormikStep stepTitle="Tell us about your property" validationSchema={validationSchema.step1} stepperStep={1} fieldDataDisplay={'propertySize'}>
-                        <RadioGroupTabsDiscreteSlider label={step1Radio.props.label} name={step1Radio.props.name} options={step1Radio.props.options} squareFootageLevels={squareFootage} />
+                        {/* <RadioGroupTabsDiscreteSlider label={step1Radio.props.label} name={step1Radio.props.name} options={step1Radio.props.options} squareFootageLevels={squareFootage} /> */}
                     </FormikStep>
                     <FormikStep stepTitle="Select your base services" stepperStep={2} validationSchema={validationSchema.step2} fieldDataDisplay={'baseServiceCheckbox'}>
-                        <BaseServiceToggleButtonGroup name="baseServiceCheckbox" baseServices={serviceData} />
+                        {/* <BaseServiceToggleButtonGroup name="baseServiceCheckbox" baseServices={serviceData} /> */}
                     </FormikStep>
                     <FormikStep stepTitle="Select your base packages" stepperStep={2} validationSchema={validationSchema.step3} fieldDataDisplay={'basePackageCheckbox'}>
-                        <SelectBaseProductsStep basePackages={availableBasePackages} baseServiceField="baseServiceCheckbox" basePackageField="basePackageCheckbox" />
+                        {/* <SelectBaseProductsStep basePackages={availableBasePackages} baseServiceField="baseServiceCheckbox" basePackageField="basePackageCheckbox" /> */}
                     </FormikStep>
                     <FormikStep stepTitle="Select your package upgrades" stepperStep={2} fieldDataDisplay={'upgradeCheckbox'}>
-                        <SelectUpgradesStep upgrades={availableUpgrades} basePackages={availableBasePackages} basePackageField="basePackageCheckbox" />
+                        {/* <SelectUpgradesStep upgrades={availableUpgrades} basePackages={availableBasePackages} basePackageField="basePackageCheckbox" /> */}
                     </FormikStep>
                     <FormikStep stepTitle="Confirm your selections" stepperStep={2} validationSchema={validationSchema.step5}>
                         <ConfirmSelectionStep upgrades={upgradeList} products={availableBasePackages} upgradeField='upgradeCheckbox' basePackageField="basePackageCheckbox" />
