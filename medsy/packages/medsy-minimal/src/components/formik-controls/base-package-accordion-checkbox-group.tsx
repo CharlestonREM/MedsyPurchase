@@ -21,41 +21,6 @@ import MoreInfoAccordionButton from 'components/more-info-accordion-button';
 import ThumbClipPath from 'components/thumb-clip-path';
 //todo - go through this optimization: https://medium.com/@freshmilkdev/reactjs-render-optimization-for-collapsible-material-ui-long-list-with-checkboxes-231b36892e20
 
-// const useStyles = makeStyles((theme: Theme) =>
-//     createStyles({
-//         root: {
-//             width: '100%',
-//             '& .MuiButtonBase-root.MuiIconButton-root.MuiAccordionSummary-expandIcon.MuiIconButton-edgeEnd': {
-//                 // display: 'contents',
-//                 // alignItems: 'flex-end',
-//                 // justifyContent: 'flex-end'
-//                 // marginTop: '1em'
-//                 '& .MuiIconButton-label': {
-//                     flexDirection: 'column',
-//                     '&::before': {
-//                         //content string trick: https://stackoverflow.com/a/43361653/14657615
-//                         // content: '"test"',
-//                         content: props => props.basePackages,
-//                         // display: 'block',
-//                         // position: 'absolute',
-//                     }
-//                 }
-
-//             }
-//         },
-//         summaryContainer: {
-//             position: 'relative'
-//         },
-//         productNameWrap: {
-//             position: 'absolute',
-
-//         },
-//         productName: {
-//             fontWeight: 500
-//         }
-//     }),
-// );
-
 export interface StyleProps {
     label: string;
 }
@@ -255,13 +220,6 @@ const BasePackageAccordionCheckboxGroup: React.FC<BasePackageAccordionCheckboxGr
                                         </style>
 
                                         <ThumbClipPath background={'url("https://i.picsum.photos/id/788/300/100.jpg?hmac=KWflciGhusmi2yJhbOvqFIQUb-0W2FRu5QENq2soFZM") no-repeat center center'} backgroundSize="cover" />
-
-                                        {/* <Grid container className={classes.summaryContainer}>
-
-                                            <Grid item xs={3} className={classes.productNameWrap}>
-                                                <Typography className={classes.productName}>{basePackage.productName}</Typography>
-                                            </Grid>
-                                        </Grid> */}
 
                                         <Typography className={classes.productName}>{basePackage.productName}</Typography>
 

@@ -172,45 +172,78 @@ export const CalculatorProvider = ({ children }) => {
     } = useCalculatorActions();
     const { rehydrated, error } = useStorage(state, rehydrateLocalState);
 
-    const context = useMemo(() => ({
-        isOpen: state.isOpen,
-        products: state.products,
-        propertyType: state.propertyType,
-        propertySize: state.propertySize,
-        discountCondition: state.discountCondition,
-        calculatorProductsCount: state.products?.length,
-        productsCount: getProductsCount,
-        squareFootageLevels: state.squareFootageLevels,
-        license: state.license,
-        licenseOptions: state.licenseOptions,
-        //for now this is our first entry point into testing calculator
-        addProduct: addProductHandler,
-        removeProduct: removeProductHandler,
-        removeProductsOfServiceType: removeProductsofServiceTypeHandler,
-        removeProductFromCalculator: clearProductFromCalculatorHandler,
-        clearCalculator: clearCalculatorHandler,
-        isInCalculator: isInCalculatorHandler,
-        getProduct: getProductHandler,
-        toggleCalculator: toggleCalculatorHandler,
-        //> this is the only one we need because it applies discounts
-        calculatePrice: getCalculatorProductsTotalPrice,
-        //> `subTotal` method is unnecessary for our app
-        calculateSubTotalPrice: getCalculatorProductsPrice,
-        applyDiscountCondition: discountConditionHandler,
-        removeDiscountCondition: removeDiscountConditionHandler,
-        calculateDiscount: getDiscount,
-        updatePropertyType: updatePropertyTypeHandler,
-        updatePropertySize: updatePropertySizeHandler,
-        resetPropertyType: resetPropertyTypeHandler,
-        resetPropertySize: resetPropertySizeHandler,
-        getSquareFootageLevels: getSquareFootageLevelsHandler,
-        initializeCalculatorVariables: initializeCalculatorVariablesHandler
-    }), [state.squareFootageLevels, state.licenseOptions])
+    // const context = useMemo(() => ({
+    //     isOpen: state.isOpen,
+    //     products: state.products,
+    //     propertyType: state.propertyType,
+    //     propertySize: state.propertySize,
+    //     discountCondition: state.discountCondition,
+    //     calculatorProductsCount: state.products?.length,
+    //     productsCount: getProductsCount,
+    //     squareFootageLevels: state.squareFootageLevels,
+    //     license: state.license,
+    //     licenseOptions: state.licenseOptions,
+    //     //for now this is our first entry point into testing calculator
+    //     addProduct: addProductHandler,
+    //     removeProduct: removeProductHandler,
+    //     removeProductsOfServiceType: removeProductsofServiceTypeHandler,
+    //     removeProductFromCalculator: clearProductFromCalculatorHandler,
+    //     clearCalculator: clearCalculatorHandler,
+    //     isInCalculator: isInCalculatorHandler,
+    //     getProduct: getProductHandler,
+    //     toggleCalculator: toggleCalculatorHandler,
+    //     //> this is the only one we need because it applies discounts
+    //     calculatePrice: getCalculatorProductsTotalPrice,
+    //     //> `subTotal` method is unnecessary for our app
+    //     calculateSubTotalPrice: getCalculatorProductsPrice,
+    //     applyDiscountCondition: discountConditionHandler,
+    //     removeDiscountCondition: removeDiscountConditionHandler,
+    //     calculateDiscount: getDiscount,
+    //     updatePropertyType: updatePropertyTypeHandler,
+    //     updatePropertySize: updatePropertySizeHandler,
+    //     resetPropertyType: resetPropertyTypeHandler,
+    //     resetPropertySize: resetPropertySizeHandler,
+    //     getSquareFootageLevels: getSquareFootageLevelsHandler,
+    //     initializeCalculatorVariables: initializeCalculatorVariablesHandler
+    // }), [state.squareFootageLevels, state.licenseOptions])
 
 
     return (
         <CalculatorContext.Provider
-            value={context}
+            value={{
+                isOpen: state.isOpen,
+                products: state.products,
+                propertyType: state.propertyType,
+                propertySize: state.propertySize,
+                discountCondition: state.discountCondition,
+                calculatorProductsCount: state.products?.length,
+                productsCount: getProductsCount,
+                squareFootageLevels: state.squareFootageLevels,
+                license: state.license,
+                licenseOptions: state.licenseOptions,
+                //for now this is our first entry point into testing calculator
+                addProduct: addProductHandler,
+                removeProduct: removeProductHandler,
+                removeProductsOfServiceType: removeProductsofServiceTypeHandler,
+                removeProductFromCalculator: clearProductFromCalculatorHandler,
+                clearCalculator: clearCalculatorHandler,
+                isInCalculator: isInCalculatorHandler,
+                getProduct: getProductHandler,
+                toggleCalculator: toggleCalculatorHandler,
+                //> this is the only one we need because it applies discounts
+                calculatePrice: getCalculatorProductsTotalPrice,
+                //> `subTotal` method is unnecessary for our app
+                calculateSubTotalPrice: getCalculatorProductsPrice,
+                applyDiscountCondition: discountConditionHandler,
+                removeDiscountCondition: removeDiscountConditionHandler,
+                calculateDiscount: getDiscount,
+                updatePropertyType: updatePropertyTypeHandler,
+                updatePropertySize: updatePropertySizeHandler,
+                resetPropertyType: resetPropertyTypeHandler,
+                resetPropertySize: resetPropertySizeHandler,
+                getSquareFootageLevels: getSquareFootageLevelsHandler,
+                initializeCalculatorVariables: initializeCalculatorVariablesHandler
+            }}
         >
             {children}
         </CalculatorContext.Provider>

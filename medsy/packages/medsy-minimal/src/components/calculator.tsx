@@ -29,6 +29,8 @@ const Calculator: React.FC<CalculatorProps> = (props) => {
     const { clearCalculator, calculatePrice, resetPropertySize, resetPropertyType } = useCalculator();
 
 
+
+
     return (
         <>
             <Grid container justify="flex-end" className="calculator-container">

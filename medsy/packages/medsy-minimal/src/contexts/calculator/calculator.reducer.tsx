@@ -111,7 +111,7 @@ export const calculatorProductsTotalPrice = (state) => {
 //functions for reducer go here
 // calculatorProducts, calculatorProductToAdd
 const addProductToCalculator = (state, action) => {
-    // console.log('addProductToCalculator just got fired in calculator.reducer', state, action, action.payload)
+    console.log('addProductToCalculator just got fired in calculator.reducer', state, action, action.payload)
     const existingCalculatorProductIndex = state.products.findIndex(
         (product) => product.id === action.payload.id
     );
