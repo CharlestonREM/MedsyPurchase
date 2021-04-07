@@ -33,6 +33,7 @@ import StyledSelect from 'components/formik-controls/styled-select';
 import FormikStepper from 'FormikStepper/components/FormikStepper';
 import FormikStep from 'FormikStepper/components/FormikStep';
 import { validationSchema } from 'FormikStepper/constants/validationSchema'
+import { occupancyRanges, petRanges, licenseRanges } from 'FormikStepper/constants/ranges';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -46,42 +47,6 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
     const classes = useStyles();
     const step1 = formikStepsConfig.formikSteps[0];
     const step1Radio = step1.fields[0];
-    const occupancyRanges = [
-        {
-            value: 'vacant',
-            label: 'Vacant',
-        },
-        {
-            value: 'owner-occupied',
-            label: 'Owner Occupied',
-        },
-        {
-            value: 'tenant-occupied',
-            label: 'Tenant Occupied',
-        }
-    ];
-    const petRanges = [
-        {
-            value: 'yes-pets',
-            label: 'Yes',
-        },
-        {
-            value: 'no-pets',
-            label: 'No',
-        }
-    ];
-    const licenseRanges = [
-        {
-            value: 'single',
-            label: 'Single Use License',
-        },
-        {
-            value: 'multi',
-            label: 'Multi-Use License',
-        }
-    ];
-
-
     const stepperContext = React.useContext(StepperContext);
     const { initializeCalculatorVariables } = useCalculator();
     const { initializeAvailableProductsState, availableBasePackages, availableUpgrades } = useAvailableProducts();
@@ -163,7 +128,7 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
                         />
                     </FormikStep>
                 </FormikStepper>
-                <Calculator />
+                {/* <Calculator /> */}
                 <SimpleModal />
             </Grid>
         </Grid>
