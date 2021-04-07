@@ -163,6 +163,7 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
                         />
                     </FormikStep>
                 </FormikStepper>
+                <Calculator />
                 <SimpleModal />
             </Grid>
         </Grid>
