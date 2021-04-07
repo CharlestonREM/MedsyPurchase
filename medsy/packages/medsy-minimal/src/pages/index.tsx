@@ -17,8 +17,6 @@ import { getGoogleData } from 'helpers/product-list/get-google-data';
 import * as formikStepsConfig from 'helpers/formik-steps/formik-steps-config.json'
 import { StepperContext } from 'contexts/stepper/stepper.provider'
 import SimpleModal from 'containers/modal/modal'
-//use state
-import { useState } from 'react';
 import BaseServiceToggleButtonGroup from "components/formik-controls/base-service-toggle-button-group";
 import SelectBaseProductsStep from 'components/select-base-products-step'
 import ConfirmSelectionStep from "components/confirm-selection-step";
