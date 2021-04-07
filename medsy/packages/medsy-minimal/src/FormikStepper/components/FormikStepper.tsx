@@ -130,7 +130,7 @@ const FormikStepper: React.FC<FormikStepperProps> = ({ children, ...props }) => 
                             :
                             null}
 
-                        <Calculator />
+                        {/* <Calculator /> */}
                         {/* {currentChild.props.fieldDataDisplay !== undefined ? <FieldDataDisplay fieldName={currentChild.props.fieldDataDisplay} color="violet" /> : null}
                         <AvailableProductsContextDataDisplay color='dodgerblue' />
                         <CalculatorContextDataDisplay color='greenyellow' />
