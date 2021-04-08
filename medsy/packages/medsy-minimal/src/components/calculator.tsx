@@ -56,18 +56,14 @@ const Calculator: React.FC<CalculatorProps> = (props) => {
     // }, [isMounted, basePackageList, upgradeList])
 
     useEffect(() => {
-        console.log('i am use effect')
+        // console.log('i am use effect')
         let canceled = false;
-        // () => {
-        //     if (!canceled) {
-        //         console.log('i am the execution block `if not canceled`')
         if (!canceled) {
-            console.log('i am the execution block `if not canceled`')
+            // console.log('i am the execution block `if not canceled`');
+            initializeCalculatorVariables(licenseOptions, squareFootage);
+            initializeAvailableProductsState(basePackageList, upgradeList);
         }
-        initializeCalculatorVariables(licenseOptions, squareFootage);
-        initializeAvailableProductsState(basePackageList, upgradeList);
-        //     }
-        // }
+
         return () => {
             canceled = true;
         }
