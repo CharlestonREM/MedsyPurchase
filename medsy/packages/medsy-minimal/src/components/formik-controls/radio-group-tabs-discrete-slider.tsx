@@ -11,6 +11,7 @@ import DiscreteSlider from "./discrete-slider";
 import { useCalculator } from 'contexts/calculator/calculator.provider'
 import { useAvailableProducts } from 'contexts/available-products/available-products.provider';
 import _ from 'lodash'
+import { Grid } from '@material-ui/core';
 
 
 
@@ -29,19 +30,20 @@ function TabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
 
     return (
-        <div
+        <Grid
             role="tabpanel"
             hidden={value !== index}
             id={`simple-tabpanel-${index}`}
             aria-labelledby={`simple-tab-${index}`}
+            container
             {...other}
         >
             {value === index && (
-                <Box p={3}>
+                <Grid item xs={12}>
                     {children}
-                </Box>
+                </Grid>
             )}
-        </div>
+        </Grid>
     );
 }
 
@@ -57,6 +59,10 @@ const useStyles = makeStyles((theme: Theme) => ({
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
     },
+    optionImage: {
+        width: '100%',
+        marginTop: '1.5em'
+    }
 }));
 
 
@@ -79,6 +85,7 @@ export interface discreteSlider {
     max: number,
     name: string
 }
+//https://picsum.photos/360/200
 interface radioOptionProps {
     key: string,
     value: string,
@@ -158,17 +165,17 @@ const RadioGroupTabsDiscreteSlider: React.FC<RadioGroupTabsDiscreteSliderProps> 
     return (
 
         < div className={classes.root} >
-            <figure>
-                {
-                    options.map((option, index) => {
-                        return (
-                            <TabPanel key={option.key} value={value} index={index}>
-                                <img src={option.optionImageUrl} alt="" />
-                            </TabPanel>
-                        )
-                    })
-                }
-            </figure>
+
+            {
+                options.map((option, index) => {
+                    return (
+                        <TabPanel key={option.key} value={value} index={index}>
+                            <img className={classes.optionImage} src={option.optionImageUrl} alt="" />
+                        </TabPanel>
+                    )
+                })
+            }
+
             <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" variant="fullWidth">
                 {
                     options.map((option, index) => {

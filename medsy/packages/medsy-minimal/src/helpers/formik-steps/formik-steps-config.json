@@ -16,7 +16,7 @@
               {
                 "key": "House",
                 "value": "house",
-                "optionImageUrl": "https://picsum.photos/id/164/300/85",
+                "optionImageUrl": "https://i.picsum.photos/id/76/360/200.jpg?hmac=Z13hX5cM_mzARm3kPx_JOnDM9n4JOGL2Alv80fz7sco",
                 "discreteSlider": {
                   "label": "Property Size (Square Footage)",
                   "defaultValue": 0,
@@ -62,7 +62,7 @@
               {
                 "key": "Land",
                 "value": "land",
-                "optionImageUrl": "https://picsum.photos/id/10/300/85",
+                "optionImageUrl": "https://i.picsum.photos/id/810/360/200.jpg?hmac=A7_9Km4OS6FasOuyYBenGahDKmGHhdcVWlQi_796UlM",
                 "discreteSlider": {
                   "label": "Property Size (Acreage)",
                   "defaultValue": 0,
