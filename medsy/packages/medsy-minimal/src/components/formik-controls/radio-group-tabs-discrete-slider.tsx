@@ -62,6 +62,15 @@ const useStyles = makeStyles((theme: Theme) => ({
     optionImage: {
         width: '100%',
         marginTop: '1.5em'
+    },
+    tab: {
+        color: 'white',
+        backgroundColor: theme.palette.primary.main,
+        opacity: 0.3,
+        '&.MuiTab-textColorInherit.Mui-selected': {
+            color: 'black',
+            backgroundColor: 'white'
+        }
     }
 }));
 
@@ -176,11 +185,15 @@ const RadioGroupTabsDiscreteSlider: React.FC<RadioGroupTabsDiscreteSliderProps> 
                 })
             }
 
-            <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" variant="fullWidth">
+            <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" variant="fullWidth" TabIndicatorProps={{
+                style: {
+                    display: "none"
+                },
+            }}>
                 {
                     options.map((option, index) => {
                         return (
-                            <Tab key={option.key} label={option.key} {...a11yProps(index)} />
+                            <Tab className={classes.tab} key={option.key} label={option.key} {...a11yProps(index)} />
                         )
                     })
                 }
