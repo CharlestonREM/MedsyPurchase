@@ -48,17 +48,17 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
     const step1 = formikStepsConfig.formikSteps[0];
     const step1Radio = step1.fields[0];
     const stepperContext = React.useContext(StepperContext);
-    const { initializeCalculatorVariables } = useCalculator();
-    const { initializeAvailableProductsState, availableBasePackages, availableUpgrades } = useAvailableProducts();
+    // const { initializeCalculatorVariables } = useCalculator();
+    const { availableBasePackages, availableUpgrades } = useAvailableProducts();
 
-    const isMounted = useIsMounted()
-    const lOptions = React.useMemo(() => (
-        isMounted ? initializeCalculatorVariables(licenseOptions, squareFootage) : undefined
-    ),
-        [isMounted, licenseOptions])
-    let avP = React.useMemo(() => {
-        isMounted ? initializeAvailableProductsState(basePackageList, upgradeList) : undefined
-    }, [isMounted, basePackageList, upgradeList])
+    // const isMounted = useIsMounted()
+    // const lOptions = React.useMemo(() => (
+    //     isMounted ? initializeCalculatorVariables(licenseOptions, squareFootage) : undefined
+    // ),
+    //     [isMounted, licenseOptions])
+    // let avP = React.useMemo(() => {
+    //     isMounted ? initializeAvailableProductsState(basePackageList, upgradeList) : undefined
+    // }, [isMounted, basePackageList, upgradeList])
 
     return (
         <Grid container className={classes.max}>
@@ -128,19 +128,20 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
                         />
                     </FormikStep>
                 </FormikStepper>
+                <Calculator basePackageList={basePackageList} upgradeList={upgradeList} licenseOptions={licenseOptions} squareFootage={squareFootage} />
                 <SimpleModal />
             </Grid>
         </Grid>
     );
 }
 
-const useIsMounted = () => {
-    const [isMounted, setIsMounted] = React.useState(false)
-    React.useEffect(() => {
-        setIsMounted(true)
-    }, [])
-    return isMounted
-}
+// const useIsMounted = () => {
+//     const [isMounted, setIsMounted] = React.useState(false)
+//     React.useEffect(() => {
+//         setIsMounted(true)
+//     }, [])
+//     return isMounted
+// }
 
 export async function getServerSideProps() {
     const googleData = await getGoogleData();
