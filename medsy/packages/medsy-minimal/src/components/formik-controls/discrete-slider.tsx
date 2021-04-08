@@ -12,6 +12,7 @@ import MuiSlider, {
     SliderProps as MuiSliderProps,
 } from '@material-ui/core/Slider';
 import { FieldProps } from 'formik';
+import { Grid } from "@material-ui/core";
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export interface SliderProps
     extends FieldProps,
@@ -97,11 +98,12 @@ const DiscreteSlider: React.FC<DiscreteSliderProps> = (props) => {
 
 
     return (
-        <div className={classes.root}>
-            <Typography id="discrete-slider-custom" gutterBottom>
-                {label}
-            </Typography>
-            {/* <Slider
+        <Grid className={classes.root} container>
+            <Grid item xs={10}>
+                <Typography id="discrete-slider-custom" gutterBottom>
+                    {label}
+                </Typography>
+                {/* <Slider
                 defaultValue={defaultValue}
                 aria-labelledby={ariaLabelledby}
                 step={step}
@@ -110,26 +112,27 @@ const DiscreteSlider: React.FC<DiscreteSliderProps> = (props) => {
                 min={min}
                 max={max}
             /> */}
-            <Field
-                defaultValue={defaultValue}
-                component={Slider}
-                name={name}
-                valueLabelFormat={valueLabelFormat}
-                aria-labelledby={ariaLabelledby}
-                step={step}
-                valueLabelDisplay="on"
-                marks={marks}
-                min={min}
-                max={max}
-                /* onChange={(e, v) => {
-                    
-                    handleSliderChange(e);
-                }} */
-                onChangeCommitted={(e, value) => {
-                    updatePropertySize(value)
-                }}
-            />
-        </div>
+                <Field
+                    defaultValue={defaultValue}
+                    component={Slider}
+                    name={name}
+                    valueLabelFormat={valueLabelFormat}
+                    aria-labelledby={ariaLabelledby}
+                    step={step}
+                    valueLabelDisplay="on"
+                    marks={marks}
+                    min={min}
+                    max={max}
+                    /* onChange={(e, v) => {
+                        
+                        handleSliderChange(e);
+                    }} */
+                    onChangeCommitted={(e, value) => {
+                        updatePropertySize(value)
+                    }}
+                />
+            </Grid>
+        </Grid>
     );
 }
 

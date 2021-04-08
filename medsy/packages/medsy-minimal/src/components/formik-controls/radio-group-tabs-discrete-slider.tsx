@@ -71,6 +71,9 @@ const useStyles = makeStyles((theme: Theme) => ({
             color: 'black',
             backgroundColor: 'white'
         }
+    },
+    sliderContainer: {
+        backgroundColor: 'green'
     }
 }));
 
@@ -201,7 +204,7 @@ const RadioGroupTabsDiscreteSlider: React.FC<RadioGroupTabsDiscreteSliderProps> 
             {
                 options.map((option, index) => {
                     return (
-                        <TabPanel key={option.key} value={value} index={index}>
+                        <TabPanel className={classes.sliderContainer} key={option.key} value={value} index={index}>
                             <DiscreteSlider discreteSlider={option.discreteSlider} squareFootageLevels={squareFootageLevels} />
                         </TabPanel>
                     )
