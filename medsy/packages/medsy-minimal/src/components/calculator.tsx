@@ -63,10 +63,9 @@ const Calculator: React.FC<CalculatorProps> = (props) => {
         //         console.log('i am the execution block `if not canceled`')
         if (!canceled) {
             console.log('i am the execution block `if not canceled`')
-            initializeCalculatorVariables(licenseOptions, squareFootage);
-            initializeAvailableProductsState(basePackageList, upgradeList);
         }
-
+        initializeCalculatorVariables(licenseOptions, squareFootage);
+        initializeAvailableProductsState(basePackageList, upgradeList);
         //     }
         // }
         return () => {
