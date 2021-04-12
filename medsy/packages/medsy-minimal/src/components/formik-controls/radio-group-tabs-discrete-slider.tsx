@@ -13,47 +13,6 @@ import { useAvailableProducts } from 'contexts/available-products/available-prod
 import _ from 'lodash'
 import { Grid } from '@material-ui/core';
 
-
-
-
-
-
-
-//>mui simple tabs code
-interface TabPanelProps {
-    children?: React.ReactNode;
-    index: any;
-    value: any;
-}
-
-function TabPanel(props: TabPanelProps) {
-    const { children, value, index, ...other } = props;
-
-    return (
-        <Grid
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            container
-            {...other}
-        >
-            {value === index && (
-                <Grid item xs={12}>
-                    {children}
-                </Grid>
-            )}
-        </Grid>
-    );
-}
-
-function a11yProps(index: any) {
-    return {
-        id: `full-width-tab-${index}`,
-        'aria-controls': `full-width-tabpanel-${index}`,
-    };
-}
-
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
         flexGrow: 1,
@@ -73,9 +32,46 @@ const useStyles = makeStyles((theme: Theme) => ({
         }
     },
     sliderContainer: {
-        backgroundColor: 'green'
+        backgroundColor: 'red'
     }
 }));
+
+//>mui simple tabs code
+interface TabPanelProps {
+    children?: React.ReactNode;
+    index: any;
+    value: any;
+}
+
+function TabPanel(props: TabPanelProps) {
+    const classes = useStyles();
+    const { children, value, index, ...other } = props;
+
+    return (
+        <Grid
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            container
+            className={classes.sliderContainer}
+            {...other}
+        >
+            {value === index && (
+                <Grid item xs={12}>
+                    {children}
+                </Grid>
+            )}
+        </Grid>
+    );
+}
+
+function a11yProps(index: any) {
+    return {
+        id: `full-width-tab-${index}`,
+        'aria-controls': `full-width-tabpanel-${index}`,
+    };
+}
 
 
 export enum ValueLabelDisplayTypes {
@@ -204,7 +200,7 @@ const RadioGroupTabsDiscreteSlider: React.FC<RadioGroupTabsDiscreteSliderProps> 
             {
                 options.map((option, index) => {
                     return (
-                        <TabPanel className={classes.sliderContainer} key={option.key} value={value} index={index}>
+                        <TabPanel key={option.key} value={value} index={index}>
                             <DiscreteSlider discreteSlider={option.discreteSlider} squareFootageLevels={squareFootageLevels} />
                         </TabPanel>
                     )
