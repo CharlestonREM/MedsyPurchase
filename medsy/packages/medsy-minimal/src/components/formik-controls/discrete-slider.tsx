@@ -95,6 +95,8 @@ const DiscreteSlider: React.FC<DiscreteSliderProps> = (props) => {
     const [propertySizeField, propertySizeMeta, propertySizeHelpers] = useField('propertySize');
     const { updatePropertySize, getSquareFootageLevels } = useCalculator();
 
+    //testing the vercel changes
+
 
 
     return (
