@@ -61,6 +61,12 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         margin: {
             height: theme.spacing(3)
+        },
+        heading: {
+            margin: '1em 0',
+            fontWeight: 700,
+            color: theme.palette.primary.main,
+            fontSize: '1.25rem'
         }
     })
 );
@@ -100,9 +106,9 @@ const DiscreteSlider: React.FC<DiscreteSliderProps> = (props) => {
 
 
     return (
-        <Grid className={classes.root} container>
+        <Grid className={classes.root} container justify="center">
             <Grid item xs={10}>
-                <Typography id="discrete-slider-custom" gutterBottom>
+                <Typography className={classes.heading} id="discrete-slider-custom" gutterBottom>
                     {label}
                 </Typography>
                 {/* <Slider

@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         }
     },
     sliderContainer: {
-        backgroundColor: 'red'
+        // backgroundColor: 'red',
     }
 }));
 
