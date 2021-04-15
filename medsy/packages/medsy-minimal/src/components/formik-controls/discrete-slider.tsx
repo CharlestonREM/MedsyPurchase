@@ -64,9 +64,57 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         heading: {
             margin: '1em 0',
+            marginBottom: '2.4em',
             fontWeight: 700,
             color: theme.palette.primary.main,
             fontSize: '1.25rem'
+        },
+        slider: {
+            color: '#999999',
+            height: '2px',
+            borderRadius: '1em',
+            '& .MuiSlider-rail': {
+                // backgroundColor: 'green',
+                height: '4em',
+                opacity: .6,
+                top: '2em',
+                borderRadius: '2em',
+                width: 'calc(100% + 2.4em)'
+            },
+            '& .MuiSlider-track': {
+                height: '4em',
+                top: '2em',
+                borderRadius: '2em',
+                marginLeft: '-1.8em',
+                paddingRight: '2.4em',
+
+            },
+            '& .MuiSlider-markLabel': {
+                display: 'none'
+            },
+            '& .MuiSlider-thumb': {
+                color: theme.palette.primary.main,
+                height: '6em',
+                width: '6em',
+                top: '2.4em',//perfect
+                marginLeft: '-2.4em',
+                border: 'solid white 1.2em',
+                '& .MuiSlider-valueLabel': {
+                    left: '-5.4em',
+                    '& span': {
+                        backgroundColor: theme.palette.primary.main,
+                        transform: 'none',
+                        borderRadius: '1em',
+                        width: '12em',
+                        height: '2em',
+                        '& span': {
+                            textAlign: 'center',
+                            lineHeight: '2em',
+                            fontSize: '1.2em'
+                        }
+                    }
+                }
+            }
         }
     })
 );
@@ -96,7 +144,9 @@ const DiscreteSlider: React.FC<DiscreteSliderProps> = (props) => {
     // console.log('i am marks', marks);
 
     function valueLabelFormat(value: number) {
-        return marks.findIndex((mark) => mark.value === value) + 1;
+        //return marks.findIndex((mark) => mark.value === value) + 1;
+        let mark = marks.findIndex((mark) => mark.value === value)
+        return marks[mark].label
     }
     const [propertySizeField, propertySizeMeta, propertySizeHelpers] = useField('propertySize');
     const { updatePropertySize, getSquareFootageLevels } = useCalculator();
@@ -131,6 +181,7 @@ const DiscreteSlider: React.FC<DiscreteSliderProps> = (props) => {
                     marks={marks}
                     min={min}
                     max={max}
+                    className={classes.slider}
                     /* onChange={(e, v) => {
                         
                         handleSliderChange(e);

@@ -27,7 +27,7 @@
                   "marks": [
                     {
                       "value": 0,
-                      "label": " Under 2,000 ft2"
+                      "label": " < 2,000 ft2"
                     },
                     {
                       "value": 1,

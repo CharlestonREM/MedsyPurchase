@@ -20,7 +20,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     optionImage: {
         width: '100%',
-        marginTop: '1.5em'
+        marginTop: '1.5em',
+        display: 'flex',
     },
     tab: {
         color: 'white',
@@ -28,7 +29,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         opacity: 0.3,
         '&.MuiTab-textColorInherit.Mui-selected': {
             color: 'black',
-            backgroundColor: 'white'
+            backgroundColor: 'white',
+            borderTop: 'blue solid .15em',
+            borderColor: theme.palette.primary.main
         }
     },
     sliderContainer: {
