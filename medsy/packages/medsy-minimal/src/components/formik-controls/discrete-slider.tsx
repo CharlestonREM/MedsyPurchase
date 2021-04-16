@@ -100,12 +100,12 @@ const useStyles = makeStyles((theme: Theme) =>
                 marginLeft: '-2.4em',
                 border: 'solid white 1.2em',
                 '& .MuiSlider-valueLabel': {
-                    left: '-5.4em',
+                    left: '-4em',
                     '& span': {
                         backgroundColor: theme.palette.primary.main,
                         transform: 'none',
                         borderRadius: '1em',
-                        width: '12em',
+                        width: '9em',
                         height: '2em',
                         '& span': {
                             textAlign: 'center',
