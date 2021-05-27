@@ -16,6 +16,7 @@ const DateOrTimePicker: React.FC<DateOrTimePickerProps> = (props) => {
     <Field
       component={isDate ? DatePicker : TimePicker}
       name={props.name}
+      width={12}
       label={props.label} />
   </Box>);
 }

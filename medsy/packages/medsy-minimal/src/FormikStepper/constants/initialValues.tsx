@@ -25,9 +25,9 @@ export const initialValues = {
     },
     session: {
         sessionPreferredDate: null,
-        sessionPreferredTime: null,
+        sessionPreferredTime: 'anytime_8-5',
         sessionAlternateDate: null,
-        sessionAlternateTime: null,
+        sessionAlternateTime: 'anytime_8-5',
         licenseType: 'single',
         sessionSpecialRequests: ''
     }

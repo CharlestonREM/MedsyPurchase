@@ -33,7 +33,7 @@ import StyledSelect from 'components/formik-controls/styled-select';
 import FormikStepper from 'FormikStepper/components/FormikStepper';
 import FormikStep from 'FormikStepper/components/FormikStep';
 import { validationSchema } from 'FormikStepper/constants/validationSchema'
-import { occupancyRanges, petRanges, licenseRanges } from 'FormikStepper/constants/ranges';
+import { occupancyRanges, petRanges, licenseRanges, timeRanges } from 'FormikStepper/constants/ranges';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -107,15 +107,19 @@ export default function Crem({ basePackageList, upgradeList, squareFootage, lice
                         <FormControl>
                             <DateOrTimePicker component="DatePicker" name="session.sessionPreferredDate" label="Preferred Date" />
                         </FormControl>
-                        <FormControl>
+                        {/* <FormControl>
                             <DateOrTimePicker component="TimePicker" name="session.sessionPreferredTime" label="Preferred Time" />
-                        </FormControl>
+                        </FormControl> */}
+                        <StyledSelect name="session.sessionPreferredTime" label="Preferred Time" width={12} ranges={timeRanges} />
                         <FormControl>
                             <DateOrTimePicker component="DatePicker" name="session.sessionAlternateDate" label="Alternate Date" />
                         </FormControl>
-                        <FormControl>
+                        {/* <FormControl>
                             <DateOrTimePicker component="TimePicker" name="session.sessionAlternateTime" label="Alternate Time" />
-                        </FormControl>
+                        </FormControl> */}
+                        <StyledSelect name="session.sessionAlternateTime" label="Alternate Time" width={12} ranges={timeRanges} />
+
+
                         <StyledSelect name="session.licenseType" label="Select your license type" width={12} ranges={licenseRanges} />
                         <StyledInput name="session.sessionSpecialRequests" label="Special Requests (e.g.)" width={12} multiline />
                     </FormikStep>
