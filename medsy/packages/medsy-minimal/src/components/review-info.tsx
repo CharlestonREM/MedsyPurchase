@@ -21,12 +21,12 @@ export interface ReviewInfoProps {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            flexGrow: 1,
-            'li': {
-                'strong': {
-                    color: "red"
-                }
-            }
+            // flexGrow: 1,
+            // 'li': {
+            //     'strong': {
+            //         color: "red"
+            //     }
+            // }
         },
         label: {
             textTransform: 'capitalize'
@@ -68,7 +68,7 @@ const ReviewInfo: React.FC<ReviewInfoProps> = (props) => {
                         return (
                             <li key={field[0] + index}>
                                 <strong className={classes.label}>{field[0]}:</strong>
-
+                                {field[1].toString()}
                             </li>
                         )
                     })
