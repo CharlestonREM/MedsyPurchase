@@ -6,6 +6,9 @@ import { useFormik, useFormikContext } from "formik";
 import NavStepButton from 'components/nav-step-button';
 import { StepperContext } from "contexts/stepper/stepper.provider";
 import { format } from 'date-fns'
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import classes from '*.module.css';
+import _ from 'lodash';
 
 export interface ReviewInfoProps {
     title: string;
@@ -13,17 +16,42 @@ export interface ReviewInfoProps {
     infoStep: number;
 }
 
+
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            flexGrow: 1,
+            'li': {
+                'strong': {
+                    color: "red"
+                }
+            }
+        },
+        label: {
+            textTransform: 'capitalize'
+        }
+    }),
+);
+
 const ReviewInfo: React.FC<ReviewInfoProps> = (props) => {
 
     const form = useFormikContext();
     const infoGroup = form.values[props.infoGroupName];
+    const classes = useStyles();
+
+    const infoArray = [];
+
+
+    console.log('do it in the ex block');
+    console.log(props)
 
 
 
 
 
     return (
-        <section>
+        <section className={classes.root}>
             <Typography variant="h6">{props.title} Info </Typography>
             <ul>
                 {
@@ -37,6 +65,12 @@ const ReviewInfo: React.FC<ReviewInfoProps> = (props) => {
                         // if (isDate)
                         //https://date-fns.org/v2.17.0/docs/Getting-Started
                         // return (<li key={field[0] + index}><strong>{(field[0]).replace(/([A-Z])/g, ' $1').replace(/^./, function (str) { return str.toUpperCase(); })}:</strong> {typeof field[1].getMonth === 'function' ? format(field[1], timeFormat) : field[1]}</li>)
+                        return (
+                            <li key={field[0] + index}>
+                                <strong className={classes.label}>{field[0]}:</strong>
+
+                            </li>
+                        )
                     })
                 }
             </ul>
