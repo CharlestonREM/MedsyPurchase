@@ -36,7 +36,7 @@ const ReviewInfo: React.FC<ReviewInfoProps> = (props) => {
                         }
                         // if (isDate)
                         //https://date-fns.org/v2.17.0/docs/Getting-Started
-                        // return (<li key={field[0] + index}><strong>{(field[0]).replace(/([A-Z])/g, ' $1').replace(/^./, function (str) { return str.toUpperCase(); })}:</strong> {typeof field[1].getMonth === 'function' ? format(field[1], timeFormat) : field[1]}</li>)
+                        return (<li key={field[0] + index}><strong>{(field[0]).replace(/([A-Z])/g, ' $1').replace(/^./, function (str) { return str.toUpperCase(); })}:</strong> {typeof field[1].getMonth === 'function' ? format(field[1], timeFormat) : field[1]}</li>)
                     })
                 }
             </ul>
