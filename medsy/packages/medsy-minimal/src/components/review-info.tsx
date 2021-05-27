@@ -14,22 +14,10 @@ export interface ReviewInfoProps {
 }
 
 const ReviewInfo: React.FC<ReviewInfoProps> = (props) => {
-    //console.log('i am props in reviewinfo', props);
+
     const form = useFormikContext();
     const infoGroup = form.values[props.infoGroupName];
-    //console.log('useFormikContext for infoGroupName', infoGroup);
-    // console.log('FORM......', form)
-    // console.log('I AM INFO GROUP!')
-    // console.log(infoGroup)
-    // Object.entries(infoGroup).map((field: any[], index) => {
-    //     if (typeof field[1].getMonth === 'function') {
-    //         console.log(format(field[1], 'MM/dd/yyyy'))
-    //     }
 
-
-    // })
-
-    //
 
 
 
@@ -48,7 +36,7 @@ const ReviewInfo: React.FC<ReviewInfoProps> = (props) => {
                         }
                         // if (isDate)
                         //https://date-fns.org/v2.17.0/docs/Getting-Started
-                        return (<li key={field[0] + index}><strong>{(field[0]).replace(/([A-Z])/g, ' $1').replace(/^./, function (str) { return str.toUpperCase(); })}:</strong> {typeof field[1].getMonth === 'function' ? format(field[1], timeFormat) : field[1]}</li>)
+                        // return (<li key={field[0] + index}><strong>{(field[0]).replace(/([A-Z])/g, ' $1').replace(/^./, function (str) { return str.toUpperCase(); })}:</strong> {typeof field[1].getMonth === 'function' ? format(field[1], timeFormat) : field[1]}</li>)
                     })
                 }
             </ul>

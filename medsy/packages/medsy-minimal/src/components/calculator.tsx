@@ -79,11 +79,11 @@ const Calculator: React.FC<CalculatorProps> = (props) => {
                     <Chip className={classes.chip} color="primary" label={CURRENCY + calculatePrice()} icon={<ShoppingCartIcon />} />
                 </Grid>
             </Grid>
-            <Typography variant="h2">
+            {/* <Typography variant="h2">
                 total:  {CURRENCY}
                 {calculatePrice()}
-            </Typography>
-            <Button variant="contained" onClick={() => {
+            </Typography> */}
+            {/* <Button variant="contained" onClick={() => {
                 clearCalculator();
             }}>Clear Calculator</Button>
 
@@ -95,7 +95,7 @@ const Calculator: React.FC<CalculatorProps> = (props) => {
 
             <Button variant="contained" onClick={() => {
                 resetPropertySize();
-            }}>reset property size</Button>
+            }}>reset property size</Button> */}
         </>);
 }
 
